@@ -1,18 +1,18 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from sshtunnel import SSHTunnelForwarder
 import pymysql
 
 
 def _safe_table_name(name: str) -> str:
     # 테이블명은 SQL 바인딩(%s) 불가 -> 문자열로 붙여야 하므로 최소 검증
-    if not name or any(not (c.isalnum() or c == "_") for c in name):
+    if not name or any(not (c.isalnum() or c == "") for c in name):
         raise ValueError(f"Invalid table name: {name}")
-    return f"`{name}`"
+    return f"{name}"
 
 
-def _open_conn(env_file: str = ".env"):
-    load_dotenv(env_file)
+def _open_conn(env_file=load_dotenv(find_dotenv(), override=True)):
+    load_dotenv(find_dotenv(), override=True)
 
     DB_HOST = os.getenv("DB_HOST")
     DB_PORT = int(os.getenv("DB_PORT", "3306"))
