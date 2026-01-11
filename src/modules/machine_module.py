@@ -18,7 +18,7 @@ def ML_module(
         stratify=None,                  # stratify에 쓸 y를 직접 넘기고 싶으면 y 또는 None
         threshold: float = 0.5,         # 분류에서 임계값 조정용 (0.5 기본)
         imbalance: bool = False,        # 불균형 처리 사용 여부
-        smote: bool = False,            # SMOTE 적용 여부
+        SMOTE: bool = False,            # SMOTE 적용 여부
         smote_k_neighbors: int = 5,     # SMOTE k_neighbors (기본 5)
         ):
 
@@ -62,12 +62,12 @@ def ML_module(
     X_fit, y_fit = X_train, y_train
 
     # SMOTE 적용(이진분류일 때, train 데이터에만 적용)
-    if smote and is_binary:
+    if SMOTE and is_binary:
         # SMOTE는 숫자 피처만 처리 가능
         sm = SMOTE(random_state=random_state, k_neighbors=smote_k_neighbors)
         X_fit, y_fit = sm.fit_resample(X_train, y_train)
 
-        result["smote"] = True
+        result["SMOTE"] = True
         result["smote_k_neighbors"] = smote_k_neighbors
 
     # 불균형 처리(이진분류일 때만)
@@ -152,7 +152,7 @@ def LGBM_module(
     stratify=None,
     threshold: float = 0.5,          # 분류에서 임계값 조정용
     imbalance: bool = False,         # 불균형 처리 사용 여부
-    smote: bool = False,             # SMOTE 적용 여부
+    SMOTE: bool = False,             # SMOTE 적용 여부
     smote_k_neighbors: int = 5,      # SMOTE k_neighbors
 ):
     lgbm_params = lgbm_params or {}
@@ -178,7 +178,7 @@ def LGBM_module(
         drop_cols=drop_cols,
         threshold=threshold,
         imbalance=imbalance,
-        smote=smote,
+        SMOTE=SMOTE,
         smote_k_neighbors=smote_k_neighbors,
     )
 
