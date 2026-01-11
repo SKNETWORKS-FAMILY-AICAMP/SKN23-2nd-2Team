@@ -4,6 +4,7 @@ from sklearn.metrics import (
     accuracy_score, f1_score, precision_score, recall_score, r2_score
 )
 import numpy as np
+from imblearn.over_sampling import SMOTE
 
 
 def ML_module(
@@ -17,6 +18,8 @@ def ML_module(
         stratify=None,                  # stratify에 쓸 y를 직접 넘기고 싶으면 y 또는 None
         threshold: float = 0.5,         # 분류에서 임계값 조정용 (0.5 기본)
         imbalance: bool = False,        # 불균형 처리 사용 여부
+        smote: bool = False,            # SMOTE 적용 여부
+        smote_k_neighbors: int = 5,     # SMOTE k_neighbors (기본 5)
         ):
 
     # 타켓 컬럼 없을 시 오류 메세지
@@ -55,12 +58,25 @@ def ML_module(
     uniq = set(np.unique(y_test[~np.isnan(y_test)])) if np.issubdtype(y_test.dtype, np.number) else set(np.unique(y_test))
     is_binary = uniq.issubset({0, 1, True, False}) and len(uniq) == 2
 
+    # (SMOTE용) 학습에 실제로 넣을 X/y를 분리해서 둠
+    X_fit, y_fit = X_train, y_train
+
+    # SMOTE 적용(이진분류일 때, train 데이터에만 적용)
+    if smote and is_binary:
+        # SMOTE는 숫자 피처만 처리 가능
+        sm = SMOTE(random_state=random_state, k_neighbors=smote_k_neighbors)
+        X_fit, y_fit = sm.fit_resample(X_train, y_train)
+
+        result["smote"] = True
+        result["smote_k_neighbors"] = smote_k_neighbors
+
     # 불균형 처리(이진분류일 때만)
     fit_kwargs = {}
+
     if imbalance and is_binary:
-        y_train_int = y_train.astype(int) if np.issubdtype(y_train.dtype, np.number) else y_train
-        pos = int(np.sum(y_train_int == 1))
-        neg = int(np.sum(y_train_int == 0))
+        y_fit_int = y_fit.astype(int) if np.issubdtype(np.asarray(y_fit).dtype, np.number) else y_fit
+        pos = int(np.sum(y_fit_int == 1))
+        neg = int(np.sum(y_fit_int == 0))
 
         if pos > 0 and neg > 0:
             pos_weight = neg / pos  # 음성/양성 비율
@@ -76,10 +92,11 @@ def ML_module(
 
             # fit에 sample_weight를 넣을 수 있으면 sample_weight로 처리
             else:
-                sample_weight = np.where(y_train_int == 1, pos_weight, 1.0)
+                sample_weight = np.where(y_fit_int == 1, pos_weight, 1.0)
                 fit_kwargs["sample_weight"] = sample_weight
 
-    model.fit(X_train, y_train, **fit_kwargs)  # fit_kwargs 반영
+    # 모델 학습은 (SMOTE 적용 시) X_fit, y_fit로 수행
+    model.fit(X_fit, y_fit, **fit_kwargs)
 
     # 이진분류면 threshold로 예측값 생성 (predict 대신 predict_proba 사용)
     if is_binary and hasattr(model, "predict_proba"):  # predict_proba 지원 시
@@ -135,6 +152,8 @@ def LGBM_module(
     stratify=None,
     threshold: float = 0.5,          # 분류에서 임계값 조정용
     imbalance: bool = False,         # 불균형 처리 사용 여부
+    smote: bool = False,             # SMOTE 적용 여부
+    smote_k_neighbors: int = 5,      # SMOTE k_neighbors
 ):
     lgbm_params = lgbm_params or {}
 
@@ -159,6 +178,8 @@ def LGBM_module(
         drop_cols=drop_cols,
         threshold=threshold,
         imbalance=imbalance,
+        smote=smote,
+        smote_k_neighbors=smote_k_neighbors,
     )
 
     return result
