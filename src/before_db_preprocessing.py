@@ -219,7 +219,8 @@ csv1_col = [
     "patient_needs_companion",
     "disability",
     "no_show",
-    "icd"
+    "icd",
+    "entry_service_date"
 ]
 
 csv2_col = [
