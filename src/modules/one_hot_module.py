@@ -49,7 +49,7 @@ def date_to_month_onehot(df, column_name):
     df_copy = df.copy()
 
     dt = pd.to_datetime(df_copy[column_name], errors="coerce")
-    month_abbr = dt.dt.strftime("%b") 
+    month_abbr = dt.dt.strftime("%b")
 
     dummies = pd.get_dummies(month_abbr, prefix=column_name, dummy_na=False)
 
