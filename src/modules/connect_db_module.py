@@ -5,10 +5,10 @@ import pymysql
 
 
 def _safe_table_name(name: str) -> str:
-    # 테이블명은 SQL 바인딩(%s) 불가 -> 문자열로 붙여야 하므로 최소 검증
-    if not name or any(not (c.isalnum() or c == "") for c in name):
+    name = str(name).strip()
+    if not name or any(not (c.isalnum() or c == "_") for c in name):
         raise ValueError(f"Invalid table name: {name}")
-    return f"{name}"
+    return name
 
 
 def _open_conn(env_file=load_dotenv(find_dotenv(), override=True)):
