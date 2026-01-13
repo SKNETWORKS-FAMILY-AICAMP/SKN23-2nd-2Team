@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from src.modules.one_hot_module import SPECIALTY_KO_MAP
 
 st.markdown("""
     <style>
@@ -93,9 +94,8 @@ with st.form("search_form"):
         )
 
     with col2:
-        # 데이터프레임에서 'department'의 고유한 값으로 선택 상자 채우기
-        dept_options = ["전체"] + list(df['department'].unique())
-        dept_filter = st.selectbox("진료과", dept_options)
+        dept_options = ["전체"] + list(SPECIALTY_KO_MAP.values())
+        dept_filter = st.selectbox("specialty", dept_options)
 
     with col3:
         risk_filter = st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"])
