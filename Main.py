@@ -2,6 +2,8 @@ import base64
 import streamlit as st
 
 from src.views.modals.weatherModal import render_weather_analysis
+from src.views.modals.editInfoModal import render_edit_info_modal
+from src.views.modals.messageModal import render_message_sender
 
 st.set_page_config(
     page_title="노쇼 프리",
@@ -18,17 +20,49 @@ pages = st.navigation([
 
 pages.run()
 
+
 # ======== 모덜 ========
 # 날씨
 if "weather_modal_open" not in st.session_state:
     st.session_state.weather_modal_open = False
 
-@st.dialog("날씨별 노쇼 예측 상세 분석", width='large')
+def on_weather_modal_dismiss():
+    st.session_state.weather_modal_open = False
+
+@st.dialog("날씨별 노쇼 예측 상세 분석", width='large', on_dismiss=on_weather_modal_dismiss)
 def weather_modal():
     render_weather_analysis()
 
 if st.session_state.weather_modal_open:
     weather_modal()
+
+# 수정
+if "open_edit_modal" not in st.session_state:
+    st.session_state.open_edit_modal = False
+
+def on_edit_modal_dismiss():
+    st.session_state.open_edit_modal = False
+
+@st.dialog("회원 정보 수정", on_dismiss=on_edit_modal_dismiss)
+def edit_modal():
+    render_edit_info_modal()
+
+if st.session_state.open_edit_modal:
+    edit_modal()
+
+# 메세지
+if "open_message_modal" not in st.session_state:
+    st.session_state.open_message_modal = False
+
+def on_msg_modal_dismiss():
+    st.session_state.open_message_modal = False
+
+@st.dialog("메세지 전송", on_dismiss=on_msg_modal_dismiss)
+def message_modal():
+    render_message_sender()
+
+if st.session_state.open_message_modal:
+    message_modal()
 
 
 # ======== 스타일 설정 ========
@@ -93,7 +127,7 @@ st.markdown("""
         }
 
         th {
-            text-align: center;
+            text-align: center !important;
             font-weight: 600;
             border: 0 !important
         }
