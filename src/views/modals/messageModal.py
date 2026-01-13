@@ -1,5 +1,7 @@
 import streamlit as st
 import time
+from src.modules.notification_sms import notification_sms
+
 
 # =========================
 # 메시지 템플릿
@@ -21,6 +23,7 @@ MESSAGE_TEMPLATES = {
 
     "직접 작성": ""
 }
+
 
 # =========================
 # 렌더 함수
@@ -90,6 +93,7 @@ def render_message_sender():
             if not message.strip():
                 st.toast("메시지 내용을 입력해주세요.", icon="❌")
             else:
+                notification_sms(body = message)
                 st.toast(f"{customer['name']}님에게 문자가 발송되었습니다.", icon="✅")
                 st.session_state.message_content = ""
                 st.session_state.open_message_modal = False
