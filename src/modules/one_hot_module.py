@@ -139,7 +139,6 @@ def icd_multihot(
     df: pd.DataFrame,
     column_name: str = "icd",
     *,
-    sep: str = ",",
     prefix: str = "icd",
     use_parent_code: bool = False,   # True면 f84.5 -> f84
     min_freq: int | None = None,     # 예: 50이면 50회 미만 ICD는 제거
@@ -167,7 +166,7 @@ def icd_multihot(
     def _parse_codes(x: str) -> list[str]:
         if x == "":
             return []
-        codes = [c.strip() for c in x.split(sep)]
+        codes = [c.strip() for c in x.split("/")]
         codes = [c for c in codes if c]  # 빈 토큰 제거
         if use_parent_code:
             codes = [c.split(".")[0] for c in codes if c]
