@@ -1,5 +1,4 @@
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from modules.machine_module import ML_module
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from imblearn.over_sampling import SMOTE
