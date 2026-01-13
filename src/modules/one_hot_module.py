@@ -263,6 +263,59 @@ def build_df_onehot(limit = None, env_file=".env"):
     
     return df_onehot
 
+def rows_to_df_onehot(rows):
+    weather = connect_db_module.fetch_table_data('weather')
+    df = pd.DataFrame(
+        rows
+    )
+
+    df.replace("", pd.NA, inplace = True)
+    # 1) 날짜 컬럼을 pandas datetime으로 통일 (None -> NaT 자동 변환)
+    df["appointment_date"] = pd.to_datetime(df["appointment_date"])
+    df["entry_service_date"] = pd.to_datetime(df["entry_service_date"])
+
+    # 2) 신규 컬럼: 예약일 - 최초방문일 (일 단위)
+    df["days_since_first_visit"] = (df["appointment_date"] - df["entry_service_date"]).dt.days
+
+    # (권장) 3) 최초방문일 결측 여부 플래그도 함께 저장
+    df["entry_service_date_missing"] = df["entry_service_date"].isna().astype(int)
+
+    # 4) 결측치(최초방문일이 None였던 케이스) -> 평균값으로 대체
+    mean_days = df["days_since_first_visit"].mean()  # NaN 자동 제외
+    df["days_since_first_visit"] = df["days_since_first_visit"].fillna(mean_days)
+
+    # (선택) 정수로 쓰고 싶으면 반올림 후 int
+    df["days_since_first_visit"] = df["days_since_first_visit"].round().astype(int)
+
+    # (선택) 원본 날짜 컬럼 제거 (원하면 주석 해제)
+    df = df.drop(columns=["entry_service_date"])
+
+    # 결과: df에 days_since_first_visit + entry_service_date_missing 추가됨\
+
+    df_weather = pd.DataFrame(weather)
+    df_weather = df_weather.drop(columns = ["heat_intensity", "rain_intensity", "weather_id"])
+
+    df_weather = df_weather.copy()
+
+    df_weather["weather_date"] = pd.to_datetime(df_weather["weather_date"])
+
+    df_merged = df.merge(
+        df_weather,
+        how="left",
+        left_on="appointment_date",
+        right_on="weather_date"
+    )
+
+    df_onehot = date_to_weekday_onehot(df_merged, column_name = "appointment_date")
+    df_onehot = date_to_month_onehot(df_onehot, column_name = "appointment_datetime")
+    df_onehot = disability_onehot(df_onehot, column_name = "disability")
+    df_onehot = specialty_ko_onehot(df_onehot, column_name = "specialty", keep_korean_column = False)
+    df_onehot = icd_multihot(df_onehot, column_name="icd")
+    df_origin = df_onehot.copy()
+    df_onehot = df_onehot.drop(columns = ["appointment_id", "name", "entry_service_date_missing", "weather_date"])
+    
+    return df_onehot
+
 if __name__ == "__main__":
     df_onehot = build_df_onehot()
     print(df_onehot.iloc[0])
