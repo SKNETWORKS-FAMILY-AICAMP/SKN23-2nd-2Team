@@ -1,6 +1,14 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import joblib
+import torch
+import json
+import torch.nn as nn
+from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
+from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_onehot
+from src.NoShowMLP_KDY import NoShowMLP_KDY
+from src.services.customerService import load_artifacts, get_customer_list
 
 # 임시값
 age_data = pd.DataFrame({
@@ -23,6 +31,12 @@ days = ["월", "화", "수", "목", "금", "토"]
 weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 time_slots = ["09:00", "11:00", "14:00", "16:00"]
 
+model, scaler, feature_cols = load_artifacts()
+df = get_customer_list(model, scaler, limit = None)
+
+df_pie = df.groupby("patient_needs_companion")["no_show"].mean().reset_index()
+df_pie["patient_needs_companion"] = df_pie["patient_needs_companion"].apply(lambda x : "보호자 없음" if x == 0 else "보호자 있음")
+df_hist = df.groupby("age")["no_show"].mean().reset_index()
 def rate_class(rate):
     if rate < 15:
         return "low"
@@ -79,23 +93,31 @@ with st.container(key='datetime_container', width='stretch', border=True):
 col1, col2 = st.columns(2, border=True)
 
 with col1:
-    st.subheader("동행자 유무별 노쇼 비율")
+    st.subheader("보호자 유무별 노쇼 비율")
 
     fig_pie = px.pie(
-        companion_data,
-        names="구분",
-        values="비율",
+        df_pie,
+        names="patient_needs_companion",
+        values="no_show",
         hole=0.4
     )
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with col2:  
-    st.subheader("연령대별 노쇼 예측")
-    fig_bar = px.bar(
-        age_data,
-        x="연령대",
-        y="노쇼율",
-        text="노쇼율"
+    st.subheader("연령대별 노쇼율 예측")
+    fig_hist = px.histogram(
+    df_hist,
+    x="age",
+    y = "no_show",
+    nbins=20,
+    histfunc="avg",
+    labels={
+        "age": "연령",
+        "no_show": "평균 노쇼율"
+    }
     )
-    st.plotly_chart(fig_bar, use_container_width=True)
+    fig_hist.update_yaxes(title_text="평균 노쇼율")
+
+    fig_hist.update_layout(bargap=0.1)
+    st.plotly_chart(fig_hist, use_container_width=True)
 
