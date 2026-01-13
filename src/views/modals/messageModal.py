@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 # =========================
 # 메시지 템플릿
@@ -87,16 +88,19 @@ def render_message_sender():
     with col_send:
         if st.button("전송", type="primary"):
             if not message.strip():
-                st.error("메시지 내용을 입력해주세요.")
+                st.toast("메시지 내용을 입력해주세요.", icon="❌")
             else:
-                st.success(f"{customer['name']}님에게 문자가 발송되었습니다.")
+                st.toast(f"{customer['name']}님에게 문자가 발송되었습니다.", icon="✅")
                 st.session_state.message_content = ""
                 st.session_state.open_message_modal = False
+                time.sleep(0.5)
                 st.rerun()
 
     with col_cancel:
         if st.button("취소"):
             st.session_state.message_content = ""
-            st.info("문자 전송을 취소했습니다.")
+            st.toast("문자 전송을 취소했습니다.", icon="ℹ️")
             st.session_state.open_message_modal = False
+            time.sleep(0.5)
             st.rerun()
+            

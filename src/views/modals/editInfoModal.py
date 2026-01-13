@@ -27,6 +27,6 @@ def render_edit_info_modal():
             }
             
             st.session_state.updated_customer_info = updated_info
-            st.success(f"'{new_name}'님의 정보가 업데이트되었습니다.")
+            st.toast(f"'{new_name}'님의 정보가 업데이트되었습니다.", icon="✅")
             st.session_state.open_edit_modal = False
             st.rerun()
