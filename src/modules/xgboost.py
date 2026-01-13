@@ -1,4 +1,5 @@
 from xgboost import XGBClassifier, XGBRegressor
+from sklearn.model_selection import train_test_split
 from modules.machine_module import ML_module
 import numpy as np
 
@@ -46,8 +47,7 @@ def XGB_module(
     else:
         raise ValueError('task는 "classifier" 또는 "regressor"')
 
-    # ML_module 실행
-    return ML_module(
+    ml_result = ML_module(
         model=model,
         df=df,
         target_col=target_col,
@@ -56,8 +56,17 @@ def XGB_module(
         test_size=test_size,
         random_state=random_state,
         stratify=stratify,
-        threshold=threshold,   # threshold 적용
-        imbalance=imbalance,   # imbalance 옵션 전달
+        threshold=threshold,
+        imbalance=imbalance,
         smote=smote,
         smote_k_neighbors=smote_k_neighbors,
     )
+
+    # 이미 train/test 성능 지표가 있으면 그대로 사용
+    metrics_keys = ['train_score', 'test_score', 'train_precision', 'train_recall',
+                    'train_f1', 'test_precision', 'test_recall', 'test_f1']
+    metrics = {k: ml_result[k] for k in metrics_keys if k in ml_result}
+
+    # 최종 리턴
+    return {**ml_result, "metrics": metrics}
+    
