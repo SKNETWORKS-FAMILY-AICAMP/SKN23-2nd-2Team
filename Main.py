@@ -19,16 +19,13 @@ pages = st.navigation([
 pages.run()
 
 # ======== 모덜 ========
-
+# 날씨
 if "weather_modal_open" not in st.session_state:
     st.session_state.weather_modal_open = False
 
-@st.dialog("날씨별 노쇼 예측 상세 분석")
+@st.dialog("날씨별 노쇼 예측 상세 분석", width='large')
 def weather_modal():
     render_weather_analysis()
-    if st.button("닫기", key="close_weather_modal"):
-        st.session_state.weather_modal_open = False
-        st.rerun()
 
 if st.session_state.weather_modal_open:
     weather_modal()
