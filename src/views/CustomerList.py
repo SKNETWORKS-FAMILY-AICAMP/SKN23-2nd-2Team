@@ -181,15 +181,18 @@ with st.container(key='customer_container', border=True):
         st.divider()
 
         # 페이지네이션 컨트롤
-        col1, col2, col3 = st.columns([1.5, 1, 1.5])
+        _, col1, _ = st.columns([4, 2, 4])
 
         with col1:
-            if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1):
-                st.session_state.page_num -= 1
+            prev, pages, next = st.columns([1, 3, 1])
 
-        with col3:
-            if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages):
-                st.session_state.page_num += 1
+            with prev:
+                if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1):
+                    st.session_state.page_num -= 1
 
-        with col2:
-            st.markdown(f"<div style='text-align: center; padding: 0.5rem 0;'>{st.session_state.page_num} / {total_pages}</div>", unsafe_allow_html=True)
+            with pages:
+                st.markdown(f"<div style='text-align: center; padding: 0.5rem 0;'>{st.session_state.page_num} / {total_pages}</div>", unsafe_allow_html=True)
+
+            with next:
+                if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages):
+                    st.session_state.page_num += 1
