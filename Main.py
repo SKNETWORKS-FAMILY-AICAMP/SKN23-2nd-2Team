@@ -127,7 +127,7 @@ st.markdown("""
         }
 
         th {
-            text-align: center;
+            text-align: center !important;
             font-weight: 600;
             border: 0 !important
         }

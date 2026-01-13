@@ -7,7 +7,7 @@ def render_weather_analysis():
     # 인사이트 요약
     with st.expander("주요 인사이트 요약", expanded=True, icon=":material/bar_chart:"):
         st.markdown("""
-            - **비 오는 날** 노쇼율이 **32%**로 가장 높음  
+            - **비 오는 날** 노쇼율이 **32%로 가장 높음**
             - **강수량 20mm 이상** 시 노쇼율 **42%까지 급증**  
             - **10–20°C** 구간에서 노쇼율 최저 (**18%**)  
             - **극한 기온(≤0°C, ≥30°C)** 에서 노쇼 위험 증가  

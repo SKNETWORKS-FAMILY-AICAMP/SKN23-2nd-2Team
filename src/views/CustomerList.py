@@ -139,7 +139,7 @@ with st.container(key='customer_container', width='stretch', border=True):
     if filtered_df.empty:
         st.warning("검색 조건에 맞는 고객이 없습니다.")
     else:
-        cols_ratio = [1, 1, 1, 1, 2, 2, 2, 1]
+        cols_ratio = [1, 1, 1, 1, 2, 1.3, 2, 1]
         # 헤더 컬럼
         header_cols = st.columns(cols_ratio)
         column_names = ["이름", "나이", "성별", "진료과", "예약시간", "노쇼율", "문자 전송", "수정"]
