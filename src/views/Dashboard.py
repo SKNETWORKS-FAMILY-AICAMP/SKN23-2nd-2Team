@@ -20,6 +20,7 @@ heatmap_data = {
     ("월", "16:00"): 20, ("화", "16:00"): 28, ("수", "16:00"): 22, ("목", "16:00"): 30, ("금", "16:00"): 35, ("토", "16:00"): 15,
 }
 days = ["월", "화", "수", "목", "금", "토"]
+weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 time_slots = ["09:00", "11:00", "14:00", "16:00"]
 
 def rate_class(rate):
@@ -33,8 +34,8 @@ def rate_class(rate):
 thead_str = "<th></th>"
 tbody_str = ""
 
-for day in days:
-    thead_str += f"<th scope='col'>{day}요일</th>"
+for idx, day in enumerate(days):
+    thead_str += f"<th scope='col'>{day}요일 {weather_list[idx]}</th>"
 
 for time in time_slots:
     tbody_str += f"<tr><th scope='row' class='time'>{time}</th>"
