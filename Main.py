@@ -1,6 +1,8 @@
 import base64
 import streamlit as st
 
+from src.views.modals.weatherModal import render_weather_analysis
+
 st.set_page_config(
     page_title="노쇼 프리",
     page_icon=":material/person_check:",
@@ -15,6 +17,21 @@ pages = st.navigation([
 ])
 
 pages.run()
+
+# ======== 모덜 ========
+
+if "weather_modal_open" not in st.session_state:
+    st.session_state.weather_modal_open = False
+
+@st.dialog("날씨별 노쇼 예측 상세 분석")
+def weather_modal():
+    render_weather_analysis()
+    if st.button("닫기", key="close_weather_modal"):
+        st.session_state.weather_modal_open = False
+        st.rerun()
+
+if st.session_state.weather_modal_open:
+    weather_modal()
 
 
 # ======== 스타일 설정 ========
@@ -63,6 +80,75 @@ st.markdown("""
             position: absolute;
             right: 10px;
             top: 10px;
+        }
+            
+        /* Dashboard - 요일/시간대 */
+        .card-title, div[data-testid="stHeadingWithActionElements"] h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-left: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate !important;
+            border-spacing: 8px;
+        }
+
+        th {
+            text-align: center;
+            font-weight: 600;
+            border: 0 !important
+        }
+
+        th.time {
+            width: 80px;
+            text-align: right;
+            padding-right: 8px;
+            color: #374151;
+            border: 0 !important
+        }
+
+        td {
+            border-radius: 0.25rem;
+            padding: 12px !important;
+            min-height: 80px;
+            vertical-align: top;
+        }
+
+        .cell-time {
+            font-size: 12px;
+            color: #374151;
+        }
+
+        .cell-rate {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .low { background: #dcfce7; }
+        .mid { background: #fef9c3; }
+        .high { background: #fee2e2; }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            margin-bottom: 26px;
+            font-size: 14px;
+        }
+
+        .legend span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
         }
     </style>
 """, 
