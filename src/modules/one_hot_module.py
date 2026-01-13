@@ -208,9 +208,9 @@ def icd_multihot(
         df_copy = df_copy.drop(columns=[column_name])
 
     return pd.concat([df_copy, icd_df], axis=1)
-def build_df_onehot(env_file=".env"):
-    rows = connect_db_module.fetch_table_data("appointment")
-    weather = connect_db_module.fetch_table_data('weather')
+def build_df_onehot(limit = None, env_file=".env"):
+    rows = connect_db_module.fetch_table_data("appointment", limit = limit)
+    weather = connect_db_module.fetch_table_data('weather', limit = limit)
 
     df = pd.DataFrame(
         rows
