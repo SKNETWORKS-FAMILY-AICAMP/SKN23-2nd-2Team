@@ -2,6 +2,7 @@ import base64
 import streamlit as st
 
 from src.views.modals.weatherModal import render_weather_analysis
+from src.views.modals.editInfoModal import render_edit_info_modal
 
 st.set_page_config(
     page_title="노쇼 프리",
@@ -23,12 +24,29 @@ pages.run()
 if "weather_modal_open" not in st.session_state:
     st.session_state.weather_modal_open = False
 
-@st.dialog("날씨별 노쇼 예측 상세 분석", width='large')
+def on_weather_modal_dismiss():
+    st.session_state.weather_modal_open = False
+
+@st.dialog("날씨별 노쇼 예측 상세 분석", width='large', on_dismiss=on_weather_modal_dismiss)
 def weather_modal():
     render_weather_analysis()
 
 if st.session_state.weather_modal_open:
     weather_modal()
+
+# 수정
+if "open_edit_modal" not in st.session_state:
+    st.session_state.open_edit_modal = False
+
+def on_edit_modal_dismiss():
+    st.session_state.open_edit_modal = False
+
+@st.dialog("회원 정보 수정", on_dismiss=on_edit_modal_dismiss)
+def edit_modal():
+    render_edit_info_modal()
+
+if st.session_state.open_edit_modal:
+    edit_modal()
 
 
 # ======== 스타일 설정 ========
