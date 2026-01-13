@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.preprocessing import MultiLabelBinarizer
 from modules.connect_db_module import fetch_table_data
 
 
@@ -132,3 +133,77 @@ def specialty_ko_onehot(df, column_name="specialty", keep_korean_column=True):
         df_copy = df_copy.drop(columns=[column_name])
 
     return pd.concat([df_copy, dummies], axis=1)
+
+
+def icd_multihot(
+    df: pd.DataFrame,
+    column_name: str = "icd",
+    *,
+    prefix: str = "icd",
+    use_parent_code: bool = False,   # True면 f84.5 -> f84
+    min_freq: int | None = None,     # 예: 50이면 50회 미만 ICD는 제거
+    add_null_col: bool = True,       # 빈값이면 icd_null=1 컬럼 추가
+    drop_original: bool = True       # 원본 icd 컬럼 제거 여부
+) -> pd.DataFrame:
+    """
+    icd 컬럼(빈문자/단일/멀티라벨)을 multi-hot 인코딩하여 df에 붙여 반환.
+
+    - 빈값(공백 포함) -> [] 로 처리
+    - 멀티라벨은 sep 기준으로 split
+    - use_parent_code=True면 '.' 앞까지만 사용 (예: f84.5 -> f84)
+    - min_freq 지정 시, 빈도 낮은 ICD는 제거하여 차원 축소
+    - add_null_col=True면, 원본이 빈값인 행은 {prefix}_null = 1로 표시
+    """
+    df_copy = df.copy()
+
+    # 1) 문자열 정리: NaN이 아니라도 공백/빈문자 처리 필요
+    s = df_copy[column_name].astype("string").fillna("").str.strip().str.lower()
+
+    # 빈값 마스크(나중에 null 컬럼 만들 때 사용)
+    is_null = s.eq("")
+
+    # 2) 멀티라벨 파싱: 문자열 -> list[str]
+    def _parse_codes(x: str) -> list[str]:
+        if x == "":
+            return []
+        codes = [c.strip() for c in x.split("/")]
+        codes = [c for c in codes if c]  # 빈 토큰 제거
+        if use_parent_code:
+            codes = [c.split(".")[0] for c in codes if c]
+        # 중복 제거(순서 유지)
+        seen = set()
+        out = []
+        for c in codes:
+            if c not in seen:
+                seen.add(c)
+                out.append(c)
+        return out
+
+    icd_list = s.apply(_parse_codes)
+
+    # 3) (옵션) 희귀 ICD 제거
+    if min_freq is not None and min_freq > 1:
+        flat = pd.Series([c for codes in icd_list for c in codes], dtype="string")
+        valid = set(flat.value_counts()[lambda vc: vc >= min_freq].index.tolist())
+        icd_list = icd_list.apply(lambda codes: [c for c in codes if c in valid])
+
+    # 4) Multi-hot 인코딩
+    mlb = MultiLabelBinarizer()
+    encoded = mlb.fit_transform(icd_list)
+
+    icd_df = pd.DataFrame(
+        encoded,
+        columns=[f"{prefix}_{c}" for c in mlb.classes_],
+        index=df_copy.index,
+        dtype=int
+    )
+
+    # 5) null 컬럼(옵션)
+    if add_null_col:
+        icd_df[f"{prefix}_null"] = is_null.astype(int)
+
+    # 6) 원본 컬럼 제거 + 병합
+    if drop_original and column_name in df_copy.columns:
+        df_copy = df_copy.drop(columns=[column_name])
+
+    return pd.concat([df_copy, icd_df], axis=1)
