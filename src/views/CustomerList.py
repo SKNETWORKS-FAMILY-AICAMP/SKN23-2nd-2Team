@@ -97,7 +97,7 @@ if submitted:
         elif risk_filter == "저위험":
             filtered_df = filtered_df[filtered_df["no_show_prob"] < 20]
 
-st.info("노쇼 예측 비율이 **50% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
+st.info("노쇼 예측 확률이 **20% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
 
 # 테이블 출력
 with st.container(key='customer_container', border=True):
