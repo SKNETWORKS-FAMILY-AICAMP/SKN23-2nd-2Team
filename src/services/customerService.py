@@ -3,6 +3,7 @@ import torch
 import joblib
 import torch.nn as nn
 import streamlit as st
+import pandas as pd
 from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
 from src.modules.one_hot_module import rows_to_df_onehot, fetch_df
 """
@@ -73,8 +74,20 @@ def load_artifacts():
 @st.cache_data
 def get_customer_list(_model, _scaler, limit = 40):
     rows = fetch_df("appointment", limit=limit)
+    weather = fetch_df("weather", limit = limit)
     df = rows_to_df_onehot(rows)
+
+    rows["appointment_date"] = pd.to_datetime(rows["appointment_date"]).dt.date
+    weather["weather_date"] = pd.to_datetime(weather["weather_date"]).dt.date
+
     no_show_prob = predict_noshow_proba_df(_model, _scaler, df)["no_show_prob"]
     rows["no_show_prob"] = no_show_prob * 100
-
+    rows = rows.merge(
+        weather,
+        left_on="appointment_date",
+        right_on="weather_date",
+        how="left"
+    )
+    rows = rows.drop(columns=["weather_date"])
     return rows
+
