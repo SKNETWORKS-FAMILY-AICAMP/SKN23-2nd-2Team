@@ -88,5 +88,5 @@ def render_message_sender():
             st.toast(f"{customer['name']}님에게 문자가 발송되었습니다.", icon="✅")
             st.session_state.message_content = ""
             st.session_state.open_message_modal = False
-            time.sleep(0.5)
-            st.rerun()
+            # time.sleep(0.5)
+            # st.rerun()
