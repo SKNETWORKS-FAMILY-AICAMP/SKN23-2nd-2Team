@@ -20,8 +20,12 @@ column_names = ["이름", "나이", "성별", "전문의", "예약시간", "노�
 model, scaler, feature_cols = load_artifacts()
 df = get_customer_list(model, scaler)
 
+# 세션 작업
 if 'df_data' not in st.session_state:
     st.session_state.df_data = df.copy()
+
+if 'page_num' not in st.session_state:
+    st.session_state.page_num = 1
 
 # 업데이트 로직
 if 'updated_customer_info' in st.session_state and st.session_state.updated_customer_info:
@@ -44,14 +48,10 @@ with st.form("search_form"):
     col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
 
     with col1:
-        age_filter = st.selectbox(
-            "연령대",
-            ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"]
-        )
+        age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"])
 
     with col2:
-        dept_options = ["전체"] + list(SPECIALTY_KO_MAP.values())
-        dept_filter = st.selectbox("전문의", dept_options)
+        dept_filter = st.selectbox("전문의", ["전체"] + list(SPECIALTY_KO_MAP.values()))
 
     with col3:
         risk_filter = st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"])
@@ -65,6 +65,7 @@ filtered_df = st.session_state.df_data.copy()
 # 폼이 제출되었을 때만 필터링 수행
 if submitted:
     st.session_state.page_num = 1
+
     if age_filter != "전체":
         if age_filter == "50대 이상":
             filtered_df = filtered_df[filtered_df["age"] >= 50]
@@ -78,11 +79,10 @@ if submitted:
             ]
 
     if dept_filter != "전체":
-        # Create a reverse map for Korean to English specialty names
         reverse_specialty_map = {v: k for k, v in SPECIALTY_KO_MAP.items()}
         selected_specialty_en = reverse_specialty_map.get(dept_filter)
 
-        if selected_specialty_en: # Ensure a valid English specialty was found
+        if selected_specialty_en:
             filtered_df = filtered_df[filtered_df["specialty"] == selected_specialty_en]
 
     if risk_filter != "전체":
@@ -95,10 +95,6 @@ if submitted:
 
 st.info("노쇼 예측 비율이 **50% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
 
-# 페이지 번호 세션 상태 초기화
-if 'page_num' not in st.session_state:
-    st.session_state.page_num = 1
-
 # 테이블 출력
 with st.container(key='customer_container', border=True):
     if filtered_df.empty:
@@ -107,18 +103,18 @@ with st.container(key='customer_container', border=True):
         # Pagination 설정
         total_items = len(filtered_df)
         total_pages = (total_items - 1) // ITEMS_PER_PAGE + 1
-        
+
         # 현재 페이지 번호가 전체 페이지 수를 초과하지 않도록 조정
         if st.session_state.page_num > total_pages:
             st.session_state.page_num = total_pages
-        
+
         if total_pages == 0:
             total_pages = 1
 
         start_idx = (st.session_state.page_num - 1) * ITEMS_PER_PAGE
         end_idx = start_idx + ITEMS_PER_PAGE
         paginated_df = filtered_df.iloc[start_idx:end_idx]
-        
+
         cols_ratio = [1, 1, 1, 1, 2, 1.3, 2, 1]
         # 헤더 컬럼
         header_cols = st.columns(cols_ratio)
