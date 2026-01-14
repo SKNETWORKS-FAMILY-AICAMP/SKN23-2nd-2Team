@@ -37,7 +37,7 @@ def render_message_sender():
     # -------------------------
     with st.container(border=True):
         st.markdown("**수신자 정보**")
-        
+
         col1, col2 = st.columns(2)
         with col1:
             st.write(f"- 고객명: **{customer['name']}**")
@@ -49,10 +49,7 @@ def render_message_sender():
     # -------------------------
     # 템플릿 선택
     # -------------------------
-    template_name = st.selectbox(
-        "메시지 템플릿 선택",
-        list(MESSAGE_TEMPLATES.keys()),
-    )
+    template_name = st.selectbox("메시지 템플릿 선택", list(MESSAGE_TEMPLATES.keys()))
 
     # 세션 초기화
     if "message_content" not in st.session_state:
@@ -77,33 +74,20 @@ def render_message_sender():
     message = st.text_area(
         "문자 내용",
         value=st.session_state.message_content,
-        height=200,
+        height=160,
         max_chars=160
     )
 
-    st.caption(f"{len(message)} / 160자")
+    st.caption(f"{len(message)} / 160자", text_alignment='right')
 
-    # -------------------------
-    # 액션 버튼
-    # -------------------------
-    _, col_send, col_cancel, _ = st.columns([2, 1, 1, 2])
-
-    with col_send:
-        if st.button("전송", type="primary"):
-            if not message.strip():
-                st.toast("메시지 내용을 입력해주세요.", icon="❌")
-            else:
-                notification_sms(body = message)
-                st.toast(f"{customer['name']}님에게 문자가 발송되었습니다.", icon="✅")
-                st.session_state.message_content = ""
-                st.session_state.open_message_modal = False
-                time.sleep(0.5)
-                st.rerun()
-
-    with col_cancel:
-        if st.button("취소"):
+    # 전송 버튼
+    if st.button("전송", type="primary", width='stretch'):
+        if not message.strip():
+            st.toast("메시지 내용을 입력해주세요.", icon="❌")
+        else:
+            notification_sms(body = message)
+            st.toast(f"{customer['name']}님에게 문자가 발송되었습니다.", icon="✅")
             st.session_state.message_content = ""
-            st.toast("문자 전송을 취소했습니다.", icon="ℹ️")
             st.session_state.open_message_modal = False
             time.sleep(0.5)
             st.rerun()

@@ -37,7 +37,7 @@ def render_edit_info_modal():
 
         new_appointment = st.datetime_input("예약시간", value=appointment_datetime)
 
-        if st.form_submit_button("저 장", width='stretch'):
+        if st.form_submit_button("저 장", type="primary", width='stretch'):
             gender_numeric = 0 if new_gender == "남" else 1
 
             updated_info = {
