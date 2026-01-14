@@ -152,7 +152,7 @@ with st.container(key='customer_container', border=True):
             cols[5].markdown(f"<div style='{cell_style}'>{badge_html}</div>", unsafe_allow_html=True)
 
             # 문자 전송 버튼
-            send_disabled = row["no_show_prob"] < 30
+            send_disabled = row["no_show_prob"] < 20
 
             with cols[6]:
                 if st.button(
