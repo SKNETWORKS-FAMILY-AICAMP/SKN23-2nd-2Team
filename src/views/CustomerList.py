@@ -7,6 +7,35 @@ from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO, dis
 from src.services.customerService import load_artifacts, get_customer_list  # update_customer_info는 이제 안 씀
 from src.modules.one_hot_module import rows_to_df_onehot  # <- 너희 원핫 함수 경로에 맞게 수정
 
+st.html("""
+    <style>
+        hr {
+            margin-top: 0 !important;
+            margin-bottom: 1rem !important;
+        }
+
+        [data-testid="stLayoutWrapper"] > [data-testid="stForm"],
+        [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"] {
+            background-color: #FFFFFF !important;
+        }
+
+        [data-testid="stForm"] {
+            padding: 0.8rem 1.7rem 1rem 1.7rem
+        }
+
+        [data-testid="stAlert"] > [data-testid="stAlertContainer"] {
+            padding: 0.7rem 1rem;
+        }
+
+        [data-testid="stBaseButton-tertiary"] {
+            color: #7C7C7C;
+        }
+        [data-testid="stBaseButton-tertiary"]:hover {
+            color: #242424;
+        }
+    </style>
+""")
+
 def safe_disability_onehot(df, column_name="disability"):
     s = df[column_name].copy()
 

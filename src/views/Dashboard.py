@@ -11,6 +11,18 @@ from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_one
 from src.NoShowMLP_KDY import NoShowMLP_KDY
 from src.services.customerService import load_artifacts, get_customer_list
 
+# 페이지 스타일
+st.html("""
+    <style>
+        [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"],
+        [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+            background-color: #FFFFFF !important;
+            border-radius: 1rem !important;
+        }
+    </style>
+    
+""")
+
 # weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 
 model, scaler, feature_cols = load_artifacts()
@@ -133,22 +145,24 @@ with col1:
         df_pie,
         names="patient_needs_companion",
         values="no_show",
-        hole=0.4
+        hole=0.4,
+        color_discrete_sequence=['#F59E0B', '#14B8A6']
     )
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with col2:  
     st.subheader("연령대별 노쇼율 예측")
     fig_hist = px.histogram(
-    df_hist,
-    x="age",
-    y = "no_show",
-    nbins=20,
-    histfunc="avg",
-    labels={
-        "age": "연령",
-        "no_show": "평균 노쇼율"
-    }
+        df_hist,
+        x="age",
+        y = "no_show",
+        nbins=20,
+        histfunc="avg",
+        labels={
+            "age": "연령",
+            "no_show": "평균 노쇼율"
+        },
+        color_discrete_sequence=['#7C3AED']
     )
     fig_hist.update_yaxes(title_text="평균 노쇼율")
 
