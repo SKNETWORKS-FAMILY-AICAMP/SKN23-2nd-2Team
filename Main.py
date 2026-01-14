@@ -18,20 +18,14 @@ st.logo("assets/images/LOGO.png", size="large")
 pages = st.navigation([
     st.Page("src/views/Dashboard.py", title="대시보드", icon=":material/dashboard:"),
     st.Page("src/views/CustomerList.py", title="고객 관리", icon=":material/group:"),
-    st.Page("src/views/ModelAnalytics.py", title="모델 성능 확인하기", icon=":material/analytics:", default=False)
+    st.Page("src/views/ModelAnalytics.py", title=".", default=False)
 ])
 
 pages.run()
 
-# 사이드바 하단에 모델 통계 페이지 이동 버튼 추가
 with st.sidebar:
-    # '모델 성능 확인하기' 버튼을 클릭했을 때 페이지 전환을 시도하고, 오류 발생 시 메시지를 표시합니다.
-    if st.button("모델 성능 확인하기", use_container_width=True, icon=":material/analytics:"):
-        try:
-            st.switch_page("src/views/ModelAnalytics.py")
-        except Exception as e:
-            st.error("페이지를 전환할 수 없습니다.")
-            st.error(e)
+    if st.button("모델 성능 확인", width='stretch', icon=":material/analytics:"):
+        st.switch_page("src/views/ModelAnalytics.py")
 
 
 # ======== 모덜 ========
