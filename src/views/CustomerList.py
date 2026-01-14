@@ -76,7 +76,7 @@ if "page_num" not in st.session_state:
 # 3) Row-only predict
 # ----------------------------
 def predict_one_row_prob_percent(row_df: pd.DataFrame) -> float:
-    # ✅ 모델이 학습할 때의 "appointment 원본 스키마" 컬럼만 남기기
+    # 모델이 학습할 때의 "appointment 원본 스키마" 컬럼만 남기기
     keep_cols = [
         "appointment_id", "name", "age", "gender", "specialty",
         "appointment_date", "appointment_datetime", "entry_service_date",
@@ -107,7 +107,7 @@ def apply_update_one_row_inplace(base_df: pd.DataFrame, updated_info: dict) -> N
     - 원본 컬럼 갱신
     - no_show_prob만 "그 행" 기준으로 재예측하여 갱신
     """
-    # ✅ df가 아니라 base_df에서 찾는다 (중요)
+    # df가 아니라 base_df에서 찾는다 (중요)
     row_idx = base_df.index[base_df["appointment_id"] == updated_info["appointment_id"]]
     if len(row_idx) == 0:
         return
@@ -136,7 +136,7 @@ def apply_update_one_row_inplace(base_df: pd.DataFrame, updated_info: dict) -> N
 if "updated_customer_info" in st.session_state and st.session_state.updated_customer_info:
     updated_info = st.session_state.updated_customer_info
 
-    # ✅ 세션의 df_data 자체를 "행 단위"로 갱신
+    # 세션의 df_data 자체를 "행 단위"로 갱신
     apply_update_one_row_inplace(st.session_state.df_data, updated_info)
 
     # cleanup
@@ -147,13 +147,13 @@ if "updated_customer_info" in st.session_state and st.session_state.updated_cust
 # ----------------------------
 # 5) Filtering (submitted 기반 유지)
 # ----------------------------
-filtered_df = st.session_state.df_data  # ✅ copy() 지양. 필요 시 마지막에만 copy
+filtered_df = st.session_state.df_data  # copy() 지양. 필요 시 마지막에만 copy
 
 with st.form("search_form"):
     col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
 
     with col1:
-        age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"])
+        age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"], key="age_filter")
 
     with col2:
         dept_filter = st.selectbox("전문의", ["전체"] + _SPECIALTY_CATS_KO)
@@ -163,7 +163,7 @@ with st.form("search_form"):
 
     with col4:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-        submitted = st.form_submit_button(label="검 색", use_container_width=True, icon=":material/search:")
+        submitted = st.form_submit_button(label="검 색", width="stretch", icon=":material/search:")
 
 if submitted:
     st.session_state.page_num = 1
@@ -189,11 +189,11 @@ if submitted:
     # risk
     if risk_filter != "전체":
         if risk_filter == "고위험":
-            tmp = tmp[tmp["no_show_prob"] >= 30]
+            tmp = tmp[tmp["no_show_prob"] >= 20]
         elif risk_filter == "중위험":
-            tmp = tmp[(tmp["no_show_prob"] >= 20) & (tmp["no_show_prob"] < 30)]
+            tmp = tmp[(tmp["no_show_prob"] >= 10) & (tmp["no_show_prob"] < 30)]
         elif risk_filter == "저위험":
-            tmp = tmp[tmp["no_show_prob"] < 20]
+            tmp = tmp[tmp["no_show_prob"] < 10]
 
     filtered_df = tmp
 else:
@@ -244,9 +244,9 @@ with st.container(key="customer_container", border=True):
             cols[3].markdown(f"<div style='{cell_style}'>{SPECIALTY_KO_MAP[row['specialty']]}</div>", unsafe_allow_html=True)
             cols[4].markdown(f"<div style='{cell_style}'>{row['appointment_datetime']}</div>", unsafe_allow_html=True)
 
-            if row["no_show_prob"] >= 30:
+            if row["no_show_prob"] >= 20:
                 badge_html = f"<span style='background:#fee2e2;color:#991b1b;padding:6px 10px;border-radius:8px;'>고위험 {row['no_show_prob']:.1f}%</span>"
-            elif row["no_show_prob"] >= 20:
+            elif row["no_show_prob"] >= 10:
                 badge_html = f"<span style='background:#fef9c3;color:#92400e;padding:6px 10px;border-radius:8px;'>중위험 {row['no_show_prob']:.1f}%</span>"
             else:
                 badge_html = f"<span style='background:#dcfce7;color:#166534;padding:6px 10px;border-radius:8px;'>저위험 {row['no_show_prob']:.1f}%</span>"
@@ -254,6 +254,7 @@ with st.container(key="customer_container", border=True):
             cols[5].markdown(f"<div style='{cell_style}'>{badge_html}</div>", unsafe_allow_html=True)
 
             send_disabled = row["no_show_prob"] < 20
+
             with cols[6]:
                 if st.button(
                     "문자 전송",
@@ -283,7 +284,7 @@ with st.container(key="customer_container", border=True):
             prev, pages, nxt = st.columns([1, 3, 1])
 
             with prev:
-                if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1):
+                if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1, type="tertiary"):
                     st.session_state.page_num -= 1
                     st.rerun()
 
@@ -294,6 +295,6 @@ with st.container(key="customer_container", border=True):
                 )
 
             with nxt:
-                if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages):
+                if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages, type="tertiary"):
                     st.session_state.page_num += 1
                     st.rerun()
