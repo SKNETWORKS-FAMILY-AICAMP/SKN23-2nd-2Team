@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
-from src.modules.one_hot_module import SPECIALTY_KO_MAP
-from src.services.customerService import load_artifacts, get_customer_list
+from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO
+from src.services.customerService import load_artifacts, get_customer_list, update_customer_info
+
 # 페이지 스타일
 st.markdown("""
     <style>
@@ -27,19 +28,24 @@ if 'df_data' not in st.session_state:
 if 'page_num' not in st.session_state:
     st.session_state.page_num = 1
 
+filtered_df = st.session_state.df_data.copy()
+
 # 업데이트 로직
 if 'updated_customer_info' in st.session_state and st.session_state.updated_customer_info:
     updated_info = st.session_state.updated_customer_info
-    customer_id = updated_info['id']
-    row_index = df.index[df['id'] == customer_id].tolist()
+    row_index = df.index[df['appointment_id'] == updated_info['appointment_id']].tolist()
+
     if row_index:
         idx = row_index[0]
-        df.at[idx, 'name'] = updated_info['name']
-        df.at[idx, 'age'] = updated_info['age']
-        df.at[idx, 'gender'] = updated_info['gender']
-        df.at[idx, 'specialty'] = updated_info['specialty']
-        df.at[idx, 'companion'] = updated_info['companion']
-        df.at[idx, 'appointment'] = updated_info['appointment']
+        
+        filtered_df.at[idx, 'name'] = updated_info['name']
+        filtered_df.at[idx, 'age'] = updated_info['age']
+        filtered_df.at[idx, 'gender'] = updated_info['gender']
+        filtered_df.at[idx, 'specialty'] = updated_info['specialty']
+        filtered_df.at[idx, 'appointment_datetime'] = updated_info['appointment_datetime']
+
+        filtered_df = update_customer_info(model, scaler, filtered_df)
+        st.session_state.df_data = filtered_df.copy()
 
     del st.session_state.updated_customer_info
 
@@ -51,7 +57,7 @@ with st.form("search_form"):
         age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"])
 
     with col2:
-        dept_filter = st.selectbox("전문의", ["전체"] + list(SPECIALTY_KO_MAP.values()))
+        dept_filter = st.selectbox("전문의", ["전체"] + _SPECIALTY_CATS_KO)
 
     with col3:
         risk_filter = st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"])
@@ -59,8 +65,6 @@ with st.form("search_form"):
     with col4:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
         submitted = st.form_submit_button(label="검 색", width="stretch", icon=":material/search:")
-
-filtered_df = st.session_state.df_data.copy()
 
 # 폼이 제출되었을 때만 필터링 수행
 if submitted:
@@ -176,7 +180,7 @@ with st.container(key='customer_container', border=True):
 
         st.divider()
 
-        # 페이지네이션 컨트롤
+        # 페이지네이션
         _, col1, _ = st.columns([4, 2, 4])
 
         with col1:
