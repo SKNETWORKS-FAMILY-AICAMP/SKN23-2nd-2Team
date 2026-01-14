@@ -297,17 +297,19 @@ CGB
 ---
 
 ## 📄 참고 자료
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
----
+
+- **데이터 원본**: [Cervical Cancer Risk Classification Dataset (Mendeley Data)](https://data.mendeley.com/datasets/wm6w2fvkfj/1?utm_source=chatgpt.com)
+- **데이터 산업 동향**: [데이터 안심구역 및 산업 활성화 기본 계획 자료](https://www.data1window.kr/dbPcyEvlSys/detail?pstSn=74)
+- **시장 분석**: [글로벌 헬스케어 ERP 시장 규모 및 확대 전망](https://www.metatechinsights.com/ko/industry-insights/healthcare-erp-market-2674)
+- **사회 현상 분석**: [병원 내 예약부도(No-show) 발생 현황 및 심각성](https://www.whosaeng.com/155771)
+- **기술적 대안 연구**: [예약부도 감소를 위한 예약관리 방안 연구 - 전화 통화의 유용성 분석](https://scienceon.kisti.re.kr/srch/selectPORSrchArticle.do?cn=JAKO201708034065753)
+- **비용 최적화 설계**: [AI Voice Assistant 서비스(Vapi) 요금 체계 및 단가](https://vapi.ai/pricing)
+- **인프라 확보 공고**: [과학기술정보통신부 GPU 컴퓨팅 자원 지원 사업 안내](https://www.msit.go.kr/bbs/view.do?sCode=user&mId=311&mPid=121&pageIndex=&bbsSeqNo=100&nttSeqNo=3186359&searchOpt=ALL&searchTxt=)
+- **인력 운용 가이드**: [외국인 환자 유치를 위한 의료 코디네이터 직무 정리](https://blog.naver.com/78dydxo/223382302014)
+- **채용 비용 산정**: [의료 코디네이터 구직 현황 및 잡코리아 채용 공고 분석](https://www.jobkorea.co.kr/Recruit/GI_Read/48372827?Oem_Code=C1&logpath=1&stext=%EC%99%B8%EA%B5%AD%EC%9D%B8+%EC%BD%94%EB%94%94%EB%84%A4%EC%9D%B4%ED%84%B0&listno=1&sc=551)
+- **통계 데이터**: [피부과 등 진료 과목별 노쇼율 현황 기사](https://v.daum.net/v/kYlXwbNbVc)
+- **예약 부도 방지 사례**: [인도 철도청의 예약 취소 수수료 및 오버부킹 정책(WL)](https://cpro95.tistory.com/1496)
+- **기관 정보**: [SAS CER - 재활 전문 센터 운영 및 서비스 개요](https://www.sas-seconci.org.br/cer)
 
 ## 💬 팀원별 회고
 
