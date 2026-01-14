@@ -1,3 +1,4 @@
+import os
 import json
 import torch
 import joblib
@@ -72,6 +73,47 @@ def load_artifacts():
     return model, scaler, feature_cols
 
 @st.cache_data
+def load_dl_eval_artifacts(eval_df: pd.DataFrame):
+    """
+    eval_df: y_true를 포함한 평가용 데이터프레임 (예: test set)
+    columns 예시: [... feature cols ..., "no_show"]
+    """
+    pred_path = "src/artifacts/preds.parquet"
+    hist_path = "src/artifacts/hist.json"
+
+    # ✅ 있으면 로드
+    if os.path.exists(pred_path):
+        df_pred = pd.read_parquet(pred_path)
+    else:
+        # ✅ 없으면 생성
+        model, scaler, feature_cols = load_artifacts()
+
+        # y_true 준비 (너 타겟 컬럼명에 맞춰 수정)
+        y_true = eval_df["no_show"].astype(int).to_numpy()
+
+        # X 만들기 (너희 원핫 함수 활용)
+        X = rows_to_df_onehot(eval_df).reindex(columns=feature_cols, fill_value=0)
+        Xs = scaler.transform(X.values.astype(np.float32))
+
+        # model inference (pytorch MLP 기준)
+        device = next(model.parameters()).device
+        with torch.no_grad():
+            xt = torch.tensor(Xs, dtype=torch.float32, device=device)
+            logit = model(xt).view(-1)
+            y_proba = torch.sigmoid(logit).detach().cpu().numpy()
+
+        df_pred = pd.DataFrame({"y_true": y_true, "y_proba": y_proba})
+        df_pred.to_parquet(pred_path, index=False)
+
+    # hist는 없을 수도 있으니 안전 처리
+    hist = None
+    if os.path.exists(hist_path):
+        hist = pd.read_json(hist_path)
+
+    return df_pred, hist
+
+
+@st.cache_data
 def get_customer_list(_model, _scaler, limit = 40):
     rows = fetch_df("appointment", limit=limit)
     weather = fetch_df("weather", limit = limit)
@@ -99,3 +141,4 @@ def update_customer_info(_model, _scaler, dataframe):
     dataframe["no_show_prob"] = no_show_prob * 100
 
     return dataframe
+
