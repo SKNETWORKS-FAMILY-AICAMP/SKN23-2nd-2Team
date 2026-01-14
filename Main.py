@@ -1,7 +1,7 @@
 import base64
 import streamlit as st
 
-from src.views.modals.weatherModal import render_weather_analysis
+from src.views.modals.weatherModal import render_weather_dashboard
 from src.views.modals.editInfoModal import render_edit_info_modal
 from src.views.modals.messageModal import render_message_sender
 
@@ -15,10 +15,21 @@ st.logo("assets/images/LOGO.png", size="large")
 
 pages = st.navigation([
     st.Page("src/views/Dashboard.py", title="대시보드", icon=":material/dashboard:"),
-    st.Page("src/views/CustomerList.py", title="고객 관리", icon=":material/group:")
+    st.Page("src/views/CustomerList.py", title="고객 관리", icon=":material/group:"),
+    st.Page("src/views/ModelAnalytics.py", title="모델 성능 확인하기", icon=":material/analytics:", default=False)
 ])
 
 pages.run()
+
+# 사이드바 하단에 모델 통계 페이지 이동 버튼 추가
+with st.sidebar:
+    # '모델 성능 확인하기' 버튼을 클릭했을 때 페이지 전환을 시도하고, 오류 발생 시 메시지를 표시합니다.
+    if st.button("모델 성능 확인하기", use_container_width=True, icon=":material/analytics:"):
+        try:
+            st.switch_page("src/views/ModelAnalytics.py")
+        except Exception as e:
+            st.error("페이지를 전환할 수 없습니다.")
+            st.error(e)
 
 
 # ======== 모덜 ========
@@ -31,7 +42,7 @@ def on_weather_modal_dismiss():
 
 @st.dialog("날씨별 노쇼 예측 상세 분석", width='large', on_dismiss=on_weather_modal_dismiss)
 def weather_modal():
-    render_weather_analysis()
+    render_weather_dashboard()
 
 if st.session_state.weather_modal_open:
     weather_modal()
@@ -111,6 +122,17 @@ st.markdown("""
             position: absolute;
             right: 10px;
             top: 10px;
+        }
+            
+        [data-testid="stSidebarNavSeparator"] {
+            display: none !important;
+        }
+            
+        [data-testid="stSidebarUserContent"] {
+            width: 90%;
+            position: absolute;
+            bottom: 20px;
+            padding: 0 !important;
         }
             
         /* Dashboard - 요일/시간대 */

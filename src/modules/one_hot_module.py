@@ -108,6 +108,7 @@ SPECIALTY_KO_MAP = {
     "sem especialidade": "전문의없음",
 }
 
+_SPECIALTY_CATS_KO = list(SPECIALTY_KO_MAP.values())
 _SPECIALTY_CATS_EN = list(SPECIALTY_KO_MAP.keys())
 
 

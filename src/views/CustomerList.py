@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
-from src.modules.one_hot_module import SPECIALTY_KO_MAP
-from src.services.customerService import load_artifacts, get_customer_list
+from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO
+from src.services.customerService import load_artifacts, get_customer_list, update_customer_info
+
 # 페이지 스타일
 st.markdown("""
     <style>
@@ -20,22 +21,31 @@ column_names = ["이름", "나이", "성별", "전문의", "예약시간", "노�
 model, scaler, feature_cols = load_artifacts()
 df = get_customer_list(model, scaler)
 
+# 세션 작업
 if 'df_data' not in st.session_state:
     st.session_state.df_data = df.copy()
+
+if 'page_num' not in st.session_state:
+    st.session_state.page_num = 1
+
+filtered_df = st.session_state.df_data.copy()
 
 # 업데이트 로직
 if 'updated_customer_info' in st.session_state and st.session_state.updated_customer_info:
     updated_info = st.session_state.updated_customer_info
-    customer_id = updated_info['id']
-    row_index = df.index[df['id'] == customer_id].tolist()
+    row_index = df.index[df['appointment_id'] == updated_info['appointment_id']].tolist()
+
     if row_index:
         idx = row_index[0]
-        df.at[idx, 'name'] = updated_info['name']
-        df.at[idx, 'age'] = updated_info['age']
-        df.at[idx, 'gender'] = updated_info['gender']
-        df.at[idx, 'specialty'] = updated_info['specialty']
-        df.at[idx, 'companion'] = updated_info['companion']
-        df.at[idx, 'appointment'] = updated_info['appointment']
+        
+        filtered_df.at[idx, 'name'] = updated_info['name']
+        filtered_df.at[idx, 'age'] = updated_info['age']
+        filtered_df.at[idx, 'gender'] = updated_info['gender']
+        filtered_df.at[idx, 'specialty'] = updated_info['specialty']
+        filtered_df.at[idx, 'appointment_datetime'] = updated_info['appointment_datetime']
+
+        filtered_df = update_customer_info(model, scaler, filtered_df)
+        st.session_state.df_data = filtered_df.copy()
 
     del st.session_state.updated_customer_info
 
@@ -44,14 +54,10 @@ with st.form("search_form"):
     col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
 
     with col1:
-        age_filter = st.selectbox(
-            "연령대",
-            ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"]
-        )
+        age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"])
 
     with col2:
-        dept_options = ["전체"] + list(SPECIALTY_KO_MAP.values())
-        dept_filter = st.selectbox("전문의", dept_options)
+        dept_filter = st.selectbox("전문의", ["전체"] + _SPECIALTY_CATS_KO)
 
     with col3:
         risk_filter = st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"])
@@ -60,11 +66,10 @@ with st.form("search_form"):
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
         submitted = st.form_submit_button(label="검 색", width="stretch", icon=":material/search:")
 
-filtered_df = st.session_state.df_data.copy()
-
 # 폼이 제출되었을 때만 필터링 수행
 if submitted:
     st.session_state.page_num = 1
+
     if age_filter != "전체":
         if age_filter == "50대 이상":
             filtered_df = filtered_df[filtered_df["age"] >= 50]
@@ -78,11 +83,10 @@ if submitted:
             ]
 
     if dept_filter != "전체":
-        # Create a reverse map for Korean to English specialty names
         reverse_specialty_map = {v: k for k, v in SPECIALTY_KO_MAP.items()}
         selected_specialty_en = reverse_specialty_map.get(dept_filter)
 
-        if selected_specialty_en: # Ensure a valid English specialty was found
+        if selected_specialty_en:
             filtered_df = filtered_df[filtered_df["specialty"] == selected_specialty_en]
 
     if risk_filter != "전체":
@@ -93,11 +97,7 @@ if submitted:
         elif risk_filter == "저위험":
             filtered_df = filtered_df[filtered_df["no_show_prob"] < 20]
 
-st.info("노쇼 예측 비율이 **50% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
-
-# 페이지 번호 세션 상태 초기화
-if 'page_num' not in st.session_state:
-    st.session_state.page_num = 1
+st.info("노쇼 예측 확률이 **20% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
 
 # 테이블 출력
 with st.container(key='customer_container', border=True):
@@ -107,18 +107,18 @@ with st.container(key='customer_container', border=True):
         # Pagination 설정
         total_items = len(filtered_df)
         total_pages = (total_items - 1) // ITEMS_PER_PAGE + 1
-        
+
         # 현재 페이지 번호가 전체 페이지 수를 초과하지 않도록 조정
         if st.session_state.page_num > total_pages:
             st.session_state.page_num = total_pages
-        
+
         if total_pages == 0:
             total_pages = 1
 
         start_idx = (st.session_state.page_num - 1) * ITEMS_PER_PAGE
         end_idx = start_idx + ITEMS_PER_PAGE
         paginated_df = filtered_df.iloc[start_idx:end_idx]
-        
+
         cols_ratio = [1, 1, 1, 1, 2, 1.3, 2, 1]
         # 헤더 컬럼
         header_cols = st.columns(cols_ratio)
@@ -152,7 +152,7 @@ with st.container(key='customer_container', border=True):
             cols[5].markdown(f"<div style='{cell_style}'>{badge_html}</div>", unsafe_allow_html=True)
 
             # 문자 전송 버튼
-            send_disabled = row["no_show_prob"] < 30
+            send_disabled = row["no_show_prob"] < 20
 
             with cols[6]:
                 if st.button(
@@ -180,16 +180,19 @@ with st.container(key='customer_container', border=True):
 
         st.divider()
 
-        # 페이지네이션 컨트롤
-        col1, col2, col3 = st.columns([1.5, 1, 1.5])
+        # 페이지네이션
+        _, col1, _ = st.columns([4, 2, 4])
 
         with col1:
-            if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1):
-                st.session_state.page_num -= 1
+            prev, pages, next = st.columns([1, 3, 1])
 
-        with col3:
-            if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages):
-                st.session_state.page_num += 1
+            with prev:
+                if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1):
+                    st.session_state.page_num -= 1
 
-        with col2:
-            st.markdown(f"<div style='text-align: center; padding: 0.5rem 0;'>{st.session_state.page_num} / {total_pages}</div>", unsafe_allow_html=True)
+            with pages:
+                st.markdown(f"<div style='text-align: center; padding: 0.5rem 0;'>{st.session_state.page_num} / {total_pages}</div>", unsafe_allow_html=True)
+
+            with next:
+                if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages):
+                    st.session_state.page_num += 1
