@@ -94,6 +94,23 @@ def disability_onehot(df, column_name="disability"):
 
     return pd.concat([df_copy, dummies], axis=1)
 
+def safe_disability_onehot(df, column_name="disability"):
+    s = df[column_name].copy()
+
+    # null 처리: NaN이면 "null"로 통일 (너희 데이터 규칙에 맞게)
+    s = s.fillna("null").replace({"None": "null", "": "null"})
+
+    dummies = pd.get_dummies(s, prefix=column_name)
+
+    required = ["disability_intellectual", "disability_motor", "disability_null"]
+    for col in required:
+        if col not in dummies.columns:
+            dummies[col] = 0
+    dummies = dummies[required]
+
+    out = df.drop(columns=[column_name], errors="ignore").copy()
+    out = pd.concat([out, dummies], axis=1)
+    return out
 
 # specialty 영문 -> 한글 매핑
 SPECIALTY_KO_MAP = {
@@ -256,7 +273,7 @@ def build_df_onehot(limit = None, env_file=".env"):
 
     df_onehot = date_to_weekday_onehot(df_merged, column_name = "appointment_date")
     df_onehot = date_to_month_onehot(df_onehot, column_name = "appointment_datetime")
-    df_onehot = disability_onehot(df_onehot, column_name = "disability")
+    df_onehot = safe_disability_onehot(df_onehot, column_name = "disability")
     df_onehot = specialty_ko_onehot(df_onehot, column_name = "specialty", keep_korean_column = False)
     df_onehot = icd_multihot(df_onehot, column_name="icd")
     df_origin = df_onehot.copy()
@@ -282,11 +299,11 @@ def rows_to_df_onehot(rows):
     df["entry_service_date_missing"] = df["entry_service_date"].isna().astype(int)
 
     # 4) 결측치(최초방문일이 None였던 케이스) -> 평균값으로 대체
-    mean_days = df["days_since_first_visit"].mean()  # NaN 자동 제외
-    df["days_since_first_visit"] = df["days_since_first_visit"].fillna(mean_days)
+    HARD_CODED_MEAN_DAYS = 303
 
-    # (선택) 정수로 쓰고 싶으면 반올림 후 int
+    df["days_since_first_visit"] = df["days_since_first_visit"].fillna(HARD_CODED_MEAN_DAYS)
     df["days_since_first_visit"] = df["days_since_first_visit"].round().astype(int)
+
 
     # (선택) 원본 날짜 컬럼 제거 (원하면 주석 해제)
     df = df.drop(columns=["entry_service_date"])
@@ -309,13 +326,23 @@ def rows_to_df_onehot(rows):
 
     df_onehot = date_to_weekday_onehot(df_merged, column_name = "appointment_date")
     df_onehot = date_to_month_onehot(df_onehot, column_name = "appointment_datetime")
-    df_onehot = disability_onehot(df_onehot, column_name = "disability")
+    df_onehot = safe_disability_onehot(df_onehot, column_name = "disability")
     df_onehot = specialty_ko_onehot(df_onehot, column_name = "specialty", keep_korean_column = False)
     df_onehot = icd_multihot(df_onehot, column_name="icd")
     df_origin = df_onehot.copy()
     df_onehot = df_onehot.drop(columns = ["appointment_id", "name", "entry_service_date_missing", "weather_date"])
     
     return df_onehot
+
+
+def ensure_columns_keep(df: pd.DataFrame, expected_cols: list[str], fill_value=0) -> pd.DataFrame:
+    """
+    existing 컬럼은 유지하면서 expected_cols가 없으면 0으로 추가
+    """
+    for c in expected_cols:
+        if c not in df.columns:
+            df[c] = fill_value
+    return df
 
 if __name__ == "__main__":
     df_onehot = build_df_onehot()

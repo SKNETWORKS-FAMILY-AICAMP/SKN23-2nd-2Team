@@ -68,6 +68,7 @@ def render_confusion_matrix(cm):
     st.markdown("### Confusion Matrix")
 
     fig, ax = plt.subplots()
+    plt.figure(figsize = (5, 5))
     im = ax.imshow(cm)  # 색 지정 안 함 (기본)
     ax.set_xlabel("Predicted")
     ax.set_ylabel("Actual")
