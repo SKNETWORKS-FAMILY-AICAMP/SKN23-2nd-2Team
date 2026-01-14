@@ -144,61 +144,63 @@ def render_loss_curve(hist):
     st.line_chart(df_hist.set_index("epoch")[cols])
 
 def render_deep_learning_tab():
-    st.subheader("Deep Learning Model Performance")
+    with st.container(key='deep_container'):
 
-    eval_df, df_pred, hist = load_dl_eval_artifacts()
+        st.subheader("Deep Learning Model Performance")
 
-    st.markdown("#### 1) Evaluation dataset")
-    if eval_df is None:
-        up = st.file_uploader("Upload evaluation dataset (csv/parquet)", type=["csv", "parquet"])
-        if up is not None:
-            if up.name.endswith(".csv"):
-                eval_df = pd.read_csv(up)
+        eval_df, df_pred, hist = load_dl_eval_artifacts()
+
+        st.markdown("#### 1) Evaluation dataset")
+        if eval_df is None:
+            up = st.file_uploader("Upload evaluation dataset (csv/parquet)", type=["csv", "parquet"])
+            if up is not None:
+                if up.name.endswith(".csv"):
+                    eval_df = pd.read_csv(up)
+                else:
+                    eval_df = pd.read_parquet(up)
+
+                # 저장
+                eval_df.to_parquet(ART_DIR / "eval_df.parquet", index=False)
+                st.success("Saved eval_df.parquet")
+                st.cache_data.clear()  # 새 파일 저장했으니 캐시 갱신
+                st.rerun()
             else:
-                eval_df = pd.read_parquet(up)
+                st.info("평가용 데이터셋을 업로드하면 성능 지표를 계산할 수 있어요.")
+                st.stop()
 
-            # 저장
-            eval_df.to_parquet(ART_DIR / "eval_df.parquet", index=False)
-            st.success("Saved eval_df.parquet")
-            st.cache_data.clear()  # 새 파일 저장했으니 캐시 갱신
-            st.rerun()
-        else:
-            st.info("평가용 데이터셋을 업로드하면 성능 지표를 계산할 수 있어요.")
-            st.stop()
+        st.write("eval_df shape:", eval_df.shape)
+        st.write("columns:", list(eval_df.columns))
 
-    st.write("eval_df shape:", eval_df.shape)
-    st.write("columns:", list(eval_df.columns))
+        st.markdown("#### 2) Predictions (y_true / y_proba)")
+        if df_pred is None:
+            if st.button("Generate preds.parquet (run inference once)"):
+                df_pred = build_preds_from_eval_df(eval_df)
+                df_pred.to_parquet(ART_DIR / "preds.parquet", index=False)
+                st.success("Saved preds.parquet")
+                st.cache_data.clear()
+                st.rerun()
+            else:
+                st.info("preds.parquet이 없어요. 버튼을 눌러 한 번만 생성하면 됩니다.")
+                st.stop()
 
-    st.markdown("#### 2) Predictions (y_true / y_proba)")
-    if df_pred is None:
-        if st.button("Generate preds.parquet (run inference once)"):
-            df_pred = build_preds_from_eval_df(eval_df)
-            df_pred.to_parquet(ART_DIR / "preds.parquet", index=False)
-            st.success("Saved preds.parquet")
-            st.cache_data.clear()
-            st.rerun()
-        else:
-            st.info("preds.parquet이 없어요. 버튼을 눌러 한 번만 생성하면 됩니다.")
-            st.stop()
+        # ✅ 여기부터는 “지표/그래프 렌더”만
+        y_true = df_pred["y_true"].to_numpy()
+        y_proba = df_pred["y_proba"].to_numpy()
 
-    # ✅ 여기부터는 “지표/그래프 렌더”만
-    y_true = df_pred["y_true"].to_numpy()
-    y_proba = df_pred["y_proba"].to_numpy()
+        thr = st.slider("Decision threshold", 0.0, 1.0, 0.35, 0.01)
+        auc, ap, p, r, f1, cm = compute_metrics(y_true, y_proba, thr)
 
-    thr = st.slider("Decision threshold", 0.0, 1.0, 0.35, 0.01)
-    auc, ap, p, r, f1, cm = compute_metrics(y_true, y_proba, thr)
+        c1, c2, c3, c4, c5 = st.columns(5)
+        c1.metric("ROC-AUC", f"{auc:.3f}")
+        c2.metric("PR-AUC", f"{ap:.3f}")
+        c3.metric("F1 (pos)", f"{f1:.3f}")
+        c4.metric("Recall (pos)", f"{r:.3f}")
+        c5.metric("Precision (pos)", f"{p:.3f}")
 
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("ROC-AUC", f"{auc:.3f}")
-    c2.metric("PR-AUC", f"{ap:.3f}")
-    c3.metric("F1 (pos)", f"{f1:.3f}")
-    c4.metric("Recall (pos)", f"{r:.3f}")
-    c5.metric("Precision (pos)", f"{p:.3f}")
+        st.caption(f"Threshold = {thr:.2f}")
 
-    st.caption(f"Threshold = {thr:.2f}")
+        # 아래에 Confusion Matrix / ROC / PR / Loss curve 렌더링 함수들로 분리 추천
 
-    # 아래에 Confusion Matrix / ROC / PR / Loss curve 렌더링 함수들로 분리 추천
-
-    render_confusion_matrix(cm)
-    render_roc_pr_curves(y_true, y_proba)
-    render_threshold_sweep(y_true, y_proba)
+        render_confusion_matrix(cm)
+        render_roc_pr_curves(y_true, y_proba)
+        render_threshold_sweep(y_true, y_proba)
