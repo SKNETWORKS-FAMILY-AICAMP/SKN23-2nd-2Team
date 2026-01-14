@@ -8,8 +8,8 @@ import json
 import torch.nn as nn
 from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
 from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_onehot
-from src.NoShowMLP_KDY import NoShowMLP_KDY
-from src.services.customerService import load_artifacts, get_customer_list
+# from src.NoShowMLP_KDY import NoShowMLP_KDY
+from src.services.customerService import load_artifacts, get_customer_list, NoShowMLP_KDY
 
 # weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 
