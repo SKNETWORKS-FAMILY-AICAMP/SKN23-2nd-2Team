@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO
-from src.services.customerService import load_artifacts, get_customer_list, update_customer_info, search_filters
+from src.services.customerService import load_artifacts, get_chart_data, update_customer_info, search_filters
 
 # 페이지 스타일
 st.markdown("""
@@ -19,7 +19,7 @@ column_names = ["이름", "나이", "성별", "전문의", "예약시간", "노�
 
 # 데이터 호출
 model, scaler, feature_cols = load_artifacts()
-df = get_customer_list(model, scaler)
+df = get_chart_data(model, scaler)
 
 # 세션 작업
 if 'org_data' not in st.session_state:

@@ -3,12 +3,12 @@ import streamlit as st
 import plotly.express as px
 from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
 from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_onehot
-from src.services.customerService import load_artifacts, get_customer_list
+from src.services.customerService import load_artifacts, get_chart_data
 
 # weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 
 model, scaler, feature_cols = load_artifacts()
-df = get_customer_list(model, scaler, limit = None)
+df = get_chart_data(model, scaler, limit = None)
 
 df_pie = df.groupby("patient_needs_companion")["no_show"].mean().reset_index()
 df_pie["patient_needs_companion"] = df_pie["patient_needs_companion"].apply(lambda x : "보호자 없음" if x == 0 else "보호자 있음")

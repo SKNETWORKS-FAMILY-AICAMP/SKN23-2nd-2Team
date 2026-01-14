@@ -72,7 +72,7 @@ def load_artifacts():
     return model, scaler, feature_cols
 
 @st.cache_data
-def get_customer_list(_model, _scaler, limit = 40):
+def get_chart_data(_model, _scaler, limit = 40):
     rows = fetch_df("appointment", limit=limit)
     weather = fetch_df("weather", limit = limit)
     df = rows_to_df_onehot(rows)

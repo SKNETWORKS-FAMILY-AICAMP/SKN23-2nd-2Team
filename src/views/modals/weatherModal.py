@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from src.services.customerService import load_artifacts, get_customer_list
+from src.services.customerService import load_artifacts, get_chart_data
 
 COL_WEATHER = "weather_type"   # 예: "비/눈/흐림/맑음" 들어있는 컬럼
 COL_TEMP    = "average_temp_day"           # 기온 (°C)
@@ -63,7 +63,7 @@ def build_insights(weather_tbl, temp_tbl, rain_tbl):
 
 def render_weather_dashboard():
     model, scaler, _ = load_artifacts()
-    df = get_customer_list(model, scaler, limit = None)
+    df = get_chart_data(model, scaler, limit = None)
 
     # 날씨 타입 추론 + 구간화
     df = infer_weather_type(df)
