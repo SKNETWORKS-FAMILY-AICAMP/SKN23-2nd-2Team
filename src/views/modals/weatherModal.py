@@ -5,6 +5,18 @@ import pandas as pd
 import plotly.express as px
 from src.services.customerService import load_artifacts, get_customer_list
 
+st.html("""
+    <style>
+        [data-testid="stDialog"] [data-testid="stLayoutWrapper"] [data-testid="stVerticalBlock"] {
+            padding-top: 0.4rem !important;
+            padding-bottom: 0 !important;
+        }
+        [data-testid="stDialog"] [data-testid="stMarkdownContainer"] h3 {
+            padding-bottom: 0.4rem !important;
+        }
+    </style>
+""")
+
 COL_WEATHER = "weather_type"   # 예: "비/눈/흐림/맑음" 들어있는 컬럼
 COL_TEMP    = "average_temp_day"           # 기온 (°C)
 COL_RAIN    = "average_rain_day"        # 강수량 (mm)

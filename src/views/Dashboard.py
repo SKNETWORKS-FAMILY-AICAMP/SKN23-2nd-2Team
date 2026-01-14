@@ -11,6 +11,18 @@ from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_one
 from src.NoShowMLP_KDY import NoShowMLP_KDY
 from src.services.customerService import load_artifacts, get_customer_list
 
+# 페이지 스타일
+st.html("""
+    <style>
+        [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"],
+        [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+            background-color: #FFFFFF !important;
+            border-radius: 1rem !important;
+        }
+    </style>
+    
+""")
+
 # weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 
 model, scaler, feature_cols = load_artifacts()
