@@ -2,9 +2,10 @@ import os
 import json
 import torch
 import joblib
+import numpy as np
+import pandas as pd
 import torch.nn as nn
 import streamlit as st
-import pandas as pd
 from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
 from src.modules.one_hot_module import rows_to_df_onehot, fetch_df, SPECIALTY_KO_MAP
 """
@@ -113,7 +114,7 @@ def load_dl_eval_artifacts(eval_df: pd.DataFrame):
     return df_pred, hist
 
 @st.cache_data
-def get_customer_list(_model, _scaler, limit = 40):
+def get_chart_data(_model, _scaler, limit = 40):
     rows = fetch_df("appointment", limit=limit)
     weather = fetch_df("weather", limit = limit)
     df = rows_to_df_onehot(rows)
@@ -165,10 +166,10 @@ def search_filters(age_filter, dept_filter, risk_filter):
 
     if risk_filter != "전체":
         if risk_filter == "고위험":
-            df = df[df["no_show_prob"] >= 30]
+            df = df[df["no_show_prob"] >= 20]
         elif risk_filter == "중위험":
-            df = df[(df["no_show_prob"] >= 20) & (df["no_show_prob"] < 30)]
+            df = df[(df["no_show_prob"] >= 10) & (df["no_show_prob"] < 20)]
         elif risk_filter == "저위험":
-            df = df[df["no_show_prob"] < 20]
+            df = df[df["no_show_prob"] < 10]
 
-        return df
+    return df
