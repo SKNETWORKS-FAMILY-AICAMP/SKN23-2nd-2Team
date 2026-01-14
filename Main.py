@@ -101,6 +101,28 @@ st.markdown("""
         html, body, .stMarkdown, p, h1, h2, h3, h4, h5, h6, label, table, div, span, b, [class*="st-"]:not([data-testid="stIconMaterial"]):not(span) {
             font-family: "Pretendard", "NanumSquareNeo", "Source Sans", sans-serif;
         }
+
+        [data-testid="stApp"] {
+            background-color: #F8FAFB !important;
+        }
+            
+        [data-testid="stHeader"] {
+            background: none !important;
+        }
+            
+        [data-testid="stMainBlockContainer"] {
+            padding-top: 3rem !important;
+            padding-bottom: 0 !important;
+        }
+
+        .stButton > button[kind="primary"] {
+            background-color: #2D6CDF;
+            border: 1px solid #2D6CDF;
+        }
+        .stButton > button[kind="primary"]:hover {
+            background-color: #165DFB;
+            border: 1px solid #165DFB;
+        }
             
         [data-testid="stSidebarHeader"] {
             align-items: flex-start;
@@ -130,6 +152,10 @@ st.markdown("""
 
         [data-testid="stSidebarNavItems"] li:nth-child(3) {
             display: none !important;
+        }
+            
+        [data-testid="stSidebarNavItems"] [data-testid="stSidebarNavLink"] > span {
+            font-size: 1rem !important;
         }
 
         [data-testid="stSidebarUserContent"] {

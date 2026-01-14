@@ -1,7 +1,8 @@
-import streamlit as st
+import numpy as np
 import pandas as pd
-from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO
-from src.services.customerService import load_artifacts, get_chart_data, update_customer_info, search_filters
+import streamlit as st
+from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO, rows_to_df_onehot
+from src.services.customerService import load_artifacts, get_customer_data, update_customer_info, search_filters
 
 # 페이지 스타일
 st.markdown("""
@@ -9,6 +10,26 @@ st.markdown("""
         hr {
             margin-top: 0 !important;
             margin-bottom: 1rem !important;
+        }
+
+        [data-testid="stLayoutWrapper"] > [data-testid="stForm"],
+        [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"] {
+            background-color: #FFFFFF !important;
+        }
+
+        [data-testid="stForm"] {
+            padding: 0.8rem 1.7rem 1rem 1.7rem
+        }
+
+        [data-testid="stAlert"] > [data-testid="stAlertContainer"] {
+            padding: 0.7rem 1rem;
+        }
+
+        [data-testid="stBaseButton-tertiary"] {
+            color: #7C7C7C;
+        }
+        [data-testid="stBaseButton-tertiary"]:hover {
+            color: #242424;
         }
     </style>
     
@@ -19,7 +40,7 @@ column_names = ["이름", "나이", "성별", "전문의", "예약시간", "노�
 
 # 데이터 호출
 model, scaler, feature_cols = load_artifacts()
-df = get_chart_data(model, scaler)
+df = get_customer_data(model, scaler)
 
 # 세션 작업
 if 'org_data' not in st.session_state:
@@ -102,7 +123,7 @@ with st.form("search_form"):
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
         st.form_submit_button(label="초기화", on_click=reset_action, use_container_width=True, icon=":material/replay:")
 
-st.info("노쇼 예측 비율이 **50% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
+st.info("노쇼 예측 비율이 **20% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
 
 # 테이블 출력
 with st.container(key='customer_container', border=True):
@@ -147,9 +168,9 @@ with st.container(key='customer_container', border=True):
             # 노쇼율 뱃지
             badge_html = ""
 
-            if row["no_show_prob"] >= 30:
+            if row["no_show_prob"] >= 20:
                 badge_html = f"<span style='background:#fee2e2;color:#991b1b;padding:6px 10px;border-radius:8px;'>고위험 {row['no_show_prob']:.1f}%</span>"
-            elif row["no_show_prob"] >= 20:
+            elif row["no_show_prob"] >= 10:
                 badge_html = f"<span style='background:#fef9c3;color:#92400e;padding:6px 10px;border-radius:8px;'>중위험 {row['no_show_prob']:.1f}%</span>"
             else:
                 badge_html = f"<span style='background:#dcfce7;color:#166534;padding:6px 10px;border-radius:8px;'>저위험 {row['no_show_prob']:.1f}%</span>"
@@ -164,6 +185,7 @@ with st.container(key='customer_container', border=True):
                     "문자 전송",
                     key=f"send_{row['appointment_id']}",
                     disabled=send_disabled,
+                    # type="primary",
                     type="primary" if not send_disabled else "secondary",
                     width='stretch',
                     icon=":material/mail:"
@@ -192,12 +214,12 @@ with st.container(key='customer_container', border=True):
             prev, pages, next = st.columns([1, 3, 1])
 
             with prev:
-                if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1):
+                if st.button("", icon=":material/keyboard_double_arrow_left:", type="tertiary", disabled=st.session_state.page_num <= 1):
                     st.session_state.page_num -= 1
 
             with pages:
                 st.markdown(f"<div style='text-align: center; padding: 0.5rem 0;'>{st.session_state.page_num} / {total_pages}</div>", unsafe_allow_html=True)
 
             with next:
-                if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages):
+                if st.button("", icon=":material/keyboard_double_arrow_right:", type="tertiary", disabled=st.session_state.page_num >= total_pages):
                     st.session_state.page_num += 1

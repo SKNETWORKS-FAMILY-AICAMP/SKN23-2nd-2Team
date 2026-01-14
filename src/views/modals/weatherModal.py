@@ -5,6 +5,19 @@ import pandas as pd
 import plotly.express as px
 from src.services.customerService import load_artifacts, get_chart_data
 
+st.markdown("""
+    <style>
+        [data-testid="stDialog"] [data-testid="stLayoutWrapper"] [data-testid="stVerticalBlock"] {
+            padding-top: 0.4rem !important;
+            padding-bottom: 0 !important;
+        }
+        [data-testid="stDialog"] [data-testid="stMarkdownContainer"] h3 {
+            padding-bottom: 0.4rem !important;
+        }
+    </style>
+    
+""", unsafe_allow_html=True)
+
 COL_WEATHER = "weather_type"   # 예: "비/눈/흐림/맑음" 들어있는 컬럼
 COL_TEMP    = "average_temp_day"           # 기온 (°C)
 COL_RAIN    = "average_rain_day"        # 강수량 (mm)
@@ -76,40 +89,48 @@ def render_weather_dashboard():
 
     # 인사이트
     insights = build_insights(weather_tbl, temp_tbl, rain_tbl)
+    print('insight: ', insights)
 
-    st.markdown("### 📊 주요 인사이트 요약")
-    st.markdown("\n".join([f"- **{x}**" for x in insights]))
-    st.write("")
+    with st.container(width='stretch', border=True):
+        st.subheader("주요 인사이트 요약")
+        st.markdown("\n".join([f"- **{x}**" for x in insights]))
+        st.write("")
 
     c1, c2, c3 = st.columns(3)
 
     with c1:
-        st.markdown("#### 날씨 유형별 노쇼 예측 비율")
-        fig1 = px.pie(weather_tbl, names=COL_WEATHER, values="rate", hole=0.55)
-        fig1.update_traces(textinfo="percent")
-        st.plotly_chart(fig1, use_container_width=True)
+        st.subheader("날씨 유형별 노쇼 예측 비율")
+
+        with st.container(width='stretch', border=True):
+            fig1 = px.pie(weather_tbl, names=COL_WEATHER, values="rate", hole=0.55)
+            fig1.update_traces(textinfo="percent")
+            st.plotly_chart(fig1, use_container_width=True)
 
     with c2:
-        st.markdown("#### 기온별 노쇼 예측 비율")
-        temp_order = ["0°C 이하", "0–10°C", "10–20°C", "20–30°C", "30°C 이상"]
-        temp_tbl2 = temp_tbl.copy()
-        temp_tbl2["temp_bin"] = pd.Categorical(temp_tbl2["temp_bin"], categories=temp_order, ordered=True)
-        temp_tbl2 = temp_tbl2.sort_values("temp_bin")
+        st.subheader("기온별 노쇼 예측 비율")
 
-        fig2 = px.bar(temp_tbl2, x="temp_bin", y="rate", text="rate")
-        fig2.update_traces(texttemplate="%{text}", textposition="inside")
-        fig2.update_layout(xaxis_title="기온 구간", yaxis_title="예측 노쇼율")
-        st.plotly_chart(fig2, use_container_width=True)
+        with st.container(width='stretch', border=True):
+            temp_order = ["0°C 이하", "0–10°C", "10–20°C", "20–30°C", "30°C 이상"]
+            temp_tbl2 = temp_tbl.copy()
+            temp_tbl2["temp_bin"] = pd.Categorical(temp_tbl2["temp_bin"], categories=temp_order, ordered=True)
+            temp_tbl2 = temp_tbl2.sort_values("temp_bin")
+
+            fig2 = px.bar(temp_tbl2, x="temp_bin", y="rate", text="rate")
+            fig2.update_traces(texttemplate="%{text}", textposition="inside")
+            fig2.update_layout(xaxis_title="기온 구간", yaxis_title="예측 노쇼율")
+            st.plotly_chart(fig2, use_container_width=True)
 
     with c3:
-        st.markdown("#### 강수량별 노쇼 예측 비율")
-        rain_order = ["0mm", "1–5mm", "5–10mm", "10–20mm", "20mm 이상"]
-        rain_tbl2 = rain_tbl.copy()
-        rain_tbl2["rain_bin"] = pd.Categorical(rain_tbl2["rain_bin"], categories=rain_order, ordered=True)
-        rain_tbl2 = rain_tbl2.sort_values("rain_bin")
+        st.subheader("강수량별 노쇼 예측 비율")
 
-        fig3 = px.bar(rain_tbl2, x="rain_bin", y="rate", text="rate")
-        fig3.update_traces(texttemplate="%{text}", textposition="inside")
-        fig3.update_layout(xaxis_title="강수량", yaxis_title="예측 노쇼율")
-        st.plotly_chart(fig3, use_container_width=True)
+        with st.container(width='stretch', border=True):
+            rain_order = ["0mm", "1–5mm", "5–10mm", "10–20mm", "20mm 이상"]
+            rain_tbl2 = rain_tbl.copy()
+            rain_tbl2["rain_bin"] = pd.Categorical(rain_tbl2["rain_bin"], categories=rain_order, ordered=True)
+            rain_tbl2 = rain_tbl2.sort_values("rain_bin")
+
+            fig3 = px.bar(rain_tbl2, x="rain_bin", y="rate", text="rate")
+            fig3.update_traces(texttemplate="%{text}", textposition="inside")
+            fig3.update_layout(xaxis_title="강수량", yaxis_title="예측 노쇼율")
+            st.plotly_chart(fig3, use_container_width=True)
 

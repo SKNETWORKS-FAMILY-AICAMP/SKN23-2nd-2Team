@@ -1,0 +1,80 @@
+[theme]
+
+base = "light"
+
+# Primary accent color.
+primaryColor = "#2D6CDF"
+
+# Background color of the app.
+backgroundColor = "#f9fafb"
+
+# Background color used for most interactive widgets.
+secondaryBackgroundColor = "#F0F0F0"
+
+# Color used for almost all text.
+textColor = "#242424"
+
+redColor = "#EF4444"
+orangeColor = "#FF6200"
+yellowColor = ""
+blueColor = "#3A7BFF"
+greenColor = "#22C55E"
+violetColor = "#7331DE"
+grayColor = "#7C7C7C"
+
+redBackgroundColor = "rgba(219,64,62,0.1)"
+orangeBackgroundColor = "rgba(255,98,0,0.1)"
+yellowBackgroundColor = ""
+blueBackgroundColor = "rgba(22,93,251,0.1)" 
+greenBackgroundColor = "rgba(42,169,113,0.1)" 
+violetBackgroundColor = "rgba(115,49,222,0.1)" 
+grayBackgroundColor = "#F0F0F0"
+
+redTextColor = "#EF4444"
+orangeTextColor = "#FF6200"
+yellowTextColor = ""
+blueTextColor = "#3A7BFF"
+greenTextColor = "#22C55E"
+violetTextColor = "#7331DE"
+grayTextColor = "#7C7C7C"
+
+linkColor = ""
+linkUnderline = false
+codeTextColor = ""
+codeBackgroundColor = ""
+
+font = "Pretendard, NanumSquareNeo, WantedSans, Noto Sans, Roboto, Open Sans, sans-serif"
+
+fontFaces = [
+    {family = "Pretendard", url = "../assets/fonts/PretendardVariable.woff2"},
+    {family = "NanumSquareNeo", url = "../assets/fonts/NanumSquareNeo-Variable.woff2"},
+]
+
+baseFontSize = 16
+baseFontWeight = 400
+headingFont = ""
+headingFontSizes = []
+headingFontWeights = []
+codeFont = ""
+codeFontSize = ""
+codeFontWeight = 400
+
+baseRadius = "10px"
+buttonRadius = "10px"
+
+borderColor = "#D7D7D7"
+dataframeBorderColor = "#D7D7D7"
+dataframeHeaderBackgroundColor = "#FFFFFF"
+
+showWidgetBorder = true
+showSidebarBorder = true
+
+chartCategoricalColors = []
+chartSequentialColors = []
+
+
+[theme.sidebar]
+primaryColor = "#2D6CDF"
+backgroundColor = ""
+secondaryBackgroundColor = ""
+textColor = ""

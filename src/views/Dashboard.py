@@ -5,6 +5,18 @@ from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
 from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_onehot
 from src.services.customerService import load_artifacts, get_chart_data
 
+# 페이지 스타일
+st.markdown("""
+    <style>
+        [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"],
+        [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+            background-color: #FFFFFF !important;
+            border-radius: 1rem !important;
+        }
+    </style>
+    
+""", unsafe_allow_html=True)
+
 # weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 
 model, scaler, feature_cols = load_artifacts()
@@ -31,9 +43,7 @@ def build_heatmap_data(df, days, time_slots, prob_col="no_show_prob"):
     df["time_slot"] = pd.cut(df["hour"], bins=bins, labels=labels, right=False)
 
     # 요일×시간대 평균 노쇼확률
-    mat = (df.groupby(["day", "time_slot"])[prob_col]
-             .mean()
-             .unstack("day"))
+    mat = (df.groupby(["day", "time_slot"])[prob_col].mean().unstack("day"))
 
     # 순서 고정 (중요: 화면이 흔들리지 않음)
     mat = mat.reindex(index=time_slots, columns=days)

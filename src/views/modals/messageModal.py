@@ -3,7 +3,6 @@ import streamlit as st
 from src.modules.one_hot_module import SPECIALTY_KO_MAP
 from src.modules.notification_sms import notification_sms
 
-
 # =========================
 # 메시지 템플릿
 # =========================
