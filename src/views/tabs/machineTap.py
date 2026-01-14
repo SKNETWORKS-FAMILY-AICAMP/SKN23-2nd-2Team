@@ -70,3 +70,58 @@ def render_machine_learning_tab():
         img = ARTIFACT_DIR / "rf_feature_importance.png"
         if img.exists():
             st.image(str(img), caption="Feature Importance", use_container_width=True)
+
+    # --- Logistic Regressor ---
+    with open(ARTIFACT_DIR / "summary_thr_0.185.json", encoding="utf-8") as f:
+        summary_list = json.load(f)
+
+    lr_metrics = summary_list[0]
+    lgbm_metrics = summary_list[1]
+
+    lgbm_threshold = 0.185
+    lr_threshold = 0.185
+
+    col1, col2 = st.columns(2)
+    
+    with col1: 
+        col1.metric("Logistic Regressor Threshold", lr_threshold)
+        st.subheader("Logistic Regressor Metrics")
+        st.json(lr_metrics)
+    with col2:
+        col2.metric("LightGBM Threshold", lgbm_threshold)
+        st.subheader("LightGBM Metrics")
+        st.json(lgbm_metrics)
+    
+    st.markdown("### 🌲 Logistic Regressor")
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        img = ARTIFACT_DIR / "lr_roc_thr_0.185.png"
+        if img.exists():
+            st.image(str(img), caption="ROC Curve", use_container_width=True)
+
+    with col2:
+        img = ARTIFACT_DIR / "lr_pr_thr_0.185.png"
+        if img.exists():
+            st.image(str(img), caption="Precision-Recall Curve", use_container_width=True)
+
+
+    # ---- LightGBM ----
+    st.markdown("### 🌲 LightGBM")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        img = ARTIFACT_DIR / "lgbm_roc_thr_0.185.png"
+        if img.exists():
+            st.image(str(img), caption="ROC Curve", use_container_width=True)
+
+    with col2:
+        img = ARTIFACT_DIR / "lr_pr_thr_0.185.png"
+        if img.exists():
+            st.image(str(img), caption="Precision-Recall Curve", use_container_width=True)
+
+    with col3:
+        img = ARTIFACT_DIR / "lgbm_importance_top20_thr_0.185.png"
+        if img.exists():
+            st.image(str(img), caption="Feature Importance", use_container_width=True)

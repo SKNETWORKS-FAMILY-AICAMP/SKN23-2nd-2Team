@@ -1,0 +1,1 @@
+[{"model":"LogisticRegression","AUC":0.6072033361,"Accuracy":0.7567049808,"Precision":0.1437715411,"Recall":0.3022774327,"F1":0.1948615282},{"model":"LightGBM","AUC":0.7287799712,"Accuracy":0.7936075822,"Precision":0.2312282447,"Recall":0.4813664596,"F1":0.3123950286}]
