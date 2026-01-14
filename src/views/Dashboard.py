@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -10,26 +11,7 @@ from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_one
 from src.NoShowMLP_KDY import NoShowMLP_KDY
 from src.services.customerService import load_artifacts, get_customer_list
 
-# 임시값
-age_data = pd.DataFrame({
-    "연령대": ["10대", "20대", "30대", "40대", "50대", "60대+"],
-    "노쇼율": [10, 28, 22, 18, 15, 12]
-})
-
-companion_data = pd.DataFrame({
-    "구분": ["동행자 있음", "동행자 없음"],
-    "비율": [15, 35]
-})
-
-heatmap_data = {
-    ("월", "09:00"): 12, ("화", "09:00"): 15, ("수", "09:00"): 14, ("목", "09:00"): 18, ("금", "09:00"): 22, ("토", "09:00"): 8,
-    ("월", "11:00"): 18, ("화", "11:00"): 25, ("수", "11:00"): 20, ("목", "11:00"): 26, ("금", "11:00"): 32, ("토", "11:00"): 12,
-    ("월", "14:00"): 15, ("화", "14:00"): 22, ("수", "14:00"): 18, ("목", "14:00"): 24, ("금", "14:00"): 28, ("토", "14:00"): 10,
-    ("월", "16:00"): 20, ("화", "16:00"): 28, ("수", "16:00"): 22, ("목", "16:00"): 30, ("금", "16:00"): 35, ("토", "16:00"): 15,
-}
-days = ["월", "화", "수", "목", "금", "토"]
-weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
-time_slots = ["09:00", "11:00", "14:00", "16:00"]
+# weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
 
 model, scaler, feature_cols = load_artifacts()
 df = get_customer_list(model, scaler, limit = None)
@@ -37,10 +19,56 @@ df = get_customer_list(model, scaler, limit = None)
 df_pie = df.groupby("patient_needs_companion")["no_show"].mean().reset_index()
 df_pie["patient_needs_companion"] = df_pie["patient_needs_companion"].apply(lambda x : "보호자 없음" if x == 0 else "보호자 있음")
 df_hist = df.groupby("age")["no_show"].mean().reset_index()
+
+def build_heatmap_data(df, days, time_slots, prob_col="no_show_prob"):
+    df = df.copy()
+
+    # datetime 파싱
+    df["appointment_datetime"] = pd.to_datetime(df["appointment_datetime"])
+
+    # 요일 한글명
+    weekday_map = {0:"월",1:"화",2:"수",3:"목",4:"금",5:"토",6:"일"}
+    df["day"] = df["appointment_datetime"].dt.dayofweek.map(weekday_map)
+
+    # 시간 슬롯 (네 UI 시간대에 맞춰 커스텀)
+    df["hour"] = df["appointment_datetime"].dt.hour
+    bins = [0, 11, 14, 16, 24]
+    labels = ["09:00", "11:00", "14:00", "16:00"]
+    df["time_slot"] = pd.cut(df["hour"], bins=bins, labels=labels, right=False)
+
+    # 요일×시간대 평균 노쇼확률
+    mat = (df.groupby(["day", "time_slot"])[prob_col]
+             .mean()
+             .unstack("day"))
+
+    # 순서 고정 (중요: 화면이 흔들리지 않음)
+    mat = mat.reindex(index=time_slots, columns=days)
+
+    # dict로 변환: heatmap_data[(day, time)] = int rate
+    heatmap_data = {}
+    for time in time_slots:
+        for day in days:
+            v = mat.loc[time, day]
+            # 데이터 없는 칸 처리: 0으로 하거나 None으로 두기 (선택)
+            if pd.isna(v):
+                heatmap_data[(day, time)] = None   # or 0
+            else:
+                heatmap_data[(day, time)] = int(round(v))
+
+    return heatmap_data, mat
+
+days = ["월", "화", "수", "목", "금", "토"]  # 네가 보여준 화면 기준 (일요일 빼면)
+time_slots = ["09:00", "11:00", "14:00", "16:00"]
+
+heatmap_data, mat = build_heatmap_data(df, days, time_slots, prob_col="no_show_prob")
+
+
 def rate_class(rate):
-    if rate < 15:
+    if rate is None:
+        return "na"   # CSS에서 회색 처리용
+    if rate < 12:
         return "low"
-    elif rate < 25:
+    elif rate < 15:
         return "mid"
     return "high"
 
@@ -49,16 +77,22 @@ thead_str = "<th></th>"
 tbody_str = ""
 
 for idx, day in enumerate(days):
-    thead_str += f"<th scope='col'>{day}요일 {weather_list[idx]}</th>"
+    thead_str += f"<th scope='col'>{day}요일" # {weather_list[idx]}</th>
 
 for time in time_slots:
     tbody_str += f"<tr><th scope='row' class='time'>{time}</th>"
 
     for day in days:
-        rate = heatmap_data[(day, time)]
+        rate = heatmap_data.get((day, time))
         cls = rate_class(rate)
+        rate_text = "-" if rate is None else f"{rate}%"
 
-        tbody_str += f"<td class='cell {cls}'><div class='cell-time'>{time}</div><div class='cell-rate'>{rate}%</div></td>"
+        tbody_str += (
+            f"<td class='cell {cls}'>"
+            f"<div class='cell-time'>{time}</div>"
+            f"<div class='cell-rate'>{rate_text}</div>"
+            f"</td>"
+        )
 
     tbody_str += "</tr>"
 
@@ -84,9 +118,9 @@ with st.container(key='datetime_container', width='stretch', border=True):
             </tbody>
         </table>
         <div class="legend">
-            <span><div class="box low"></div> 낮음 ( &lt; 15% )</span>
-            <span><div class="box mid"></div> 중간 ( 15 ~ 25% )</span>
-            <span><div class="box high"></div> 높음 ( ≥ 25% )</span>
+            <span><div class="box low"></div> 낮음 ( &lt; 12% )</span>
+            <span><div class="box mid"></div> 중간 ( 12 ~ 15% )</span>
+            <span><div class="box high"></div> 높음 ( ≥ 15% )</span>
         </div>
     """, unsafe_allow_html=True)
 

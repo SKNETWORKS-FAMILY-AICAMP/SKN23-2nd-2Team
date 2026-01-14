@@ -1,7 +1,7 @@
 import base64
 import streamlit as st
 
-from src.views.modals.weatherModal import render_weather_analysis
+from src.views.modals.weatherModal import render_weather_dashboard
 from src.views.modals.editInfoModal import render_edit_info_modal
 from src.views.modals.messageModal import render_message_sender
 
@@ -31,7 +31,7 @@ def on_weather_modal_dismiss():
 
 @st.dialog("날씨별 노쇼 예측 상세 분석", width='large', on_dismiss=on_weather_modal_dismiss)
 def weather_modal():
-    render_weather_analysis()
+    render_weather_dashboard()
 
 if st.session_state.weather_modal_open:
     weather_modal()
