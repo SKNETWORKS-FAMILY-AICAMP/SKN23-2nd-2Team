@@ -123,11 +123,15 @@ st.markdown("""
             right: 10px;
             top: 10px;
         }
-            
+
         [data-testid="stSidebarNavSeparator"] {
             display: none !important;
         }
-            
+
+        [data-testid="stSidebarNavItems"] li:nth-child(3) {
+            display: none !important;
+        }
+
         [data-testid="stSidebarUserContent"] {
             width: 90%;
             position: absolute;
