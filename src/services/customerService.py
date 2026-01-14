@@ -91,3 +91,11 @@ def get_customer_list(_model, _scaler, limit = 40):
     rows = rows.drop(columns=["weather_date"])
     return rows
 
+# 회원 정보 수정 후 노쇼율 재계산
+@st.cache_data
+def update_customer_info(_model, _scaler, dataframe):
+    df = rows_to_df_onehot(dataframe)
+    no_show_prob = predict_noshow_proba_df(_model, _scaler, df)["no_show_prob"]
+    dataframe["no_show_prob"] = no_show_prob * 100
+
+    return dataframe
