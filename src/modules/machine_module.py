@@ -5,6 +5,46 @@ from sklearn.metrics import (
 )
 import numpy as np
 from imblearn.over_sampling import SMOTE
+import re
+
+
+
+def _sanitize_lgbm_feature_names(cols):
+    """
+    LightGBM이 싫어하는 JSON 특수문자/제어문자 등을 제거/치환하고,
+    중복 컬럼명도 suffix로 처리.
+    """
+    new_cols = []
+    seen = {}
+
+    for c in cols:
+        c2 = str(c)
+
+        # 제어문자 제거 (NULL, 개행 등)
+        c2 = re.sub(r"[\x00-\x1f\x7f]", "_", c2)
+
+        # 공백류 -> _
+        c2 = re.sub(r"\s+", "_", c2)
+
+        # LightGBM에서 문제 되는 JSON/구분 문자들 -> _
+        #  " ' \ { } [ ] : ,  등을 제거/치환
+        c2 = re.sub(r"""["'\\{}\[\]:,]""", "_", c2)
+
+        # 연속 _ 정리
+        c2 = re.sub(r"_+", "_", c2).strip("_")
+        if c2 == "":
+            c2 = "col"
+
+        # 중복 처리
+        if c2 in seen:
+            seen[c2] += 1
+            c2 = f"{c2}_{seen[c2]}"
+        else:
+            seen[c2] = 0
+
+        new_cols.append(c2)
+
+    return new_cols
 
 
 def ML_module(
@@ -40,6 +80,19 @@ def ML_module(
     X_df = df[feature_col].copy()
     y = df[target_col].to_numpy()
 
+    # LightGBM이면 feature name sanitize (에러 방지)
+    feature_name_map = None
+    if isinstance(model, (LGBMClassifier, LGBMRegressor)):
+        old_cols = list(X_df.columns)
+        new_cols = _sanitize_lgbm_feature_names(old_cols)
+        X_df.columns = new_cols
+        feature_name_map = dict(zip(old_cols, new_cols))
+
+        # 학습에 실제 쓰는 feature_col도 sanitize된 것으로 갱신
+        feature_col = new_cols
+
+
+
     # 학습데이터, 테스트데이터 분리
     X_train, X_test, y_train, y_test = train_test_split(
         X_df, y,
@@ -54,6 +107,10 @@ def ML_module(
         "target_col": target_col,
     }
 
+    if feature_name_map is not None:
+        result["feature_name_map"] = feature_name_map  # 예측 시 rename에 사용 가능
+
+
     # 이진분류(0/1) 여부를 먼저 확인
     uniq = set(np.unique(y_test[~np.isnan(y_test)])) if np.issubdtype(y_test.dtype, np.number) else set(np.unique(y_test))
     is_binary = uniq.issubset({0, 1, True, False}) and len(uniq) == 2
@@ -65,7 +122,10 @@ def ML_module(
     if smote and is_binary:
         # SMOTE는 숫자 피처만 처리 가능
         sm = SMOTE(random_state=random_state, k_neighbors=smote_k_neighbors)
-        X_fit, y_fit = sm.fit_resample(X_train, y_train)
+        X_res, y_fit = sm.fit_resample(X_train, y_train)
+
+        # DataFrame 유지 (컬럼명 유지)
+        X_fit = X_res if hasattr(X_res, "columns") else type(X_train)(X_res, columns=X_train.columns)
 
         result["smote"] = True
         result["smote_k_neighbors"] = smote_k_neighbors
@@ -139,25 +199,25 @@ def ML_module(
     return result
 
 
+
 # LightGBM 모델
 def LGBM_module(
     df,
     target_col: str,
     feature_col: list[str] | None = None,
     drop_cols: list[str] | None = None,
-    task: str = "classifier",        # "classifier" 또는 "regressor"
+    task: str = "classifier",
     lgbm_params: dict | None = None,
     test_size: float = 0.2,
     random_state: int = 42,
     stratify=None,
-    threshold: float = 0.5,          # 분류에서 임계값 조정용
-    imbalance: bool = False,         # 불균형 처리 사용 여부
-    smote: bool = False,             # SMOTE 적용 여부
-    smote_k_neighbors: int = 5,      # SMOTE k_neighbors
+    threshold: float = 0.5,
+    imbalance: bool = False,
+    smote: bool = False,
+    smote_k_neighbors: int = 5,
 ):
     lgbm_params = lgbm_params or {}
 
-    # 타켓 컬럼 없을 시 오류 메세지
     drop_cols = drop_cols or []
     if task == "classifier":
         model = LGBMClassifier(random_state=random_state, **lgbm_params)
@@ -166,7 +226,6 @@ def LGBM_module(
     else:
         raise ValueError('task는 "classifier" 또는 "regressor"')
 
-    # 동일한 학습/평가 흐름 재사용
     result = ML_module(
         model=model,
         df=df,
