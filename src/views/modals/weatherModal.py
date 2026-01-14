@@ -44,15 +44,11 @@ def add_bins(df, col_temp=COL_TEMP, col_rain=COL_RAIN):
     return df
 
 def mean_rate_by(df, group_col, prob_col=COL_PROB):
-    out = (df.groupby(group_col, dropna=True)[prob_col]
-             .mean()
-             .reset_index()
-             .rename(columns={prob_col: "rate"}))
+    out = (df.groupby(group_col, dropna=True)[prob_col].mean().reset_index().rename(columns={prob_col: "rate"}))
 
     if out["rate"].max() <= 1.0:
         out["rate"] = out["rate"] * 100
 
-    # ✅ NaN/inf 제거
     out = out.replace([np.inf, -np.inf], np.nan).dropna(subset=["rate"])
 
     out["rate"] = out["rate"].round(1)  
@@ -102,7 +98,13 @@ def render_weather_dashboard():
         st.subheader("날씨 유형별 노쇼 예측 비율")
 
         with st.container(width='stretch', border=True):
-            fig1 = px.pie(weather_tbl, names=COL_WEATHER, values="rate", hole=0.55)
+            fig1 = px.pie(
+                weather_tbl,
+                names=COL_WEATHER,
+                values="rate",
+                hole=0.55,
+                color_discrete_sequence=['#3B82F6', '#FFB627']
+            )
             fig1.update_traces(textinfo="percent")
             st.plotly_chart(fig1, use_container_width=True)
 
@@ -110,27 +112,69 @@ def render_weather_dashboard():
         st.subheader("기온별 노쇼 예측 비율")
 
         with st.container(width='stretch', border=True):
+            color_map = {
+                "0°C 이하": "#4C6EF5",
+                "0–10°C": "#0EA5E9",
+                "10–20°C": "#69DB7C",
+                "20–30°C": "#FDE047",
+                "30°C 이상": "#FF6B6B",
+            }
             temp_order = ["0°C 이하", "0–10°C", "10–20°C", "20–30°C", "30°C 이상"]
             temp_tbl2 = temp_tbl.copy()
             temp_tbl2["temp_bin"] = pd.Categorical(temp_tbl2["temp_bin"], categories=temp_order, ordered=True)
             temp_tbl2 = temp_tbl2.sort_values("temp_bin")
 
-            fig2 = px.bar(temp_tbl2, x="temp_bin", y="rate", text="rate")
+            fig2 = px.bar(
+                temp_tbl2,
+                x="temp_bin",
+                y="rate",
+                text="rate",
+                color="temp_bin",
+                color_discrete_map=color_map
+            )
+
             fig2.update_traces(texttemplate="%{text}", textposition="inside")
-            fig2.update_layout(xaxis_title="기온 구간", yaxis_title="예측 노쇼율")
+            fig2.update_layout(
+                xaxis_title="기온 구간",
+                yaxis_title="예측 노쇼율",
+                showlegend=False
+            )
+
             st.plotly_chart(fig2, use_container_width=True)
+
 
     with c3:
         st.subheader("강수량별 노쇼 예측 비율")
 
         with st.container(width='stretch', border=True):
+            rain_color_map = {
+                "0mm": "#74C0FC",
+                "1–5mm": "#4C6EF5",
+                "5–10mm": "#69DB7C",
+                "10–20mm": "#FFD43B",
+                "20mm 이상": "#FF6B6B",
+            }
             rain_order = ["0mm", "1–5mm", "5–10mm", "10–20mm", "20mm 이상"]
             rain_tbl2 = rain_tbl.copy()
             rain_tbl2["rain_bin"] = pd.Categorical(rain_tbl2["rain_bin"], categories=rain_order, ordered=True)
             rain_tbl2 = rain_tbl2.sort_values("rain_bin")
 
-            fig3 = px.bar(rain_tbl2, x="rain_bin", y="rate", text="rate")
+            fig3 = px.bar(
+                rain_tbl2,
+                x="rain_bin",
+                y="rate",
+                text="rate",
+                color="rain_bin",
+                color_discrete_map=rain_color_map
+            )
+
             fig3.update_traces(texttemplate="%{text}", textposition="inside")
-            fig3.update_layout(xaxis_title="강수량", yaxis_title="예측 노쇼율")
+            fig3.update_layout(
+                xaxis_title="강수량 구간",
+                yaxis_title="예측 노쇼율",
+                showlegend=False
+            )
+
             st.plotly_chart(fig3, use_container_width=True)
+
 

@@ -137,25 +137,27 @@ with col1:
         df_pie,
         names="patient_needs_companion",
         values="no_show",
-        hole=0.4
+        hole=0.4,
+        color_discrete_sequence=['#F59E0B', '#14B8A6']
     )
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with col2:  
     st.subheader("연령대별 노쇼율 예측")
+
     fig_hist = px.histogram(
-    df_hist,
-    x="age",
-    y = "no_show",
-    nbins=20,
-    histfunc="avg",
-    labels={
-        "age": "연령",
-        "no_show": "평균 노쇼율"
-    }
+        df_hist,
+        x="age",
+        y = "no_show",
+        nbins=20,
+        histfunc="avg",
+        labels={
+            "age": "연령",
+            "no_show": "평균 노쇼율"
+        },
+        color_discrete_sequence=['#7C3AED']
     )
     fig_hist.update_yaxes(title_text="평균 노쇼율")
-
     fig_hist.update_layout(bargap=0.1)
     st.plotly_chart(fig_hist, use_container_width=True)
 
