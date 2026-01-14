@@ -132,6 +132,7 @@ ENV/
 env.bak/
 venv.bak/
 *venv*/ 
+jhy_2nd_2team/
 
 # Spyder project settings
 .spyderproject
