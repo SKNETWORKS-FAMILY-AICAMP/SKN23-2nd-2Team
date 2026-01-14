@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO
-from src.services.customerService import load_artifacts, get_customer_list, update_customer_info
+from src.services.customerService import load_artifacts, get_customer_data, update_customer_info, search_filters
 
 # 페이지 스타일
 st.markdown("""
@@ -19,9 +19,12 @@ column_names = ["이름", "나이", "성별", "전문의", "예약시간", "노�
 
 # 데이터 호출
 model, scaler, feature_cols = load_artifacts()
-df = get_customer_list(model, scaler)
+df = get_customer_data(model, scaler)
 
 # 세션 작업
+if 'org_data' not in st.session_state:
+    st.session_state.org_data = df.copy()
+
 if 'df_data' not in st.session_state:
     st.session_state.df_data = df.copy()
 
@@ -31,73 +34,75 @@ if 'page_num' not in st.session_state:
 filtered_df = st.session_state.df_data.copy()
 
 # 업데이트 로직
+def updated_customer_info_data(target_df, updated_info):
+    row_idx = target_df.index[target_df['appointment_id'] == updated_info['appointment_id']].tolist()
+
+    if row_idx:
+        idx = row_idx[0]
+
+        for t in ['name', 'age', 'gender', 'specialty', 'appointment_datetime']:
+            target_df.at[idx, t] = updated_info[t]
+
+        target_df = update_customer_info(model, scaler, target_df)
+
 if 'updated_customer_info' in st.session_state and st.session_state.updated_customer_info:
     updated_info = st.session_state.updated_customer_info
-    row_index = df.index[df['appointment_id'] == updated_info['appointment_id']].tolist()
 
-    if row_index:
-        idx = row_index[0]
-        
-        filtered_df.at[idx, 'name'] = updated_info['name']
-        filtered_df.at[idx, 'age'] = updated_info['age']
-        filtered_df.at[idx, 'gender'] = updated_info['gender']
-        filtered_df.at[idx, 'specialty'] = updated_info['specialty']
-        filtered_df.at[idx, 'appointment_datetime'] = updated_info['appointment_datetime']
-
-        filtered_df = update_customer_info(model, scaler, filtered_df)
-        st.session_state.df_data = filtered_df.copy()
+    for target_df in [st.session_state.org_data, st.session_state.df_data, filtered_df]:
+        updated_customer_info_data(target_df.drop(columns = "no_show_prob"), updated_info)
 
     del st.session_state.updated_customer_info
 
-# 검색바
+# 검색 및 필터 초기화를 위한 세션 상태 초기화
+if 'age_filter' not in st.session_state:
+    st.session_state.age_filter = "전체"
+if 'dept_filter' not in st.session_state:
+    st.session_state.dept_filter = "전체"
+if 'risk_filter' not in st.session_state:
+    st.session_state.risk_filter = "전체"
+
+# 검색 및 초기화 콜백 함수
+def search_action():
+    result_df = search_filters(
+        st.session_state.age_filter,
+        st.session_state.dept_filter,
+        st.session_state.risk_filter
+    )
+    if result_df is not None:
+        st.session_state.df_data = result_df
+    else:
+        st.session_state.df_data = st.session_state.org_data.copy()
+
+    st.session_state.page_num = 1
+
+def reset_action():
+    st.session_state.age_filter = "전체"
+    st.session_state.dept_filter = "전체"
+    st.session_state.risk_filter = "전체"
+
+    search_action()
+
 with st.form("search_form"):
-    col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
+    col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 1, 1])
 
     with col1:
-        age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"])
+        st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"], key="age_filter")
 
     with col2:
-        dept_filter = st.selectbox("전문의", ["전체"] + _SPECIALTY_CATS_KO)
+        st.selectbox("전문의", ["전체"] + _SPECIALTY_CATS_KO, key="dept_filter")
 
     with col3:
-        risk_filter = st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"])
+        st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"], key="risk_filter")
 
     with col4:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-        submitted = st.form_submit_button(label="검 색", width="stretch", icon=":material/search:")
+        st.form_submit_button(label="검 색", on_click=search_action, use_container_width=True, icon=":material/search:")
 
-# 폼이 제출되었을 때만 필터링 수행
-if submitted:
-    st.session_state.page_num = 1
+    with col5:
+        st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+        st.form_submit_button(label="초기화", on_click=reset_action, use_container_width=True, icon=":material/replay:")
 
-    if age_filter != "전체":
-        if age_filter == "50대 이상":
-            filtered_df = filtered_df[filtered_df["age"] >= 50]
-        elif age_filter == "10대 미만":
-            filtered_df = filtered_df[filtered_df["age"] < 10]
-        else:
-            base = int(age_filter.replace("대", ""))
-            filtered_df = filtered_df[
-                (filtered_df["age"] >= base) &
-                (filtered_df["age"] < base + 10)
-            ]
-
-    if dept_filter != "전체":
-        reverse_specialty_map = {v: k for k, v in SPECIALTY_KO_MAP.items()}
-        selected_specialty_en = reverse_specialty_map.get(dept_filter)
-
-        if selected_specialty_en:
-            filtered_df = filtered_df[filtered_df["specialty"] == selected_specialty_en]
-
-    if risk_filter != "전체":
-        if risk_filter == "고위험":
-            filtered_df = filtered_df[filtered_df["no_show_prob"] >= 30]
-        elif risk_filter == "중위험":
-            filtered_df = filtered_df[(filtered_df["no_show_prob"] >= 20) & (filtered_df["no_show_prob"] < 30)]
-        elif risk_filter == "저위험":
-            filtered_df = filtered_df[filtered_df["no_show_prob"] < 20]
-
-st.info("노쇼 예측 확률이 **20% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
+st.info("노쇼 예측 비율이 **50% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
 
 # 테이블 출력
 with st.container(key='customer_container', border=True):
