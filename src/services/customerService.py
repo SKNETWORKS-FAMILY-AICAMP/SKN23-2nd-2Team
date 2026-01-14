@@ -5,7 +5,7 @@ import torch.nn as nn
 import streamlit as st
 import pandas as pd
 from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
-from src.modules.one_hot_module import rows_to_df_onehot, fetch_df
+from src.modules.one_hot_module import rows_to_df_onehot, fetch_df, SPECIALTY_KO_MAP
 """
 class NoShowMLP(nn.Module):
     def __init__(self, input_dim: int):
@@ -99,3 +99,35 @@ def update_customer_info(_model, _scaler, dataframe):
     dataframe["no_show_prob"] = no_show_prob * 100
 
     return dataframe
+
+# 검색바(필터)를 이용한 검색
+def search_filters(age_filter, dept_filter, risk_filter):
+    print(age_filter, dept_filter, risk_filter)
+    st.session_state.page_num = 1
+    df = st.session_state.org_data.copy()
+
+    if age_filter != "전체":
+        if age_filter == "50대 이상":
+            df = df[df["age"] >= 50]
+        elif age_filter == "10대 미만":
+            df = df[df["age"] < 10]
+        else:
+            base = int(age_filter.replace("대", ""))
+            df = df[(df["age"] >= base) & (df["age"] < base + 10)]
+
+    if dept_filter != "전체":
+        reverse_specialty_map = {v: k for k, v in SPECIALTY_KO_MAP.items()}
+        selected_specialty_en = reverse_specialty_map.get(dept_filter)
+
+        if selected_specialty_en:
+            df = df[df["specialty"] == selected_specialty_en]
+
+    if risk_filter != "전체":
+        if risk_filter == "고위험":
+            df = df[df["no_show_prob"] >= 30]
+        elif risk_filter == "중위험":
+            df = df[(df["no_show_prob"] >= 20) & (df["no_show_prob"] < 30)]
+        elif risk_filter == "저위험":
+            df = df[df["no_show_prob"] < 20]
+
+        return df
