@@ -5,6 +5,8 @@ from src.views.modals.weatherModal import render_weather_dashboard
 from src.views.modals.editInfoModal import render_edit_info_modal
 from src.views.modals.messageModal import render_message_sender
 
+st.cache_resource.clear()
+
 st.set_page_config(
     page_title="노쇼 프리",
     page_icon=":material/person_check:",
