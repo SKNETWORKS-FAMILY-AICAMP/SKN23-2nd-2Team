@@ -9,11 +9,11 @@ FROM_NUMBER = os.getenv("FROM_NUMBER")
 TO_NUMBER = os.getenv("TO_NUMBER")
 
 def notification_sms(
-    ACCOUNT_SID: str,
-    AUTH_TOKEN: str,
-    FROM_NUMBER: str,
-    TO_NUMBER: str,
-    body: str
+    body: str,    
+    ACCOUNT_SID = ACCOUNT_SID,
+    AUTH_TOKEN = AUTH_TOKEN,
+    FROM_NUMBER = FROM_NUMBER,
+    TO_NUMBER = TO_NUMBER
 ):
     client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
@@ -26,6 +26,6 @@ def notification_sms(
     return message.sid
 
 """
-body = "테스트용 메시지입니다."
-notification_sms(ACCOUNT_SID, AUTH_TOKEN, FROM_NUMBER, TO_NUMBER, body)
+body = "test sms"
+notification_sms(body)
 """
