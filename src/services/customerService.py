@@ -5,7 +5,7 @@ import torch.nn as nn
 import streamlit as st
 from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
 from src.modules.one_hot_module import rows_to_df_onehot, fetch_df
-
+"""
 class NoShowMLP(nn.Module):
     def __init__(self, input_dim: int):
         super().__init__()
@@ -28,7 +28,7 @@ class NoShowMLP(nn.Module):
 
     def forward(self, x):
         return self.net(x)
-
+"""
 class NoShowMLP_KDY(nn.Module):
     def __init__(self, input_dim: int):
         super().__init__()
@@ -62,7 +62,7 @@ def load_artifacts():
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    model = NoShowMLP(input_dim=input_dim)
+    model = NoShowMLP_KDY(input_dim=input_dim)
     state = torch.load("src/artifacts/mlp_model.pt", map_location=device)
     model.load_state_dict(state)
     model.to(device)
@@ -71,8 +71,8 @@ def load_artifacts():
     return model, scaler, feature_cols
 
 @st.cache_data
-def get_customer_list(_model, _scaler):
-    rows = fetch_df("appointment", limit=40)
+def get_customer_list(_model, _scaler, limit = 40):
+    rows = fetch_df("appointment", limit=limit)
     df = rows_to_df_onehot(rows)
     no_show_prob = predict_noshow_proba_df(_model, _scaler, df)["no_show_prob"]
     rows["no_show_prob"] = no_show_prob * 100
