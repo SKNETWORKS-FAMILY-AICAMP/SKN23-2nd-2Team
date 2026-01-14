@@ -7,6 +7,35 @@ from src.modules.one_hot_module import SPECIALTY_KO_MAP, _SPECIALTY_CATS_KO, dis
 from src.services.customerService import load_artifacts, get_customer_list  # update_customer_info는 이제 안 씀
 from src.modules.one_hot_module import rows_to_df_onehot  # <- 너희 원핫 함수 경로에 맞게 수정
 
+st.html("""
+    <style>
+        hr {
+            margin-top: 0 !important;
+            margin-bottom: 1rem !important;
+        }
+
+        [data-testid="stLayoutWrapper"] > [data-testid="stForm"],
+        [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"] {
+            background-color: #FFFFFF !important;
+        }
+
+        [data-testid="stForm"] {
+            padding: 0.8rem 1.7rem 1rem 1.7rem
+        }
+
+        [data-testid="stAlert"] > [data-testid="stAlertContainer"] {
+            padding: 0.7rem 1rem;
+        }
+
+        [data-testid="stBaseButton-tertiary"] {
+            color: #7C7C7C;
+        }
+        [data-testid="stBaseButton-tertiary"]:hover {
+            color: #242424;
+        }
+    </style>
+""")
+
 def safe_disability_onehot(df, column_name="disability"):
     s = df[column_name].copy()
 
@@ -76,7 +105,7 @@ if "page_num" not in st.session_state:
 # 3) Row-only predict
 # ----------------------------
 def predict_one_row_prob_percent(row_df: pd.DataFrame) -> float:
-    # ✅ 모델이 학습할 때의 "appointment 원본 스키마" 컬럼만 남기기
+    # 모델이 학습할 때의 "appointment 원본 스키마" 컬럼만 남기기
     keep_cols = [
         "appointment_id", "name", "age", "gender", "specialty",
         "appointment_date", "appointment_datetime", "entry_service_date",
@@ -107,7 +136,7 @@ def apply_update_one_row_inplace(base_df: pd.DataFrame, updated_info: dict) -> N
     - 원본 컬럼 갱신
     - no_show_prob만 "그 행" 기준으로 재예측하여 갱신
     """
-    # ✅ df가 아니라 base_df에서 찾는다 (중요)
+    # df가 아니라 base_df에서 찾는다 (중요)
     row_idx = base_df.index[base_df["appointment_id"] == updated_info["appointment_id"]]
     if len(row_idx) == 0:
         return
@@ -136,7 +165,7 @@ def apply_update_one_row_inplace(base_df: pd.DataFrame, updated_info: dict) -> N
 if "updated_customer_info" in st.session_state and st.session_state.updated_customer_info:
     updated_info = st.session_state.updated_customer_info
 
-    # ✅ 세션의 df_data 자체를 "행 단위"로 갱신
+    # 세션의 df_data 자체를 "행 단위"로 갱신
     apply_update_one_row_inplace(st.session_state.df_data, updated_info)
 
     # cleanup
@@ -147,58 +176,71 @@ if "updated_customer_info" in st.session_state and st.session_state.updated_cust
 # ----------------------------
 # 5) Filtering (submitted 기반 유지)
 # ----------------------------
-filtered_df = st.session_state.df_data  # ✅ copy() 지양. 필요 시 마지막에만 copy
 
+# 필터 상태 초기화
+if "filters" not in st.session_state:
+    st.session_state.filters = {
+        "age": "전체",
+        "dept": "전체",
+        "risk": "전체",
+    }
+    
 with st.form("search_form"):
     col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
 
     with col1:
-        age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"])
+        age_filter = st.selectbox("연령대", ["전체", "10대 미만", "10대", "20대", "30대", "40대", "50대 이상"], key="age_filter")
 
     with col2:
-        dept_filter = st.selectbox("전문의", ["전체"] + _SPECIALTY_CATS_KO)
+        dept_filter = st.selectbox("전문의", ["전체"] + _SPECIALTY_CATS_KO, key="dept_filter")
 
     with col3:
-        risk_filter = st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"])
+        risk_filter = st.selectbox("노쇼 위험군", ["전체", "고위험", "중위험", "저위험"], key="risk_filter")
 
     with col4:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-        submitted = st.form_submit_button(label="검 색", use_container_width=True, icon=":material/search:")
+        submitted = st.form_submit_button(label="검 색", width="stretch", icon=":material/search:")
 
 if submitted:
     st.session_state.page_num = 1
-    tmp = filtered_df
+    st.session_state.filters = {
+        "age": age_filter,
+        "dept": dept_filter,
+        "risk": risk_filter,
+    }
 
-    # age
-    if age_filter != "전체":
-        if age_filter == "50대 이상":
-            tmp = tmp[tmp["age"] >= 50]
-        elif age_filter == "10대 미만":
-            tmp = tmp[tmp["age"] < 10]
-        else:
-            base = int(age_filter.replace("대", ""))
-            tmp = tmp[(tmp["age"] >= base) & (tmp["age"] < base + 10)]
+filtered_df = st.session_state.df_data  # copy() 지양. 필요 시 마지막에만 copy
+f = st.session_state.filters
 
-    # dept
-    if dept_filter != "전체":
-        reverse_specialty_map = {v: k for k, v in SPECIALTY_KO_MAP.items()}
-        selected_specialty_en = reverse_specialty_map.get(dept_filter)
-        if selected_specialty_en:
-            tmp = tmp[tmp["specialty"] == selected_specialty_en]
+# age
+if f["age"] != "전체":
+    if f["age"] == "50대 이상":
+        filtered_df = filtered_df[filtered_df["age"] >= 50]
+    elif f["age"] == "10대 미만":
+        filtered_df = filtered_df[filtered_df["age"] < 10]
+    else:
+        base = int(f["age"].replace("대", ""))
+        filtered_df = filtered_df[
+            (filtered_df["age"] >= base) & (filtered_df["age"] < base + 10)
+        ]
 
-    # risk
-    if risk_filter != "전체":
-        if risk_filter == "고위험":
-            tmp = tmp[tmp["no_show_prob"] >= 30]
-        elif risk_filter == "중위험":
-            tmp = tmp[(tmp["no_show_prob"] >= 20) & (tmp["no_show_prob"] < 30)]
-        elif risk_filter == "저위험":
-            tmp = tmp[tmp["no_show_prob"] < 20]
+# dept
+if f["dept"] != "전체":
+    reverse_map = {v: k for k, v in SPECIALTY_KO_MAP.items()}
+    en = reverse_map.get(f["dept"])
+    if en:
+        filtered_df = filtered_df[filtered_df["specialty"] == en]
 
-    filtered_df = tmp
-else:
-    # 폼 제출 안 했으면 "현재 세션 df" 그대로
-    filtered_df = filtered_df
+# risk
+if f["risk"] != "전체":
+    if f["risk"] == "고위험":
+        filtered_df = filtered_df[filtered_df["no_show_prob"] >= 20]
+    elif f["risk"] == "중위험":
+        filtered_df = filtered_df[
+            (filtered_df["no_show_prob"] >= 10) & (filtered_df["no_show_prob"] < 20)
+        ]
+    elif f["risk"] == "저위험":
+        filtered_df = filtered_df[filtered_df["no_show_prob"] < 10]
 
 
 st.info("노쇼 예측 확률이 **20% 이상인 고객**만 문자 전송 대상입니다.\n 사전 알림을 통해 예약 이탈을 최소화할 수 있습니다.")
@@ -244,9 +286,9 @@ with st.container(key="customer_container", border=True):
             cols[3].markdown(f"<div style='{cell_style}'>{SPECIALTY_KO_MAP[row['specialty']]}</div>", unsafe_allow_html=True)
             cols[4].markdown(f"<div style='{cell_style}'>{row['appointment_datetime']}</div>", unsafe_allow_html=True)
 
-            if row["no_show_prob"] >= 30:
+            if row["no_show_prob"] >= 20:
                 badge_html = f"<span style='background:#fee2e2;color:#991b1b;padding:6px 10px;border-radius:8px;'>고위험 {row['no_show_prob']:.1f}%</span>"
-            elif row["no_show_prob"] >= 20:
+            elif row["no_show_prob"] >= 10:
                 badge_html = f"<span style='background:#fef9c3;color:#92400e;padding:6px 10px;border-radius:8px;'>중위험 {row['no_show_prob']:.1f}%</span>"
             else:
                 badge_html = f"<span style='background:#dcfce7;color:#166534;padding:6px 10px;border-radius:8px;'>저위험 {row['no_show_prob']:.1f}%</span>"
@@ -254,6 +296,7 @@ with st.container(key="customer_container", border=True):
             cols[5].markdown(f"<div style='{cell_style}'>{badge_html}</div>", unsafe_allow_html=True)
 
             send_disabled = row["no_show_prob"] < 20
+
             with cols[6]:
                 if st.button(
                     "문자 전송",
@@ -283,7 +326,7 @@ with st.container(key="customer_container", border=True):
             prev, pages, nxt = st.columns([1, 3, 1])
 
             with prev:
-                if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1):
+                if st.button("", icon=":material/keyboard_double_arrow_left:", disabled=st.session_state.page_num <= 1, type="tertiary"):
                     st.session_state.page_num -= 1
                     st.rerun()
 
@@ -294,6 +337,6 @@ with st.container(key="customer_container", border=True):
                 )
 
             with nxt:
-                if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages):
+                if st.button("", icon=":material/keyboard_double_arrow_right:", disabled=st.session_state.page_num >= total_pages, type="tertiary"):
                     st.session_state.page_num += 1
                     st.rerun()

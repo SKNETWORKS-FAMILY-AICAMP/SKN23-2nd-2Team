@@ -18,20 +18,14 @@ st.logo("assets/images/LOGO.png", size="large")
 pages = st.navigation([
     st.Page("src/views/Dashboard.py", title="대시보드", icon=":material/dashboard:"),
     st.Page("src/views/CustomerList.py", title="고객 관리", icon=":material/group:"),
-    st.Page("src/views/ModelAnalytics.py", title="모델 성능 확인하기", icon=":material/analytics:", default=False)
+    st.Page("src/views/ModelAnalytics.py", title=".", default=False)
 ])
 
 pages.run()
 
-# 사이드바 하단에 모델 통계 페이지 이동 버튼 추가
 with st.sidebar:
-    # '모델 성능 확인하기' 버튼을 클릭했을 때 페이지 전환을 시도하고, 오류 발생 시 메시지를 표시합니다.
-    if st.button("모델 성능 확인하기", use_container_width=True, icon=":material/analytics:"):
-        try:
-            st.switch_page("src/views/ModelAnalytics.py")
-        except Exception as e:
-            st.error("페이지를 전환할 수 없습니다.")
-            st.error(e)
+    if st.button("모델 성능 확인", width='stretch', icon=":material/analytics:"):
+        st.switch_page("src/views/ModelAnalytics.py")
 
 
 # ======== 모덜 ========
@@ -98,10 +92,34 @@ def load_font(font_path, font_name):
 load_font("assets/fonts/PretendardVariable.woff2", "Pretendard")
 load_font("assets/fonts/NanumSquareNeo-Variable.woff2", "NanumSquareNeo")
 
-st.markdown("""
+st.html("""
     <style>
         html, body, .stMarkdown, p, h1, h2, h3, h4, h5, h6, label, table, div, span, b, [class*="st-"]:not([data-testid="stIconMaterial"]):not(span) {
             font-family: "Pretendard", "NanumSquareNeo", "Source Sans", sans-serif;
+        }
+
+        [data-testid="stApp"] {
+            background-color: #F8FAFB !important;
+        }
+            
+        [data-testid="stHeader"] {
+            background: none !important;
+        }
+            
+        [data-testid="stMainBlockContainer"] {
+            padding-top: 3rem !important;
+            padding-bottom: 0 !important;
+        }
+
+        .stButton > button[kind="primary"],
+        .stFormSubmitButton > button[kind="primaryFormSubmit"] {
+            background-color: #2D6CDF !important;
+            border: 1px solid #2D6CDF !important;
+        }
+        .stButton > button[kind="primary"]:hover,
+        .stFormSubmitButton > button[kind="primaryFormSubmit"]:hover {
+            background-color: #165DFB !important;
+            border: 1px solid #165DFB !important;
         }
             
         [data-testid="stSidebarHeader"] {
@@ -125,11 +143,19 @@ st.markdown("""
             right: 10px;
             top: 10px;
         }
-            
+
         [data-testid="stSidebarNavSeparator"] {
             display: none !important;
         }
+
+        [data-testid="stSidebarNavItems"] li:nth-child(3) {
+            display: none !important;
+        }
             
+        [data-testid="stSidebarNavItems"] [data-testid="stSidebarNavLink"] > span {
+            font-size: 1rem !important;
+        }
+
         [data-testid="stSidebarUserContent"] {
             width: 90%;
             position: absolute;
@@ -206,5 +232,4 @@ st.markdown("""
             border-radius: 4px;
         }
     </style>
-""", 
-unsafe_allow_html=True)
+""")
