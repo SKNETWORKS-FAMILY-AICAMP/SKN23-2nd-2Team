@@ -1,14 +1,9 @@
 ## <img src="https://api.iconify.design/material-symbols/label.svg" width="30" style="vertical-align: middle" /> 프로젝트 명  
-
-#### 노노노쇼
-
-<p align="left" style="display: flex; align-items: center;">
-  <img src="image/스포티파이.svg" width="150" />
-  <img src="image/team.png" width="200" style="margin-left: 15px;" />
-</p>
-
        
-![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=Spotify%20Churn%20Prediction%20App&fontSize=50&fontColor=ffffff)
+![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=No_Show_Free_Site&fontSize=50&fontColor=ffffff)
+
+### LOGO
+<img src="assets/images/LOGO_bg.png" width=300px style="margin: 0 auto">
 
 ---
 
@@ -19,7 +14,7 @@
 
 ## <img src="https://api.iconify.design/material-symbols/groups.svg" width="30" style="vertical-align: middle" /> 프로젝트 팀 및 역할  
 
-#### 팀명: Team ㅇㅇ
+### 팀명: 에이아2조
 
 | 이름       | 역할                                                  | Git                                                                                                                                                  |
 | ---------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -74,34 +69,51 @@
 
 ## <img src="https://api.iconify.design/material-symbols/build.svg" width="30" style="vertical-align: middle" /> 기술스택  
 
-### <img src="https://api.iconify.design/material-symbols/dns.svg" width="24" style="vertical-align: middle" /> Backend (API 서버)
-![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
-![PyMySQL](https://img.shields.io/badge/PyMySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![bcrypt](https://img.shields.io/badge/bcrypt-3388FF?style=for-the-badge&logo=security&logoColor=white)
-
 ### <img src="https://api.iconify.design/material-symbols/analytics.svg" width="24" style="vertical-align: middle" /> Data Processing & Analysis
+<div>
+  <img src="https://img.shields.io/badge/machine_learning-4CAF50?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/deep_learning-6A1B9A?style=for-the-badge" />
+</div>
+
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![torch](https://img.shields.io/badge/torch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 
 ### <img src="https://api.iconify.design/material-symbols/insights.svg" width="24" style="vertical-align: middle" /> Data Visualization
 ![matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=plotly&logoColor=white)
 ![seaborn](https://img.shields.io/badge/Seaborn-4C72B0?style=for-the-badge&logo=python&logoColor=white)
+<img src="https://img.shields.io/badge/plotly-3F4F75.svg?style=for-the-badge&logo=plotly&logoColor=white"> 
 
 ### <img src="https://api.iconify.design/material-symbols/desktop_windows.svg" width="24" style="vertical-align: middle" /> Frontend (Streamlit)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+<img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=css&logoColor=white">
+![Material Symbols and Icons](https://img.shields.io/badge/Material_Icons-4285F4?style=for-the-badge&logo=googlefonts&logoColor=white)
 
 ### <img src="https://api.iconify.design/material-symbols/settings.svg" width="24" style="vertical-align: middle" /> Dev Environment
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
+<div>
+  <img src="https://img.shields.io/badge/dbeaver-382923?style=for-the-badge&logo=dbeaver&logoColor=white">
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+  <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
+</div>
+<div>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/.env-ECD53F?style=for-the-badge&logo=dotenv&logoColor=white">
+  <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+</div>
 
 
+### ERD
 
-### 1) ERD 이미지 위치
+![ERD](assets/images/ERD.png)
+
+### AWS EC2 서버구축
+
+![AWS-EC2](assets/images/aws-ec2.png)
 
 
-
+### 프로젝트 구조
 
 ```plaintext### 폴더 및 파일 구조
 
@@ -172,7 +184,8 @@ your_project_name/
 
 ## <img src="https://api.iconify.design/material-symbols/model_training.svg" width="30" style="vertical-align: middle" /> 데이터 및 모델링 개요 (Data & Modeling)
 
-### 1) Data Setup
+
+### 1️⃣ Data Setup
 - **데이터 구조**: 49593회의 환자의 간단한 진료 정보 및 날짜 데이터가 보관됨.
 - **Feature Exploration**:
 - specialty (진료과)
@@ -268,6 +281,7 @@ heat_intensity (더위 강도)
 | 모델      | Train F1 | Test F1 | Test Precision | Test Recall |
 |----------|----------|---------|----------------|--------------|
 | RandomForest  | 0.8973 | 0.3553 | 0.3583       | 0.3524       |
+
 - 원핫 인코딩 적용을 통해 최대한 데이터 숫자화
 - imbalance 사용하여 불균형 데이터 처리
 - class_weight 사용
@@ -276,6 +290,7 @@ heat_intensity (더위 강도)
 | 모델      | Train F1 | Test F1 | Test Precision | Test Recall |
 |----------|----------|---------|----------------|--------------|
 | XGBoost  | 0.8649   | 0.2567  | 0.1622         | 0.6147       |
+
 - 원핫 인코딩 적용을 통해 최대한 데이터 숫자화
 - imbalance 사용하여 불균형 데이터 처리
 - 하이퍼파라미터 수정
@@ -324,10 +339,63 @@ CGB
 
 ### 스트림릿 이미지 모아서 표현하려는 점 전달
 
+## 화면 설계
+
+### 사이트 구조
+```
+
+노쇼프리 사이트
+   ├── Dashboard (main)
+   │      └── 날씨별 노쇼 예측 모덜
+   ├── 고객 관리
+   │      ├── 메세지 전송 모덜
+   │      └── 고객 정보 수정 모덜
+   └── 모델 성능 확인
+          ├── 머신러닝 탭
+          └── 딥러닝 탭
+  
+```
+
+### 화면 흐름도 (User Flow) - drawio 이용
+
+![화면흐름도(User Flow)](assets/images/user_flow.png)
+
+### 사이트 맵 (Site Map) - Reuim AI 이용
+
+![사이트 맵](assets/images/sitemap.png)
+
+### 와이어프레임 (Wireframe) - Figma 이용
+
+![와이어프레임(Dashboard)](assets/images/wireframe_1.png)
+
+![와이어프레임(Customer List)](assets/images/wireframe_2.png)
+
+### 테마(색상, 글꼴, 폰트사이즈) 정의
+```
+1. 글꼴
+    - 한글: Pretendard(파일), 나눔스퀘어(파일)
+
+2. 글꼴 크기
+    - 제목: 26 / 44
+    - 본문: 16
+
+3. 색상 코드
+    1. 전체 배경: F8FAFB
+    2. 포인트: 2D6CDF
+    3. 글자: 242424
+    4. 빨강: DB403E / 배경: 10%
+    5. 주황: FF6200 / 배경: 10%
+    6. 초록: 22C55E / 배경: 10%
+    7. 파랑: 3A7BFF / 배경: 10%
+    8. 보라: 7331DE / 배경: 10%
+    9. 회색
+      - 배경: F0F0F0
+      - 테두리: D7D7D7, F9FAFB
+      - 일반: 7C7C7C
+    10. 흰색: FFFFFF
+```
 
 ## <img src="https://api.iconify.design/material-symbols/laptop_chromebook.svg" width="30" style="vertical-align: middle" /> 개발 화면 (Streamlit Application Features)
-
-### <img src="https://api.iconify.design/material-symbols/admin_panel_settings.svg" width="24" style="vertical-align: middle" /> 관리자 페이지
 
 #### <img src="https://api.iconify.design/material-symbols/dashboard.svg" width="20" style="vertical-align: middle" /> 대시보드 및 사용자 관리
 <div style="display: flex; justify-content: center; gap: 20px;">
@@ -343,27 +411,14 @@ CGB
 </div>
 > 특정 사용자의 이탈 확률을 실시간으로 예측하거나, CSV 업로드를 통해 대량 예측을 수행할 수 있습니다.
 
-### <img src="https://api.iconify.design/material-symbols/person.svg" width="24" style="vertical-align: middle" /> 사용자 페이지
-
-#### <img src="https://api.iconify.design/material-symbols/lock.svg" width="20" style="vertical-align: middle" /> 로그인 및 내 정보
-<div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="image/gif/11_.gif" width="48%" />
-  <img src="image/gif/33_.gif" width="48%" />
-</div>
-
-#### <img src="https://api.iconify.design/material-symbols/emoji_events.svg" width="20" style="vertical-align: middle" /> 도전과제 및 음악 플레이어
-<div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="image/gif/66_.gif" width="48%" />
-  <img src="image/gif/22_.gif" width="48%" />
-</div>
 >
 
 ---
 
 ## <img src="https://api.iconify.design/material-symbols/description.svg" width="30" style="vertical-align: middle" /> 참고 자료
-- **title**:  [text](link)
-- **title**:  [text](link)
-- **title**:  [text](link)
+- **사이트맵**:  [Relume](https://www.relume.io/app/project/P2915713_1XA8Fs9P4U9kcjvvRgOZ82yYzPZGE9wn4DUIbtjBN9s#mode=sitemap)
+- **와이어프레임**:  [Figma](https://www.figma.com/make/hXkr5jZ5bEUNxNzj75iTbh/Hospital-Management-System-Wireframe?t=JJtGxAYhqcfxashS-1)
+- **ERD**:  [ERD CLOUD](https://www.erdcloud.com/d/GofibWbvH9bF45oRg)
 - **title**:  [text](link)
 - **title**:  [text](link)
 - **title**:  [text](link)
