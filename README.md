@@ -1,11 +1,10 @@
 ## <img src="https://api.iconify.design/material-symbols/label.svg" width="30" style="vertical-align: middle" /> 프로젝트 명
 
-![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=No_Show_Free_Site&fontSize=50&fontColor=ffffff)
+![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=NO_SHOW_FREE&fontSize=50&fontColor=ffffff)
 
 ### LOGO
 
 <img src="assets/images/LOGO_bg.png" width=300px style="margin: 0 auto">
-
 ---
 
 ## <img src="https://api.iconify.design/material-symbols/date_range.svg" width="30" style="vertical-align: middle" /> 프로젝트 기간
@@ -17,6 +16,10 @@
 ## <img src="https://api.iconify.design/material-symbols/groups.svg" width="30" style="vertical-align: middle" /> 프로젝트 팀 및 역할
 
 ### 팀명: 에이아2조
+
+<img src="assets/images/team_img.png">
+
+<br />
 
 | <img src="assets/profileimage/content1.png" alt="Image" /> | <img src="assets/profileimage/content2.png" /> | <img src="assets/profileimage/content3.png" /> | <img src="assets/profileimage/content4.png" />| <img  src="assets/profileimage/content5.png" />  | 
 | :-:  | :-:  | :-:  | :-:  | :-:  |
@@ -36,7 +39,7 @@
 
 본 프로젝트는 제한된 데이터를 기반으로, 사용자 행동 데이터를 분석하여 **이탈 가능성**을 예측한 후 해당 데이터를 통한 노쇼 리스크로서 병원 경영에 유의미한 솔루션을 제공하는 것을 목표로 하였다.
 
-- 기상 정보와 병명 서비스 시작일을 기반으로 진료계약 부결률을 낮춤과 동시에 단순 문자 발송 시스템이 아닌 예측형 모델로서 ERP 혹은 CRM, ACRM적 분석을 할 수 있는 것을 목표
+- 기상 정보와 병명 서비스 시작일을 기반으로 진료계약 부결률을 낮춤과 동시에 단순 문자 발송 시스템이 아닌 예측형 모델로서 확률 분석을 할 수 있는 것을 목표
 - 📊 사용자 행동 기반 부결 위험도 분석 및 시각화 대시보드 제공
 - 👩‍💻 관리자가 전체적인 부결률을 확인 할 수 있는 관리 시스템 구현
 - 🔍 다양한 모델을 기반을 최적의 모델을 찾아 적용
@@ -62,14 +65,14 @@
 | 모듈 함수 개발                                | 유헌상                                              | 완료    | 2026/01/07 | 2026/01/12 |
 | DB icd_code 보강                              | 용희 정                                             | 완료    | 2026/01/07 | 2026/01/07 |
 | DB weather 중복 데이터 처리                   | 유헌상                                              | 완료    | 2026/01/07 | 2026/01/07 |
-| 딥러닝 개발                                   | SKN 23기\_김도영                                    | 진행 중 | 2026/01/11 |            |
+| 딥러닝 개발                                   | SKN 23기\_김도영                                    | 완료 | 2026/01/11 |   2026/01/14         |
 | EC2 인스턴스 수리                             | SKN 23기\_김도영                                    | 완료    | 2026/01/08 | 2026/01/08 |
 | 모델화                                        | 용희 정                                             | 완료    | 2026/01/08 | 2026/01/09 |
 | 데이터베이스 수정                             | 희영 정, SKN 23기\_김도영                           | 완료    | 2026/01/08 | 2026/01/08 |
 | 사용 모델 정리                                | 용희 정, 유헌상, 희영 정, 쥐 가을, SKN 23기\_김도영 | 완료    | 2026/01/08 | 2026/01/08 |
 | SMS 발송 구현                                 | SKN 23기\_김도영                                    | 완료    | 2026/01/08 | 2026/01/08 |
 | 머신러닝 개발 (RandomForest, XGBoost)         | 희영 정                                             | 완료    | 2026/01/11 | 2026/01/14 |
-| 딥러닝 개발                                   | 용희 정                                             | 진행 중 | 2026/01/09 |            |
+| 딥러닝 개발                                   | 용희 정                                             | 완료 | 2026/01/09 | 2026/01/14           |
 | 학습데이터 생성                               | 유헌상                                              | 완료    | 2026/01/12 | 2026/01/14 |
 | 화면 설계                                     | 쥐 가을                                             | 완료    | 2026/01/10 | 2026/01/11 |
 | Frontend 개발                                 | 쥐 가을                                             | 완료    | 2026/01/11 | 2026/01/15 |
@@ -78,7 +81,7 @@
 | 날씨 api 개발                                 | 유헌상                                              | 완료    | 2026/01/13 | 2026/01/13 |
 | df에 확률 컬럼 추가 함수                      | SKN 23기\_김도영                                    | 완료    | 2026/01/13 | 2026/01/13 |
 | 문자 전송 버튼 기능 구현                      | SKN 23기\_김도영                                    | 완료    | 2026/01/13 | 2026/01/14 |
-| ReadMe 작성                                   | 용희 정                                             | 진행 중 | 2026/01/13 |            |
+| ReadMe 작성                                   | 용희 정                                             | 완료 | 2026/01/13 |    2026/01/15        |
 
 ---
 
