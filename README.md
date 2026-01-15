@@ -1,43 +1,37 @@
-## <img src="https://api.iconify.design/material-symbols/label.svg" width="30" style="vertical-align: middle" /> 프로젝트 명
+## 프로젝트 명
 
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=NO_SHOW_FREE&fontSize=50&fontColor=ffffff)
 
-### LOGO
+#### LOGO
 
-<img src="assets/images/LOGO_bg.png" width=300px style="margin: 0 auto">
+<img src="assets/images/LOGO_bg.png" width=300px>
 
-## <img src="https://api.iconify.design/material-symbols/date_range.svg" width="30" style="vertical-align: middle" /> 프로젝트 기간
+<br />
 
-#### **2026. 01. 02. ~ 01. 15 (총 14일)**
+## 프로젝트 소개
 
----
+### 주제: ML/DL 모델 기반 노쇼 예측 및 솔루션
 
-## <img src="https://api.iconify.design/material-symbols/groups.svg" width="30" style="vertical-align: middle" /> 프로젝트 팀 및 역할
+### 기간: 2026. 01. 02. ~ 01. 15 (총 14일)
 
 ### 팀명: 에이아2조
 
-<img src="assets/images/team_img.png">
+<img src="assets/images/team_img.png" width=300px>
 
 <br />
+
+## 팀원 소개
 
 | <img src="assets/profileimage/content1.png" alt="Image" /> | <img src="assets/profileimage/content2.png" /> | <img src="assets/profileimage/content3.png" /> | <img src="assets/profileimage/content4.png" />| <img  src="assets/profileimage/content5.png" />  | 
 | -----  | -----  | -----  | -----  | -----  |
 | 정유선 | 정희영 | 정용희 | 유헌상 | 김도영 |
-| [![GitHub - jys96](https://img.shields.io/badge/jsrop07-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jys96) | [![GitHub - JUNGHEEYOUNG9090](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JUNGHEEYOUNG9090) | [![GitHub - jungyonghi](https://img.shields.io/badge/minchaesong-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jungyonghi) | [![GitHub - hunsang-you](https://img.shields.io/badge/oooonbbo--wq-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hunsang-you) | [![GitHub - rubyheartsping](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rubyheartsping) |
+| [![GitHub - jys96](https://img.shields.io/badge/jys96-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jys96) | [![GitHub - JUNGHEEYOUNG9090](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JUNGHEEYOUNG9090) | [![GitHub - jungyonghi](https://img.shields.io/badge/minchaesong-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jungyonghi) | [![GitHub - hunsang-you](https://img.shields.io/badge/oooonbbo--wq-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hunsang-you) | [![GitHub - rubyheartsping](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rubyheartsping) |
 
 ---
 
 <br />
 
-## <img src="https://api.iconify.design/material-symbols/topic.svg" width="30" style="vertical-align: middle" /> 프로젝트 주제  
-
-**ML/DL 모델 기반 노쇼 예측 및 솔루션**
-
----
-
-## <img src="https://api.iconify.design/material-symbols/summarize.svg" width="30" style="vertical-align: middle" /> 개요
-
-<br>
+## 개요
 
 본 프로젝트는 제한된 데이터를 기반으로, 사용자 행동 데이터를 분석하여 **이탈 가능성**을 예측한 후 해당 데이터를 통한 노쇼 리스크로서 병원 경영에 유의미한 솔루션을 제공하는 것을 목표로 하였다.
 
@@ -52,7 +46,7 @@
 
 <img src="assets/images/work_plan.png">
 
-## 노쇼-프리 프로젝트 WBS (작업 현황)
+## WBS (작업 현황)
 
 | 프로젝트 이름                                 | 담당자                                              | 상태    | 시작일     | 종료일     |
 | :-------------------------------------------- | :-------------------------------------------------- | :------ | :--------- | :--------- |
@@ -87,9 +81,9 @@
 
 ---
 
-## <img src="https://api.iconify.design/material-symbols/build.svg" width="30" style="vertical-align: middle" /> 기술스택
+## 기술스택
 
-### <img src="https://api.iconify.design/material-symbols/analytics.svg" width="24" style="vertical-align: middle" /> Data Processing & Analysis
+### Data Processing & Analysis
 
 <div>
   <img src="https://img.shields.io/badge/machine_learning-4CAF50?style=for-the-badge" />
@@ -101,19 +95,19 @@
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
 ![torch](https://img.shields.io/badge/torch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 
-### <img src="https://api.iconify.design/material-symbols/insights.svg" width="24" style="vertical-align: middle" /> Data Visualization
+### Data Visualization
 
 ![matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=plotly&logoColor=white)
 ![seaborn](https://img.shields.io/badge/Seaborn-4C72B0?style=for-the-badge&logo=python&logoColor=white)
 <img src="https://img.shields.io/badge/plotly-3F4F75.svg?style=for-the-badge&logo=plotly&logoColor=white">
 
-### <img src="https://api.iconify.design/material-symbols/desktop_windows.svg" width="24" style="vertical-align: middle" /> Frontend (Streamlit)
+### Frontend (Streamlit)
 
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 <img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=css&logoColor=white">
 ![Material Symbols and Icons](https://img.shields.io/badge/Material_Icons-4285F4?style=for-the-badge&logo=googlefonts&logoColor=white)
 
-### <img src="https://api.iconify.design/material-symbols/settings.svg" width="24" style="vertical-align: middle" /> Dev Environment
+### Dev Environment
 
 <div>
   <img src="https://img.shields.io/badge/dbeaver-382923?style=for-the-badge&logo=dbeaver&logoColor=white">
@@ -127,15 +121,15 @@
   <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 </div>
 
-### ERD
+## ERD
 
 ![ERD](assets/images/ERD.png)
 
-### AWS EC2 서버구축
+## AWS EC2 서버구축
 
 ![AWS-EC2](assets/images/aws-ec2.png)
 
-### 프로젝트 구조
+## 프로젝트 구조
 
 ```plaintext### 폴더 및 파일 구조
 
@@ -204,12 +198,12 @@ your_project_name/
 
 <br>
 
-## <img src="https://api.iconify.design/material-symbols/model_training.svg" width="30" style="vertical-align: middle" /> 데이터 및 모델링 개요 (Data & Modeling)
-
+## 데이터 및 모델링 개요 (Data & Modeling)
 
 ### Data Setup
 - **데이터 구조**: 49593회의 환자의 간단한 진료 정보 및 날짜 데이터가 보관됨.
 
+<br>
 
 ## 모델 별 전처리 시 확인 포인트
 
@@ -225,9 +219,11 @@ your_project_name/
 10. 성별 i 제거하고 gender, appointment_shift 컬럼 0 / 1로 맵핑
 11. appointment_datetime, weather_date 이라는 새 컬럼 만들기
 
+<br>
+
 ## 머신러닝
 
-1. Logistic Regression (유헌상)
+### 1. Logistic Regression (유헌상)
 
 | 모델 (Threshold = 0.185) | AUC    | Accuracy | Precision | Recall | F1     |
 | ------------------------ | ------ | -------- | --------- | ------ | ------ |
@@ -240,7 +236,9 @@ your_project_name/
 - 해석은 쉽지만(선형), 노쇼 탐지 성능이 제한적
 - threshold를 낮춰도 Precision 손실이 커서 운영에서 경고 과다 가능
 
-2. RandomForest (정희영)
+<br>
+
+### 2. RandomForest (정희영)
 
 | 모델         | Train F1 | Test F1 | Test Precision | Test Recall |
 | ------------ | -------- | ------- | -------------- | ----------- |
@@ -250,7 +248,9 @@ your_project_name/
 - imbalance 사용하여 불균형 데이터 처리
 - class_weight 사용
 
-3. XGBoost (정희영)
+<br>
+
+### 3. XGBoost (정희영)
 
 | 모델    | Train F1 | Test F1 | Test Precision | Test Recall |
 | ------- | -------- | ------- | -------------- | ----------- |
@@ -263,7 +263,9 @@ your_project_name/
 - Threshold Optimization 사용하여 불균형 데이터 처리 Threshold : 0.5)
 - SMOTH 사용하여 불군형 데이터 처리
 
-4. LightGBM (유헌상)
+<br>
+
+### 4. LightGBM (유헌상)
 
 | 모델     | AUC    | Accuracy | Precision | Recall | F1     |
 | -------- | ------ | -------- | --------- | ------ | ------ |
@@ -275,14 +277,17 @@ your_project_name/
 - AUC/Accuracy/Precision/Recall/F1 전 지표에서 우세
 - 특히 노쇼 탐지 목적(Recall 중심)에서 threshold 0.185 설정 시 Recall 0.48 수준으로 실무적 활용 가치가 더 큼
 
-#### 딥러닝
+<br>
 
-MLP
+## 딥러닝
+
+### MLP
+
 | 모델 | Train F1 | Test F1 | Test Precision | Test Recall |
 |----------|----------|---------|----------------|--------------|
 | MLP (다층퍼셉트론) | - | 0.3224 | 0.3095 | 0.3364 |
 
----
+<br>
 
 ## 화면 설계
 
@@ -342,56 +347,67 @@ MLP
     10. 흰색: FFFFFF
 ```
 
-## <img src="https://api.iconify.design/material-symbols/laptop_chromebook.svg" width="30" style="vertical-align: middle" /> 개발 화면 (Streamlit Application Features)
+<br>
 
-#### <img src="https://api.iconify.design/material-symbols/dashboard.svg" width="20" style="vertical-align: middle" /> 대시보드
+## 개발 화면
 
-<div style="display: block; justify-content: center; gap: 20px;">
-  <img src="assets/images/screen-dashboard.png" width="100%" />
-  <img src="assets/images/screen-weather_modal.png" width="100%" />
-</div>
-저희 대시보드는 노쇼(No-Show) 현상을 다각도로 분석하고 예측할 수 있는 다양한 차트와 모델을 제공합니다.
+### 대시보드
 
-- **DASHBOARD:**
+<p style="margin-top: 16px;">저희 대시보드는 노쇼(No-Show) 현상을 다각도로 분석하고 예측할 수 있는 다양한 차트와 모델을 제공합니다.</p>
 
-  - **요일/시간대별 노쇼율:** 요일과 시간대에 따른 노쇼 발생 경향을 직관적으로 파악할 수 있습니다.
-  - **연령대별 노쇼율:** 연령대별 노쇼율을 분석하여 특정 연령층의 노쇼 특성을 이해하는 데 도움을 줍니다.
-  - **보호자 유무별 노쇼 비율:** 보호자 동반 여부에 따른 노쇼 비율 차이를 비교하여 의미 있는 인사이트를 도출할 수 있습니다.
+#### DASHBOARD
 
-- **날씨별 노쇼 예측 모덜:**
-  - **주요 인사이트 요약:** 날씨 관련 노쇼 예측의 핵심적인 분석 결과를 요약하여 제공합니다.
-  - **날씨 유형별 노쇼 예측 비율 (차트):** 맑음, 비, 눈 등 다양한 날씨 유형에 따른 노쇼 예측 비율을 시각적으로 확인할 수 있습니다.
-  - **기온별 노쇼 예측 비율 (차트):** 기온 변화가 노쇼 발생에 미치는 영향을 분석하여 특정 기온 구간에서의 노쇼 예측 비율을 파악합니다.
-  - **강수량별 노쇼 예측 비율 (차트):** 강수량에 따른 노쇼 예측 비율을 제공하여 비의 양이 노쇼에 미치는 영향을 분석합니다
+- **요일/시간대별 노쇼율:** 요일과 시간대에 따른 노쇼 발생 경향을 직관적으로 파악할 수 있습니다.
+- **연령대별 노쇼율:** 연령대별 노쇼율을 분석하여 특정 연령층의 노쇼 특성을 이해하는 데 도움을 줍니다.
+- **보호자 유무별 노쇼 비율:** 보호자 동반 여부에 따른 노쇼 비율 차이를 비교하여 의미 있는 인사이트를 도출할 수 있습니다.
 
-#### <img src="https://api.iconify.design/material-symbols/adjust.svg" width="20" style="vertical-align: middle" /> 고객 관리
+<img src="assets/images/screen-dashboard.png" width="100%" />
 
-<div style="display: block; justify-content: center; gap: 20px;">
-  <img src="assets/images/screen-customer-search.gif" width="100%" />
-  <p><b>명단검색:</b> 상단 검색바를 통해 연령대, 전문의, 노쇼 위험군 등 다양한 조건으로 고객 명단을 검색할 수 있어 필요한 정보를 빠르고 효율적으로 찾아볼 수 있습니다.</p>
-  <img src="assets/images/screen-customer-noshow.gif" width="100%" />
-  <p><b>확률 재계산:</b> 회원 정보 수정 시, 변경된 데이터를 바탕으로 노쇼율이 자동으로 재계산되어 즉각적으로 업데이트된 위험도를 확인할 수 있습니다. 이를 통해 항상 최신 정보로 고객 관리가 가능합니다.</p>
-  <img src="assets/images/screen-customer-message.gif" width="100%" />
-  <p><b>문자발송:</b> 노쇼 위험군으로 분류된 고객에게 예약 확인 문자를 손쉽게 발송하여, 노쇼율 감소를 위한 능동적이고 선제적인 조치를 취할 수 있습니다.</p>
-</div>
+<br>
 
-#### <img src="https://api.iconify.design/material-symbols/adjust.svg" width="20" style="vertical-align: middle" /> 모델 성능 확인
+#### 날씨별 노쇼 예측 모덜
 
-<div style="display: block; justify-content: center; gap: 20px;">
-  <img src="assets/images/screen-machine_learning.png" width="100%" />
-  <img src="assets/images/screen-deep_learning.png" width="100%" />
-</div>
----
+- **주요 인사이트 요약:** 날씨 관련 노쇼 예측의 핵심적인 분석 결과를 요약하여 제공합니다.
+- **날씨 유형별 노쇼 예측 비율 (차트):** 맑음, 비, 눈 등 다양한 날씨 유형에 따른 노쇼 예측 비율을 시각적으로 확인할 수 있습니다.
+- **기온별 노쇼 예측 비율 (차트):** 기온 변화가 노쇼 발생에 미치는 영향을 분석하여 특정 기온 구간에서의 노쇼 예측 비율을 파악합니다.
+- **강수량별 노쇼 예측 비율 (차트):** 강수량에 따른 노쇼 예측 비율을 제공하여 비의 양이 노쇼에 미치는 영향을 분석합니다
 
-## <img src="https://api.iconify.design/material-symbols/description.svg" width="30" style="vertical-align: middle" /> 참고 자료
+<img src="assets/images/screen-weather_modal.png" width="100%" />
+
+<br>
+
+#### 고객 관리
+
+<img src="assets/images/screen-customer-search.gif" width="100%" />
+
+<p><b>명단검색:</b> 상단 검색바를 통해 연령대, 전문의, 노쇼 위험군 등 다양한 조건으로 고객 명단을 검색할 수 있어 필요한 정보를 빠르고 효율적으로 찾아볼 수 있습니다.</p>
+
+<img src="assets/images/screen-customer-noshow.gif" width="100%" />
+
+<p><b>확률 재계산:</b> 회원 정보 수정 시, 변경된 데이터를 바탕으로 노쇼율이 자동으로 재계산되어 즉각적으로 업데이트된 위험도를 확인할 수 있습니다. 이를 통해 항상 최신 정보로 고객 관리가 가능합니다.</p>
+
+<img src="assets/images/screen-customer-message.gif" width="100%" />
+
+<p><b>문자발송:</b> 노쇼 위험군으로 분류된 고객에게 예약 확인 문자를 손쉽게 발송하여, 노쇼율 감소를 위한 능동적이고 선제적인 조치를 취할 수 있습니다.</p>
+
+<br>
+
+#### 모델 성능 확인
+
+<img src="assets/images/screen-machine_learning.png" width="100%" />
+<img src="assets/images/screen-deep_learning.png" width="100%" />
+
+<br>
+
+## 참고 자료
 
 - **사이트맵**: [Relume](https://www.relume.io/app/project/P2915713_1XA8Fs9P4U9kcjvvRgOZ82yYzPZGE9wn4DUIbtjBN9s#mode=sitemap)
 - **와이어프레임**: [Figma](https://www.figma.com/make/hXkr5jZ5bEUNxNzj75iTbh/Hospital-Management-System-Wireframe?t=JJtGxAYhqcfxashS-1)
 - **ERD**: [ERD CLOUD](https://www.erdcloud.com/d/GofibWbvH9bF45oRg)
 
----
+<br>
 
-## <img src="https://api.iconify.design/material-symbols/forum.svg" width="30" style="vertical-align: middle" /> 팀원별 회고
+## 팀원별 회고
 
 <table>
   <colgroup>
