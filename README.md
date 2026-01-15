@@ -21,8 +21,8 @@
 | **정유선** | 팀장, PM, 화면설계 \| Streamlit Frontend + Integrator | <a href="https://github.com/sbpark2930-ui"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a> |
 | **정희영** | DB 설계 및 관리                                       | <a href="https://github.com/sjy361872"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>     |
 | **정용희** |                                                       | <a href="https://github.com/ykgstar37-lab"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a> |
-| **유헌상** |                                                       | <a href="https://github.com/wjdtpdus25"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>    |
-| **김도영** | 발표                                                  | <a href="https://github.com/silentkit12"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>   |
+| **유헌상** | 데이터 전처리, 머신러닝 학습, 모듈 작성, 기상 API       | <a href="https://github.com/wjdtpdus25"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>    |
+| **김도영** | 데이터 전처리, 딥러닝 학습, 모듈 작성, 발표             | <a href="https://github.com/silentkit12"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>   |
 
 ---
 
@@ -42,14 +42,6 @@
   <img src="image/spotify_naver2.png" alt="사진" width="37%">
 </p>
 
-
-· 문제 정의 단계 : 
-
-분석하고자 하는 분야를 이해하고, 해결해야 할 문제를 객관적이고 구체적으로 정의한다. · 데이터 수집 단계 : 분석에 필요한 데이터 요건을 정의하고, 데이터를 확보한다. • 데이터 전처리 단계 : 수집한 데이터에 존재하는 결측값이나 오류를 수정/보완한다. 경우에 따라서 데이터 구조나 특성을 변경한다. • 데이터 모델링 단계: 하나의 테이블(데이터셋)이 아닌 다수의 테이블을 이용하여 분석을 하는 경우가 있다. 이러한 경우, 데이터 모델링이 필요하다. • 시각화 및 탐색 단계 : 다양한 도구를 이용하여 데이터를 시각화하고, 탐색을 통하여 문제를 해결한다.
-
-헬스케어 ERP 시장의 확대 https://www.metatechinsights.com/ko/industry-insights/healthcare-erp-market-2674
-노쇼 심각 https://www.whosaeng.com/155771
-병원 예약부도(No-show) 감소를 위한 예약관리 방안 https://scienceon.kisti.re.kr/srch/selectPORSrchArticle.do?cn=JAKO201708034065753 노쇼 문자보다 전화가 유용
 
 <br>
 
@@ -188,57 +180,37 @@ your_project_name/
 ### 1️⃣ Data Setup
 - **데이터 구조**: 49593회의 환자의 간단한 진료 정보 및 날짜 데이터가 보관됨.
 - **Feature Exploration**:
-- specialty (진료과)
+| English Column Name     | 한국어 설명         |
+| ----------------------- | -------------- |
+| specialty               | 진료과            |
+| appointment_time        | 예약 시간          |
+| gender                  | 성별             |
+| appointment_date        | 예약 날짜          |
+| no_show                 | 노쇼 여부 (Target) |
+| no_show_reason          | 노쇼 사유          |
+| disability              | 장애 유형          |
+| date_of_birth           | 생년월일           |
+| entry_service_date      | 최초 내원일         |
+| city                    | 거주 도시          |
+| icd                     | 질병 코드          |
+| appointment_month       | 예약 월           |
+| appointment_year        | 예약 연도          |
+| appointment_shift       | 진료 시간대         |
+| age                     | 연령             |
+| under_12_years_old      | 12세 미만 여부      |
+| over_60_years_old       | 60세 이상 여부      |
+| patient_needs_companion | 보호자 동반 필요 여부   |
+| average_temp_day        | 당일 평균 기온       |
+| average_rain_day        | 당일 평균 강수량      |
+| max_temp_day            | 당일 최고 기온       |
+| max_rain_day            | 당일 최고 강수량      |
+| rainy_day_before        | 전날 강우 여부       |
+| storm_day_before        | 전날 폭풍 또는 강풍 여부 |
+| rain_intensity          | 강수 강도          |
+| heat_intensity          | 더위 강도          |
 
-appointment_time (예약 시간)
 
-gender (성별)
-
-appointment_date (예약 날짜)
-
-no_show (노쇼 여부 - Target)
-
-no_show_reason (노쇼 사유)
-
-disability (장애 유형)
-
-date_of_birth (생년월일)
-
-entry_service_date (최초 내원일)
-
-city (거주 도시)
-
-icd (질병 코드)
-
-appointment_month (예약 월)
-
-appointment_year (예약 년도)
-
-appointment_shift (진료 시간대 - 오전/오후 등)
-
-age (연령)
-
-under_12_years_old (12세 미만 여부)
-
-over_60_years_old (60세 이상 여부)
-
-patient_needs_companion (보호자 동반 필요 여부)
-
-average_temp_day (당일 평균 기온)
-
-average_rain_day (당일 평균 강수량)
-
-max_temp_day (당일 최고 기온)
-
-max_rain_day (당일 최고 강수량)
-
-rainy_day_before (전날 강우 여부)
-
-storm_day_before (전날 폭풍/강풍 여부)
-
-rain_intensity (강수 강도)
-
-heat_intensity (더위 강도)
+## 모델 별 전처리 시 확인 포인트
 
 1. 원핫인코딩은 별도 모듈로 진행할 예정이므로 해당하는 컬럼은 원상태 유지
 2. 결측치 자체가 의미있는 컬럼은 결측치 유지
@@ -254,17 +226,7 @@ heat_intensity (더위 강도)
 
 
 
-
-### 칼럼 별로 분석 내용 모아서 정리
-
-## 모델 별 전처리 시 확인 포인트
-
-
-
-
-
-
-### 2) Model Selection (Why HGB?)
+### 2) Model Selection
 | Model | F1 Score   | AUC    | 설명                                                           |
 | ----- | ---------- | ------ | -------------------------------------------------------------- |
 | ****  | **0.6427** | 0.8093 | Precision/Recall 균형이 가장 우수하며, 서비스 운영에 최적화됨. |
@@ -272,9 +234,9 @@ heat_intensity (더위 강도)
 
 ㅇㅇ 모델을 최종 선정하여 **메인 이탈 예측 엔진**으로 탑재하였습니다.
 
-### 이하 다른 모델 분석 내용 짤막하게
+### 이하 다른 모델 분석 내용 
 
-머신러닝 (할당)
+#### 머신러닝
 
 1. Logistic Regression (유헌상)
 2. RandomForest (정희영) 
@@ -301,19 +263,13 @@ heat_intensity (더위 강도)
 - SMOTH 사용하여 불군형 데이터 처리
 
 4. LightGBM (유헌상)
-딥러닝
 
-tapnet		
-
-ft transformer	
-
-DNN	
+#### 딥러닝
 
 MLP	
-
-XGB	
-
-CGB
+| 모델      | Train F1 | Test F1 | Test Precision | Test Recall |
+|----------|----------|---------|----------------|--------------|
+| MLP (다층퍼셉트론)  | -  | 0.3224  | 0.3095         | 0.3364       |
 ---
 
 
@@ -438,4 +394,6 @@ CGB
 | **정희영**                                                                                                          |                                                                                                                    | 이번 프로젝트에서 수행한 역할은 DB 및 머신러닝 모델을 돌리는 것이었다. DB를 어떻게 관리하느냐에 따라 전처리 과정이 달라질 수 있다고 생각했기 때문에 ERD 부터 설계를담당하였으나 전처리 과정에서 여러 가지 작업을 하면서 DB는 기억이고 전처리가 활용이라는 것을 몸소 느낄 수 있었다. 꾸준히 배워왔으나 아직까지도 익숙하지 않은 머신러닝에 대해서 다시 한 번 학습할 수 있는 기회가 되었고, 모델을 작성하면서 어떻게든 성능을 끌어올리기 위해 많은 노력을 기울였으나 만족스럽지 않은 성능이 나왔다는 점이 아쉬움으로 남았다. 이번 프로젝트를 통해 팀원간의 협업이 중요하고 자신의 맡은 바 역할을 수행해야 높은 시너지가 나올 수 있다는 것을 다시 한 번 깨닫게 되었고 추후에 더 높은 경험을 쌓을 수 있을 밑거름이 될 것이라고 생각했다. |
 | **정용희**                                                                                                          |                                                                                                                    | text !!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | **유헌상**                                                                                                          |                                                                                                                    | text!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| **김도영**                                                                                                          |                                                                                                                    | text                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **김도영**                                                                                                          |                                                                                                                    | 딥러닝 모델을 학습시키고 사용하는데에 데이터 선정, 전처리 및 효율적인 모델 구축 등 수많은 과정이 필요하다는 것을 확인할 수 있는 프로젝트였습니다.
+한편으로는 최초 모듈 및 모듈 내부의 함수를 작성함에 있어 명확한 목적의식을 가지고 작성해야 장기적으로 모듈과 함수끼리 꼬이는 일을 방지할 수 있음을 절실히 느꼈습니다.
+프로젝트 기간 동안 모델 학습이며 모듈화, DB 작업 등 각종 작업에 열정적으로 임해주신 팀원 모두와 일정 관리, 청사진 제시 등 프로젝트의 운영을 도맡아 주신 팀장님께 감사의 말씀 드리고자 합니다.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
