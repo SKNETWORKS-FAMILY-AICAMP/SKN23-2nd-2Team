@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.1">
   <diagram name="Page-1" id="b520641d-4fe3-3701-9064-5fc419738815">
-    <mxGraphModel dx="719" dy="388" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1042" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -114,7 +114,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="480" y="681" />
-              <mxPoint x="480" y="730" />
+              <mxPoint x="480" y="717" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -127,7 +127,7 @@
           <mxGeometry height="60" width="160" x="160" y="636" as="geometry" />
         </mxCell>
         <mxCell id="NIWM41F-x66CMqTeQNPc-13" parent="1" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" value="머신러닝 탭" vertex="1">
-          <mxGeometry height="156" width="160" x="560" y="520" as="geometry" />
+          <mxGeometry height="130" width="160" x="560" y="520" as="geometry" />
         </mxCell>
         <mxCell id="NIWM41F-x66CMqTeQNPc-14" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Logistic Regression" vertex="1">
           <mxGeometry height="26" width="160" y="26" as="geometry" />
@@ -138,14 +138,11 @@
         <mxCell id="NIWM41F-x66CMqTeQNPc-27" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="XGBoost" vertex="1">
           <mxGeometry height="26" width="160" y="78" as="geometry" />
         </mxCell>
-        <mxCell id="NIWM41F-x66CMqTeQNPc-16" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="XGBoost" vertex="1">
+        <mxCell id="NIWM41F-x66CMqTeQNPc-18" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="LightGMB" vertex="1">
           <mxGeometry height="26" width="160" y="104" as="geometry" />
         </mxCell>
-        <mxCell id="NIWM41F-x66CMqTeQNPc-18" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="LightGMB" vertex="1">
-          <mxGeometry height="26" width="160" y="130" as="geometry" />
-        </mxCell>
         <mxCell id="NIWM41F-x66CMqTeQNPc-19" parent="1" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" value="딥러닝 탭" vertex="1">
-          <mxGeometry height="80" width="160" x="560" y="691" as="geometry" />
+          <mxGeometry height="80" width="160" x="560" y="678" as="geometry" />
         </mxCell>
         <mxCell id="NIWM41F-x66CMqTeQNPc-20" parent="NIWM41F-x66CMqTeQNPc-19" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Evaluation dataset" vertex="1">
           <mxGeometry height="26" width="160" y="26" as="geometry" />
