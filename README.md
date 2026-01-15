@@ -397,22 +397,39 @@ CGB
 
 ## <img src="https://api.iconify.design/material-symbols/laptop_chromebook.svg" width="30" style="vertical-align: middle" /> 개발 화면 (Streamlit Application Features)
 
-#### <img src="https://api.iconify.design/material-symbols/dashboard.svg" width="20" style="vertical-align: middle" /> 대시보드 및 사용자 관리
-<div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="image/gif/01_.gif" width="48%" />
-  <img src="image/gif/04_.gif" width="48%" />
+#### <img src="https://api.iconify.design/material-symbols/dashboard.svg" width="20" style="vertical-align: middle" /> 대시보드
+<div style="display: block; justify-content: center; gap: 20px;">
+  <img src="assets/images/screen-dashboard.png" width="100%" />
+  <img src="assets/images/screen-weather_modal.png" width="100%" />
 </div>
-> 전체 사용자 통계, 이탈 위험도 모니터링, 데이터셋 관리 기능을 제공합니다.
+저희 대시보드는 노쇼(No-Show) 현상을 다각도로 분석하고 예측할 수 있는 다양한 차트와 모델을 제공합니다.
 
-#### <img src="https://api.iconify.design/material-symbols/adjust.svg" width="20" style="vertical-align: middle" /> 이탈 예측 (개별/배치)
-<div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="image/gif/06_.gif" width="48%" />
-  <img src="image/gif/07_.gif" width="48%" />
+- **DASHBOARD:**
+  - **요일/시간대별 노쇼율:** 요일과 시간대에 따른 노쇼 발생 경향을 직관적으로 파악할 수 있습니다.
+  - **연령대별 노쇼율:** 연령대별 노쇼율을 분석하여 특정 연령층의 노쇼 특성을 이해하는 데 도움을 줍니다.
+  - **보호자 유무별 노쇼 비율:** 보호자 동반 여부에 따른 노쇼 비율 차이를 비교하여 의미 있는 인사이트를 도출할 수 있습니다.
+
+- **날씨별 노쇼 예측 모덜:**
+  - **주요 인사이트 요약:** 날씨 관련 노쇼 예측의 핵심적인 분석 결과를 요약하여 제공합니다.
+  - **날씨 유형별 노쇼 예측 비율 (차트):** 맑음, 비, 눈 등 다양한 날씨 유형에 따른 노쇼 예측 비율을 시각적으로 확인할 수 있습니다.
+  - **기온별 노쇼 예측 비율 (차트):** 기온 변화가 노쇼 발생에 미치는 영향을 분석하여 특정 기온 구간에서의 노쇼 예측 비율을 파악합니다.
+  - **강수량별 노쇼 예측 비율 (차트):** 강수량에 따른 노쇼 예측 비율을 제공하여 비의 양이 노쇼에 미치는 영향을 분석합니다
+
+#### <img src="https://api.iconify.design/material-symbols/adjust.svg" width="20" style="vertical-align: middle" /> 고객 관리
+<div style="display: block; justify-content: center; gap: 20px;">
+  <img src="assets/images/screen-customer-search.gif" width="100%" />
+  <p><b>명단검색:</b> 상단 검색바를 통해 연령대, 전문의, 노쇼 위험군 등 다양한 조건으로 고객 명단을 검색할 수 있어 필요한 정보를 빠르고 효율적으로 찾아볼 수 있습니다.</p>
+  <img src="assets/images/screen-customer-noshow.gif" width="100%" />
+  <p><b>확률 재계산:</b> 회원 정보 수정 시, 변경된 데이터를 바탕으로 노쇼율이 자동으로 재계산되어 즉각적으로 업데이트된 위험도를 확인할 수 있습니다. 이를 통해 항상 최신 정보로 고객 관리가 가능합니다.</p>
+  <img src="assets/images/screen-customer-message.gif" width="100%" />
+  <p><b>문자발송:</b> 노쇼 위험군으로 분류된 고객에게 예약 확인 문자를 손쉽게 발송하여, 노쇼율 감소를 위한 능동적이고 선제적인 조치를 취할 수 있습니다.</p>
 </div>
-> 특정 사용자의 이탈 확률을 실시간으로 예측하거나, CSV 업로드를 통해 대량 예측을 수행할 수 있습니다.
 
->
-
+#### <img src="https://api.iconify.design/material-symbols/adjust.svg" width="20" style="vertical-align: middle" /> 모델 성능 확인
+<div style="display: block; justify-content: center; gap: 20px;">
+  <img src="assets/images/screen-machine_learning.png" width="100%" />
+  <img src="assets/images/screen-deep_learning.png" width="100%" />
+</div>
 ---
 
 ## <img src="https://api.iconify.design/material-symbols/description.svg" width="30" style="vertical-align: middle" /> 참고 자료
