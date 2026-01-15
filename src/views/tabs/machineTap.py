@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 BASE_DIR = Path(__file__).resolve().parents[3]
 ARTIFACT_DIR = BASE_DIR / "src" / "artifacts"
+IMAGE_DIR = BASE_DIR / 'assets' / 'images'
 
 def render_machine_learning_tab():
     with open(ARTIFACT_DIR / "xgb_metrics.json", encoding="utf-8") as f:
@@ -40,13 +41,13 @@ def render_machine_learning_tab():
         col1, col2 = st.columns(2)
 
         with col1:
-            img = ARTIFACT_DIR / "lr_roc_thr_0.185.png"
+            img = IMAGE_DIR / "lr_roc_thr_0.185.png"
 
             if img.exists():
                 st.image(str(img), caption="ROC Curve", width="stretch")
 
         with col2:
-            img = ARTIFACT_DIR / "lr_pr_thr_0.185.png"
+            img = IMAGE_DIR / "lr_pr_thr_0.185.png"
 
             if img.exists():
                 st.image(str(img), caption="Precision-Recall Curve", width="stretch")
@@ -65,19 +66,19 @@ def render_machine_learning_tab():
         col1, col2 = st.columns(2)
 
         with col1:
-            img = ARTIFACT_DIR / "rf_roc_curve.png"
+            img = IMAGE_DIR / "rf_roc_curve.png"
 
             if img.exists():
                 st.image(str(img), caption="ROC Curve", width="stretch")
 
         with col2:
-            img = ARTIFACT_DIR / "rf_pr_curve.png"
+            img = IMAGE_DIR / "rf_pr_curve.png"
 
             if img.exists():
                 st.image(str(img), caption="Precision-Recall Curve", width="stretch")
 
         with st.container(width="stretch"):
-            img = ARTIFACT_DIR / "rf_feature_importance.png"
+            img = IMAGE_DIR / "rf_feature_importance.png"
 
             if img.exists():
                 st.image(str(img), caption="Feature Importance", width="stretch")
@@ -96,19 +97,19 @@ def render_machine_learning_tab():
         col1, col2= st.columns(2)
 
         with col1:
-            img = ARTIFACT_DIR / "xgb_roc_curve.png"
+            img = IMAGE_DIR / "xgb_roc_curve.png"
 
             if img.exists():
                 st.image(str(img), caption="ROC Curve", width="stretch")
 
         with col2:
-            img = ARTIFACT_DIR / "xgb_pr_curve.png"
+            img = IMAGE_DIR / "xgb_pr_curve.png"
 
             if img.exists():
                 st.image(str(img), caption="Precision-Recall Curve", width="stretch")
 
         with st.container(width="stretch"):
-            img = ARTIFACT_DIR / "xgb_feature_importance.png"
+            img = IMAGE_DIR / "xgb_feature_importance.png"
 
             if img.exists():
                 st.image(str(img), caption="Feature Importance", width="stretch")
@@ -129,19 +130,19 @@ def render_machine_learning_tab():
         col1, col2= st.columns(2)
 
         with col1:
-            img = ARTIFACT_DIR / "lgbm_roc_thr_0.185.png"
+            img = IMAGE_DIR / "lgbm_roc_thr_0.185.png"
 
             if img.exists():
                 st.image(str(img), caption="ROC Curve", width="stretch")
 
         with col2:
-            img = ARTIFACT_DIR / "lr_pr_thr_0.185.png"
+            img = IMAGE_DIR / "lr_pr_thr_0.185.png"
 
             if img.exists():
                 st.image(str(img), caption="Precision-Recall Curve", width="stretch")
 
         with st.container(width="stretch"):
-            img = ARTIFACT_DIR / "lgbm_importance_top20_thr_0.185.png"
+            img = IMAGE_DIR / "lgbm_importance_top20_thr_0.185.png"
 
             if img.exists():
                 st.image(str(img), caption="Feature Importance", width="stretch")
