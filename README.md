@@ -1,6 +1,6 @@
 ## <img src="https://api.iconify.design/material-symbols/label.svg" width="30" style="vertical-align: middle" /> 프로젝트 명
 
-![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=No_Show_Free_Site&fontSize=50&fontColor=ffffff)
+![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=NO_SHOW_FREE&fontSize=50&fontColor=ffffff)
 
 ### LOGO
 
@@ -17,6 +17,10 @@
 ## <img src="https://api.iconify.design/material-symbols/groups.svg" width="30" style="vertical-align: middle" /> 프로젝트 팀 및 역할
 
 ### 팀명: 에이아2조
+
+<img src="assets/images/team_img.png">
+
+<br />
 
 | <img src="assets/profileimage/content1.png" alt="Image" /> | <img src="assets/profileimage/content2.png" /> | <img src="assets/profileimage/content3.png" /> | <img src="assets/profileimage/content4.png" />| <img  src="assets/profileimage/content5.png" />  | 
 | :-:  | :-:  | :-:  | :-:  | :-:  |
