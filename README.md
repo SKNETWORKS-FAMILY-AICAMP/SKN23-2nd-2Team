@@ -18,39 +18,28 @@
 
 ### 팀명: 에이아2조
 
-| 이름       | 역할                                                  | Git                                                                                                                                                     |
-| ---------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **정유선** | 팀장, PM, 화면설계 \| Streamlit Frontend + Integrator | <a href="https://github.com/jys96"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>            |
-| **정희영** | DB 설계 및 관리                                       | <a href="https://github.com/JUNGHEEYOUNG9090"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a> |
-| **정용희** |                                                       | <a href="https://github.com/jungyonghi"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>       |
-| **유헌상** | 데이터 전처리, 머신러닝 학습, 모듈 작성, 기상 API     | <a href="https://github.com/hunsang-you"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>      |
-| **김도영** | 데이터 전처리, 딥러닝 학습, 모듈 작성, 발표           | <a href="https://github.com/rubyheartsping"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>   |
+| <img src="assets/profileimage/content1.png" alt="Image" /> | <img src="assets/profileimage/content2.png" /> | <img src="assets/profileimage/content3.png" /> | <img src="assets/profileimage/content4.png" />| <img  src="assets/profileimage/content5.png" />  | 
+| :-:  | :-:  | :-:  | :-:  | :-:  |
+| 정유선 | 정희영 | 정용희 | 유헌상 | 김도영 |
+| [![GitHub - jys96](https://img.shields.io/badge/jsrop07-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jys96) | [![GitHub - JUNGHEEYOUNG9090](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JUNGHEEYOUNG9090) | [![GitHub - jungyonghi](https://img.shields.io/badge/minchaesong-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jungyonghi) | [![GitHub - hunsang-you](https://img.shields.io/badge/oooonbbo--wq-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hunsang-you) | [![GitHub - rubyheartsping](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rubyheartsping) |
 
 ---
 
-## <img src="https://api.iconify.design/material-symbols/topic.svg" width="30" style="vertical-align: middle" /> 프로젝트 주제
-
-\*\* ML/DL 모델 기반 노쇼 예측 및 솔루션
-
-\*\*
+## <img src="https://api.iconify.design/material-symbols/topic.svg" width="30" style="vertical-align: middle" /> 프로젝트 주제  
+**ML/DL 모델 기반 노쇼 예측 및 솔루션**
 
 ---
 
 ## <img src="https://api.iconify.design/material-symbols/summarize.svg" width="30" style="vertical-align: middle" /> 개요
 
-<p align="center">
-  <img src="image/spotify_naver.png" alt="네이버-스포티파이기사" width="45%">
-  <img src="image/spotify_naver2.png" alt="사진" width="37%">
-</p>
-
 <br>
 
 본 프로젝트는 제한된 데이터를 기반으로, 사용자 행동 데이터를 분석하여 **이탈 가능성**을 예측한 후 해당 데이터를 통한 노쇼 리스크로서 병원 경영에 유의미한 솔루션을 제공하는 것을 목표로 하였다.
 
-- ** 기상 정보와 병명 서비스 시작일을 기반으로 진료계약 부결률을 낮춤과 동시에 단순 문자 발송 시스템이 아닌 예측형 모델로서 ERP 혹은 CRM, ACRM적 분석을 할 수 있는 것을 목표**
-- **📊 사용자 행동 기반 부결 위험도 분석 및 시각화 대시보드 제공**
-- **👩‍💻 관리자가 전체적인 부결률을 확인 할 수 있는 관리 시스템 구현**
-- **🔍 다양한 모델을 기반을 최적의 모델을 찾아 적용**
+- 기상 정보와 병명 서비스 시작일을 기반으로 진료계약 부결률을 낮춤과 동시에 단순 문자 발송 시스템이 아닌 예측형 모델로서 ERP 혹은 CRM, ACRM적 분석을 할 수 있는 것을 목표
+- 📊 사용자 행동 기반 부결 위험도 분석 및 시각화 대시보드 제공
+- 👩‍💻 관리자가 전체적인 부결률을 확인 할 수 있는 관리 시스템 구현
+- 🔍 다양한 모델을 기반을 최적의 모델을 찾아 적용
 
 <br>
 
@@ -212,44 +201,16 @@ your_project_name/
 
 ## <img src="https://api.iconify.design/material-symbols/model_training.svg" width="30" style="vertical-align: middle" /> 데이터 및 모델링 개요 (Data & Modeling)
 
-### 1️⃣ Data Setup
 
+### Data Setup
 - **데이터 구조**: 49593회의 환자의 간단한 진료 정보 및 날짜 데이터가 보관됨.
-- **Feature Exploration**:
-  | English Column Name | 한국어 설명 |
-  | ----------------------- | -------------- |
-  | specialty | 진료과 |
-  | appointment_time | 예약 시간 |
-  | gender | 성별 |
-  | appointment_date | 예약 날짜 |
-  | no_show | 노쇼 여부 (Target) |
-  | no_show_reason | 노쇼 사유 |
-  | disability | 장애 유형 |
-  | date_of_birth | 생년월일 |
-  | entry_service_date | 최초 내원일 |
-  | city | 거주 도시 |
-  | icd | 질병 코드 |
-  | appointment_month | 예약 월 |
-  | appointment_year | 예약 연도 |
-  | appointment_shift | 진료 시간대 |
-  | age | 연령 |
-  | under_12_years_old | 12세 미만 여부 |
-  | over_60_years_old | 60세 이상 여부 |
-  | patient_needs_companion | 보호자 동반 필요 여부 |
-  | average_temp_day | 당일 평균 기온 |
-  | average_rain_day | 당일 평균 강수량 |
-  | max_temp_day | 당일 최고 기온 |
-  | max_rain_day | 당일 최고 강수량 |
-  | rainy_day_before | 전날 강우 여부 |
-  | storm_day_before | 전날 폭풍 또는 강풍 여부 |
-  | rain_intensity | 강수 강도 |
-  | heat_intensity | 더위 강도 |
+
 
 ## 모델 별 전처리 시 확인 포인트
 
 1. 원핫인코딩은 별도 모듈로 진행할 예정이므로 해당하는 컬럼은 원상태 유지
 2. 결측치 자체가 의미있는 컬럼은 결측치 유지
-3. no_show_reason 컬럼 삭제
+3. no_show_reason 컬럼 삭제 (해당 컬럼이 있으면 데이터 누수 발생 위험 있음)
 4. 상기 삭제 제외 컬럼 수 유지
 5. 날짜 / 시간 컬럼은 표준 문자열 포맷으로 변환
 6. 그 외에는 타입 기반을 채움
@@ -259,18 +220,7 @@ your_project_name/
 10. 성별 i 제거하고 gender, appointment_shift 컬럼 0 / 1로 맵핑
 11. appointment_datetime, weather_date 이라는 새 컬럼 만들기
 
-### 2) Model Selection
-
-| Model    | F1 Score   | AUC    | 설명                                                           |
-| -------- | ---------- | ------ | -------------------------------------------------------------- |
-| \*\*\*\* | **0.6427** | 0.8093 | Precision/Recall 균형이 가장 우수하며, 서비스 운영에 최적화됨. |
-| LGBM     | 0.6414     | 0.8158 | 성능은 유사하나 HGB가 더 안정적인 예측 패턴을 보임.            |
-
-ㅇㅇ 모델을 최종 선정하여 **메인 이탈 예측 엔진**으로 탑재하였습니다.
-
-### 이하 다른 모델 분석 내용
-
-#### 머신러닝
+## 머신러닝
 
 1. Logistic Regression (유헌상)
 
@@ -450,7 +400,7 @@ MLP
 | **정유선**                                                                                                          | 이번 '가입 고객 이탈' 예측 머신러닝/딥러닝 프로젝트에서 다시 한번 팀장을 맡아 성공적으로 이끌 수 있었음에 큰 보람을 느낍니다. <br> 훌륭한 팀원들을 만나 서로 협력하며 즐거운 분위기 속에서 효율적으로 작업을 진행할 수 있었습니다. 덕분에 난관들도 슬기롭게 극복하며 프로젝트를 성공적으로 마무리할 수 있었습니다. <br> 비록 업무 분배상 머신러닝/딥러닝 개발에 직접 참여하지 못한 점은 개인적인 아쉬움으로 남지만, 전체 프로젝트를 조망하고 팀을 이끄는 귀중한 경험을 통해 리더십과 기획 역량을 더욱 향상시킬 수 있었습니다. <br> 이번 경험을 발판 삼아 다음 프로젝트에서는 핵심 기술 구현에도 적극적으로 기여하며 성장하고 싶습니다.                                                                                                         |
 | **정희영**                                                                                                          | 이번 프로젝트에서 수행한 역할은 DB 및 머신러닝 모델을 돌리는 것이었다. DB를 어떻게 관리하느냐에 따라 전처리 과정이 달라질 수 있다고 생각했기 때문에 ERD 부터 설계를담당하였으나 전처리 과정에서 여러 가지 작업을 하면서 DB는 기억이고 전처리가 활용이라는 것을 몸소 느낄 수 있었다. <br> 꾸준히 배워왔으나 아직까지도 익숙하지 않은 머신러닝에 대해서 다시 한 번 학습할 수 있는 기회가 되었고, 모델을 작성하면서 어떻게든 성능을 끌어올리기 위해 많은 노력을 기울였으나 만족스럽지 않은 성능이 나왔다는 점이 아쉬움으로 남았다. <br> 이번 프로젝트를 통해 팀원간의 협업이 중요하고 자신의 맡은 바 역할을 수행해야 높은 시너지가 나올 수 있다는 것을 다시 한 번 깨닫게 되었고 추후에 더 높은 경험을 쌓을 수 있을 밑거름이 될 것이라고 생각했다. |
 | **정용희**                                                                                                          | text !!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| **유헌상**                                                                                                          | text!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **유헌상**                                                                                                          | 프로젝트의 모듈화와 머신러닝의 Logistic, LightGBM 모델을 사용하여 노쇼율을 예측하였는데, 머신러닝과 딥러닝 수업때도 명확하게 알지 못했던 부분이 많았어서 이번 프로젝트 에서는 방향을 제대로 못잡고 헤맸던 느낌이 없지않다. 또, 몸이 아프게 되어 할 수 있었음에도 불구하고 못한 것이 있다고 생각되어 아쉽다.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **김도영**                                                                                                          | 딥러닝 모델을 학습시키고 사용하는데에 데이터 선정, 전처리 및 효율적인 모델 구축 등 수많은 과정이 필요하다는 것을 확인할 수 있는 프로젝트였습니다. <br> 한편으로는 최초 모듈 및 모듈 내부의 함수를 작성함에 있어 명확한 목적의식을 가지고 작성해야 장기적으로 모듈과 함수끼리 꼬이는 일을 방지할 수 있음을 절실히 느꼈습니다. <br> 프로젝트 기간 동안 모델 학습이며 모듈화, DB 작업 등 각종 작업에 열정적으로 임해주신 팀원 모두와 일정 관리, 청사진 제시 등 프로젝트의 운영을 도맡아 주신 팀장님께 감사의 말씀 드리고자 합니다.                                                                                                                                                                                                                |
 
 ## 트러블 슈팅
