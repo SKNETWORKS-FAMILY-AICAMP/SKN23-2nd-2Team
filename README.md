@@ -277,7 +277,7 @@ heat_intensity (더위 강도)
 머신러닝 (할당)
 
 1. Logistic Regression (유헌상)
-2. RandomForest (정희영)
+2. RandomForest (정희영) 
 
 | 모델          | Train F1 | Test F1 | Test Precision | Test Recall  |
 |---------------|----------|---------|----------------|--------------|
