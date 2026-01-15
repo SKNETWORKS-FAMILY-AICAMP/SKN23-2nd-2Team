@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.2.4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.1">
   <diagram name="Page-1" id="b520641d-4fe3-3701-9064-5fc419738815">
-    <mxGraphModel dx="871" dy="701" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="719" dy="388" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -29,16 +29,16 @@
           <mxGeometry height="26" width="160" y="78" as="geometry" />
         </mxCell>
         <mxCell id="21ea969265ad0168-14" parent="1" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" value="고객 관리" vertex="1">
-          <mxGeometry height="84" width="160" x="160" y="266" as="geometry" />
+          <mxGeometry height="84" width="160" x="160" y="319" as="geometry" />
         </mxCell>
         <mxCell id="21ea969265ad0168-15" parent="21ea969265ad0168-14" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="검색 바" vertex="1">
           <mxGeometry height="26" width="160" y="26" as="geometry" />
         </mxCell>
-        <mxCell id="21ea969265ad0168-16" parent="21ea969265ad0168-14" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="결과 테이블" vertex="1">
+        <mxCell id="21ea969265ad0168-16" parent="21ea969265ad0168-14" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="결과 테이블(노쇼 예측율)" vertex="1">
           <mxGeometry height="26" width="160" y="52" as="geometry" />
         </mxCell>
         <mxCell id="21ea969265ad0168-22" parent="1" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" value="문자 전송 모덜" vertex="1">
-          <mxGeometry height="114" width="160" x="560" y="266" as="geometry" />
+          <mxGeometry height="114" width="160" x="560" y="225" as="geometry" />
         </mxCell>
         <mxCell id="21ea969265ad0168-23" parent="21ea969265ad0168-22" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="수신자 정보" vertex="1">
           <mxGeometry height="26" width="160" y="26" as="geometry" />
@@ -59,15 +59,99 @@
             <mxPoint x="-20" y="3" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="21ea969265ad0168-42" edge="1" parent="1" source="21ea969265ad0168-16" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;labelBackgroundColor=none;startFill=0;startSize=8;endFill=1;endSize=8;fontFamily=Verdana;fontSize=12;" target="21ea969265ad0168-24">
+        <mxCell id="21ea969265ad0168-42" edge="1" parent="1" source="21ea969265ad0168-15" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1.002;exitY=0.082;entryX=0;entryY=0.5;labelBackgroundColor=none;startFill=0;startSize=8;endFill=1;endSize=8;fontFamily=Verdana;fontSize=12;exitDx=0;exitDy=0;exitPerimeter=0;" target="21ea969265ad0168-24">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
+            <Array as="points">
+              <mxPoint x="480" y="347" />
+              <mxPoint x="480" y="290" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="1ceaBcOOuC6zSCnwvtlh-1" connectable="0" parent="21ea969265ad0168-42" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="문자 전송 버튼" vertex="1">
           <mxGeometry relative="1" x="-0.0167" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint x="-46" y="-2" as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-1" parent="1" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" value="고객 정보 수정 모덜" vertex="1">
+          <mxGeometry height="114" width="160" x="560" y="369" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-2" parent="NIWM41F-x66CMqTeQNPc-1" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="고객 정보" vertex="1">
+          <mxGeometry height="26" width="160" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-3" parent="NIWM41F-x66CMqTeQNPc-1" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="전문의" vertex="1">
+          <mxGeometry height="26" width="160" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-4" parent="NIWM41F-x66CMqTeQNPc-1" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="예약 일시" vertex="1">
+          <mxGeometry height="26" width="160" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-5" edge="1" parent="1" source="21ea969265ad0168-16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startSize=8;endSize=8;curved=0;" target="NIWM41F-x66CMqTeQNPc-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="384" />
+              <mxPoint x="480" y="434" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-7" connectable="0" parent="NIWM41F-x66CMqTeQNPc-5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="수정 버튼" vertex="1">
+          <mxGeometry relative="1" x="-0.0331" y="-1" as="geometry">
+            <mxPoint x="-40" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-26" edge="1" parent="1" source="NIWM41F-x66CMqTeQNPc-12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startSize=8;endSize=8;curved=0;" target="NIWM41F-x66CMqTeQNPc-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="651" />
+              <mxPoint x="480" y="611" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-29" connectable="0" parent="NIWM41F-x66CMqTeQNPc-26" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="머신러닝 탭" vertex="1">
+          <mxGeometry relative="1" x="0.0036" y="-2" as="geometry">
+            <mxPoint x="-41" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-28" edge="1" parent="1" source="NIWM41F-x66CMqTeQNPc-12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;curved=0;endSize=8;startSize=8;" target="NIWM41F-x66CMqTeQNPc-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="681" />
+              <mxPoint x="480" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-30" connectable="0" parent="NIWM41F-x66CMqTeQNPc-28" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="딥러닝 탭" vertex="1">
+          <mxGeometry relative="1" x="-0.0084" as="geometry">
+            <mxPoint x="-43" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="모델 성능 확인" vertex="1">
+          <mxGeometry height="60" width="160" x="160" y="636" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-13" parent="1" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" value="머신러닝 탭" vertex="1">
+          <mxGeometry height="156" width="160" x="560" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-14" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Logistic Regression" vertex="1">
+          <mxGeometry height="26" width="160" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-15" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="RandomForest" vertex="1">
+          <mxGeometry height="26" width="160" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-27" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="XGBoost" vertex="1">
+          <mxGeometry height="26" width="160" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-16" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="XGBoost" vertex="1">
+          <mxGeometry height="26" width="160" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-18" parent="NIWM41F-x66CMqTeQNPc-13" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="LightGMB" vertex="1">
+          <mxGeometry height="26" width="160" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-19" parent="1" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" value="딥러닝 탭" vertex="1">
+          <mxGeometry height="80" width="160" x="560" y="691" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-20" parent="NIWM41F-x66CMqTeQNPc-19" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Evaluation dataset" vertex="1">
+          <mxGeometry height="26" width="160" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="NIWM41F-x66CMqTeQNPc-21" parent="NIWM41F-x66CMqTeQNPc-19" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Predictions" vertex="1">
+          <mxGeometry height="26" width="160" y="52" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
