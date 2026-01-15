@@ -1,17 +1,20 @@
-import numpy as np
 import pandas as pd
 import streamlit as st
 import plotly.express as px
-import joblib
-import torch
-import json
-import torch.nn as nn
-from src.modules.predict_noshow_proba_df import predict_noshow_proba_df
-from src.modules.one_hot_module import build_df_onehot, fetch_df, rows_to_df_onehot
-from src.NoShowMLP_KDY import NoShowMLP_KDY
+from src.api.weather_api import get_weather_data
 from src.services.customerService import load_artifacts, get_customer_list
 
-# weather_list = ["🌨️", "☀️", "🌤️", "🌨️", "☀️", "☀️"]
+# 페이지 스타일
+st.html("""
+    <style>
+        [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"],
+        [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+            background-color: #FFFFFF !important;
+            border-radius: 1rem !important;
+        }
+    </style>
+    
+""")
 
 model, scaler, feature_cols = load_artifacts()
 df = get_customer_list(model, scaler, limit = None)
@@ -37,10 +40,7 @@ def build_heatmap_data(df, days, time_slots, prob_col="no_show_prob"):
     df["time_slot"] = pd.cut(df["hour"], bins=bins, labels=labels, right=False)
 
     # 요일×시간대 평균 노쇼확률
-    mat = (df.groupby(["day", "time_slot"])[prob_col]
-             .mean()
-             .unstack("day"))
-
+    mat = (df.groupby(["day", "time_slot"])[prob_col].mean().unstack("day"))
     # 순서 고정 (중요: 화면이 흔들리지 않음)
     mat = mat.reindex(index=time_slots, columns=days)
 
@@ -57,10 +57,25 @@ def build_heatmap_data(df, days, time_slots, prob_col="no_show_prob"):
 
     return heatmap_data, mat
 
-days = ["월", "화", "수", "목", "금", "토"]  # 네가 보여준 화면 기준 (일요일 빼면)
-time_slots = ["09:00", "11:00", "14:00", "16:00"]
+days = {
+    "Mon": "월",
+    "Tue": "화",
+    "Wed": "수",
+    "Thu": "목",
+    "Fri": "금",
+    "Sat": "토"
+}
 
-heatmap_data, mat = build_heatmap_data(df, days, time_slots, prob_col="no_show_prob")
+time_slots = ["09:00", "11:00", "14:00", "16:00"]
+weather_dict = {
+    "Clear": "☀️",
+    "Clouds": "☁️",
+    "Rain": "☔",
+    "Snow": "🌨️"
+}
+weather_data = get_weather_data('seoul')
+
+heatmap_data, mat = build_heatmap_data(df, list(days.values()), time_slots, prob_col="no_show_prob")
 
 
 def rate_class(rate):
@@ -76,13 +91,14 @@ def rate_class(rate):
 thead_str = "<th></th>"
 tbody_str = ""
 
-for idx, day in enumerate(days):
-    thead_str += f"<th scope='col'>{day}요일" # {weather_list[idx]}</th>
+for idx, day in days.items():
+    weather = weather_data[idx]
+    thead_str += f"<th scope='col'>{day}요일 {weather_dict[weather]}</th>"
 
 for time in time_slots:
     tbody_str += f"<tr><th scope='row' class='time'>{time}</th>"
 
-    for day in days:
+    for day in list(days.values()):
         rate = heatmap_data.get((day, time))
         cls = rate_class(rate)
         rate_text = "-" if rate is None else f"{rate}%"
@@ -133,22 +149,24 @@ with col1:
         df_pie,
         names="patient_needs_companion",
         values="no_show",
-        hole=0.4
+        hole=0.4,
+        color_discrete_sequence=['#F59E0B', '#14B8A6']
     )
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with col2:  
     st.subheader("연령대별 노쇼율 예측")
     fig_hist = px.histogram(
-    df_hist,
-    x="age",
-    y = "no_show",
-    nbins=20,
-    histfunc="avg",
-    labels={
-        "age": "연령",
-        "no_show": "평균 노쇼율"
-    }
+        df_hist,
+        x="age",
+        y = "no_show",
+        nbins=20,
+        histfunc="avg",
+        labels={
+            "age": "연령",
+            "no_show": "평균 노쇼율"
+        },
+        color_discrete_sequence=['#7C3AED']
     )
     fig_hist.update_yaxes(title_text="평균 노쇼율")
 
