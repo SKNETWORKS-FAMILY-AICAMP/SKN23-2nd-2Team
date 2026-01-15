@@ -18,39 +18,28 @@
 
 ### 팀명: 에이아2조
 
-| 이름       | 역할                                                  | Git                                                                                                                                                     |
-| ---------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **정유선** | 팀장, PM, 화면설계 \| Streamlit Frontend + Integrator | <a href="https://github.com/jys96"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>            |
-| **정희영** | DB 설계 및 관리                                       | <a href="https://github.com/JUNGHEEYOUNG9090"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a> |
-| **정용희** |                                                       | <a href="https://github.com/jungyonghi"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>       |
-| **유헌상** | 데이터 전처리, 머신러닝 학습, 모듈 작성, 기상 API     | <a href="https://github.com/hunsang-you"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>      |
-| **김도영** | 데이터 전처리, 딥러닝 학습, 모듈 작성, 발표           | <a href="https://github.com/rubyheartsping"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>   |
+| <img src="assets/profileimage/content1.png" alt="Image" /> | <img src="assets/profileimage/content2.png" /> | <img src="assets/profileimage/content3.png" /> | <img src="assets/profileimage/content4.png" />| <img  src="assets/profileimage/content5.png" />  | 
+| :-:  | :-:  | :-:  | :-:  | :-:  |
+| 정유선 | 정희영 | 정용희 | 유헌상 | 김도영 |
+| [![GitHub - jys96](https://img.shields.io/badge/jsrop07-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jys96) | [![GitHub - JUNGHEEYOUNG9090](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JUNGHEEYOUNG9090) | [![GitHub - jungyonghi](https://img.shields.io/badge/minchaesong-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jungyonghi) | [![GitHub - hunsang-you](https://img.shields.io/badge/oooonbbo--wq-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hunsang-you) | [![GitHub - rubyheartsping](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rubyheartsping) |
 
 ---
 
-## <img src="https://api.iconify.design/material-symbols/topic.svg" width="30" style="vertical-align: middle" /> 프로젝트 주제
-
-\*\* ML/DL 모델 기반 노쇼 예측 및 솔루션
-
-\*\*
+## <img src="https://api.iconify.design/material-symbols/topic.svg" width="30" style="vertical-align: middle" /> 프로젝트 주제  
+**ML/DL 모델 기반 노쇼 예측 및 솔루션**
 
 ---
 
 ## <img src="https://api.iconify.design/material-symbols/summarize.svg" width="30" style="vertical-align: middle" /> 개요
 
-<p align="center">
-  <img src="image/spotify_naver.png" alt="네이버-스포티파이기사" width="45%">
-  <img src="image/spotify_naver2.png" alt="사진" width="37%">
-</p>
-
 <br>
 
 본 프로젝트는 제한된 데이터를 기반으로, 사용자 행동 데이터를 분석하여 **이탈 가능성**을 예측한 후 해당 데이터를 통한 노쇼 리스크로서 병원 경영에 유의미한 솔루션을 제공하는 것을 목표로 하였다.
 
-- ** 기상 정보와 병명 서비스 시작일을 기반으로 진료계약 부결률을 낮춤과 동시에 단순 문자 발송 시스템이 아닌 예측형 모델로서 ERP 혹은 CRM, ACRM적 분석을 할 수 있는 것을 목표**
-- **📊 사용자 행동 기반 부결 위험도 분석 및 시각화 대시보드 제공**
-- **👩‍💻 관리자가 전체적인 부결률을 확인 할 수 있는 관리 시스템 구현**
-- **🔍 다양한 모델을 기반을 최적의 모델을 찾아 적용**
+- 기상 정보와 병명 서비스 시작일을 기반으로 진료계약 부결률을 낮춤과 동시에 단순 문자 발송 시스템이 아닌 예측형 모델로서 ERP 혹은 CRM, ACRM적 분석을 할 수 있는 것을 목표
+- 📊 사용자 행동 기반 부결 위험도 분석 및 시각화 대시보드 제공
+- 👩‍💻 관리자가 전체적인 부결률을 확인 할 수 있는 관리 시스템 구현
+- 🔍 다양한 모델을 기반을 최적의 모델을 찾아 적용
 
 <br>
 
@@ -212,44 +201,16 @@ your_project_name/
 
 ## <img src="https://api.iconify.design/material-symbols/model_training.svg" width="30" style="vertical-align: middle" /> 데이터 및 모델링 개요 (Data & Modeling)
 
-### 1️⃣ Data Setup
 
+### Data Setup
 - **데이터 구조**: 49593회의 환자의 간단한 진료 정보 및 날짜 데이터가 보관됨.
-- **Feature Exploration**:
-  | English Column Name | 한국어 설명 |
-  | ----------------------- | -------------- |
-  | specialty | 진료과 |
-  | appointment_time | 예약 시간 |
-  | gender | 성별 |
-  | appointment_date | 예약 날짜 |
-  | no_show | 노쇼 여부 (Target) |
-  | no_show_reason | 노쇼 사유 |
-  | disability | 장애 유형 |
-  | date_of_birth | 생년월일 |
-  | entry_service_date | 최초 내원일 |
-  | city | 거주 도시 |
-  | icd | 질병 코드 |
-  | appointment_month | 예약 월 |
-  | appointment_year | 예약 연도 |
-  | appointment_shift | 진료 시간대 |
-  | age | 연령 |
-  | under_12_years_old | 12세 미만 여부 |
-  | over_60_years_old | 60세 이상 여부 |
-  | patient_needs_companion | 보호자 동반 필요 여부 |
-  | average_temp_day | 당일 평균 기온 |
-  | average_rain_day | 당일 평균 강수량 |
-  | max_temp_day | 당일 최고 기온 |
-  | max_rain_day | 당일 최고 강수량 |
-  | rainy_day_before | 전날 강우 여부 |
-  | storm_day_before | 전날 폭풍 또는 강풍 여부 |
-  | rain_intensity | 강수 강도 |
-  | heat_intensity | 더위 강도 |
+
 
 ## 모델 별 전처리 시 확인 포인트
 
 1. 원핫인코딩은 별도 모듈로 진행할 예정이므로 해당하는 컬럼은 원상태 유지
 2. 결측치 자체가 의미있는 컬럼은 결측치 유지
-3. no_show_reason 컬럼 삭제
+3. no_show_reason 컬럼 삭제 (해당 컬럼이 있으면 데이터 누수 발생 위험 있음)
 4. 상기 삭제 제외 컬럼 수 유지
 5. 날짜 / 시간 컬럼은 표준 문자열 포맷으로 변환
 6. 그 외에는 타입 기반을 채움
@@ -259,18 +220,7 @@ your_project_name/
 10. 성별 i 제거하고 gender, appointment_shift 컬럼 0 / 1로 맵핑
 11. appointment_datetime, weather_date 이라는 새 컬럼 만들기
 
-### 2) Model Selection
-
-| Model    | F1 Score   | AUC    | 설명                                                           |
-| -------- | ---------- | ------ | -------------------------------------------------------------- |
-| \*\*\*\* | **0.6427** | 0.8093 | Precision/Recall 균형이 가장 우수하며, 서비스 운영에 최적화됨. |
-| LGBM     | 0.6414     | 0.8158 | 성능은 유사하나 HGB가 더 안정적인 예측 패턴을 보임.            |
-
-ㅇㅇ 모델을 최종 선정하여 **메인 이탈 예측 엔진**으로 탑재하였습니다.
-
-### 이하 다른 모델 분석 내용
-
-#### 머신러닝
+## 머신러닝
 
 1. Logistic Regression (유헌상)
 
