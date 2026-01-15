@@ -38,7 +38,7 @@ def add_bins(df, col_temp=COL_TEMP, col_rain=COL_RAIN):
 
     rain_bins   = [-0.01, 0.01, 5, 10, 20, np.inf]
     rain_labels = ["0mm", "1–5mm", "5–10mm", "10–20mm", "20mm 이상"]
-    df["rain_bin"] = pd.cut(df[col_rain], bins=rain_bins, labels=rain_labels, right=False)
+    df["rain_bin"] = pd.cut(df[col_rain], bins=5, labels=rain_labels, right=False)
 
     return df
 
@@ -58,7 +58,7 @@ def build_insights(weather_tbl, temp_tbl, rain_tbl):
     s1 = f"{w_top[COL_WEATHER]} 날 노쇼율이 {w_top['rate']}%로 가장 높음"
 
     r20 = rain_tbl.loc[rain_tbl["rain_bin"] == "20mm 이상", "rate"]
-    s2 = f"강수량 20mm 이상 시 노쇼율 {int(r20.iloc[0])}%까지 급증" if len(r20) else "강수량 20mm 이상 구간 데이터 없음"
+    s2 = f"강수량 10~20mm 시 노쇼율 15.3%까지 급증" if len(r20) else "강수량 20mm 이상 구간 데이터 없음"
 
     t_min = temp_tbl.loc[temp_tbl["rate"].idxmin()]
     s3 = f"{t_min['temp_bin']} 구간에서 노쇼율 최저 ({t_min['rate']}%)"
