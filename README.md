@@ -166,6 +166,30 @@
 
 ![AWS-EC2](assets/images/aws-ec2.png)
 
+### > sql파일을 이용하여 로컬 MySQL에 데이터베이스 복원하는 방법
+1. MySQL 쉘 접속
+  ```
+  mysql -u root -p
+  ```
+
+2. 데이터베이스 생성 및 백업 파일 적용
+  ```
+  CREATE DATABASE IF NOT EXISTS project_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+  USE project_db;
+  source .../{프로젝트 폴더 명}/backup_project_db.sql
+  EXIT;
+  ```
+  
+3. 복원 확인
+  ```
+  USE project_db;
+  SHOW TABLES;
+  SELECT COUNT(*) FROM [테이블명];
+  EXIT;
+  ```
+
+<br />
+
 ## 프로젝트 구조
 
 ```plaintext### 폴더 및 파일 구조
@@ -320,7 +344,7 @@ your_project_name/
 
 ## 딥러닝
 
-### MLP
+### MLP (김도영)
 
 | 모델 | Train F1 | Test F1 | Test Precision | Test Recall |
 |----------|----------|---------|----------------|--------------|
