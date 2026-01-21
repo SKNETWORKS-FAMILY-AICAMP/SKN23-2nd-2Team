@@ -179,7 +179,7 @@
   source .../{프로젝트 폴더 명}/backup_project_db.sql
   EXIT;
   ```
-  
+
 3. 복원 확인
   ```
   USE project_db;
@@ -253,6 +253,7 @@ your_project_name/
 │           └── machineTap.py               # 머신러닝 모델 성능 확인 탭
 ├── .env                                    # (git X) 환경변수 파일
 ├── .gitignore
+├── backup_project_db.sql                   # AWS의 project_db 백업 sql 파일
 ├── Main.py                                 # 앱의 메인 시작 파일
 ├── README.md
 ├── requirements.txt                        # 프로젝트 의존성 목록
