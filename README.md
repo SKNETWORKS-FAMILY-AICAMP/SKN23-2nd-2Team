@@ -22,10 +22,48 @@
 
 ## 팀원 소개
 
-| <img src="assets/profileimage/content1.png" alt="Image" /> | <img src="assets/profileimage/content2.png" /> | <img src="assets/profileimage/content3.png" /> | <img src="assets/profileimage/content4.png" />| <img  src="assets/profileimage/content5.png" />  | 
-| -----  | -----  | -----  | -----  | -----  |
-| 정유선 | 정희영 | 정용희 | 유헌상 | 김도영 |
-| [![GitHub - jys96](https://img.shields.io/badge/jys96-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jys96) | [![GitHub - JUNGHEEYOUNG9090](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JUNGHEEYOUNG9090) | [![GitHub - jungyonghi](https://img.shields.io/badge/minchaesong-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jungyonghi) | [![GitHub - hunsang-you](https://img.shields.io/badge/oooonbbo--wq-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hunsang-you) | [![GitHub - rubyheartsping](https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rubyheartsping) |
+<table>
+  <colgroup>
+    <col style="width: 20%;">
+    <col style="width: 20%;">
+    <col style="width: 20%;">
+    <col style="width: 20%;">
+    <col style="width: 20%;">
+  </colgroup>
+  <tbody>
+    <tr>
+      <td style="text-align: center;"><img src="assets/profileimage/content1.png" alt="정유선"></td>
+      <td style="text-align: center;"><img src="assets/profileimage/content2.png" alt="정희영"></td>
+      <td style="text-align: center;"><img src="assets/profileimage/content3.png" alt="정용희"></td>
+      <td style="text-align: center;"><img src="assets/profileimage/content4.png" alt="유헌상"></td>
+      <td style="text-align: center;"><img src="assets/profileimage/content5.png" alt="김도영"></td>
+    </tr>
+    <tr style="font-weight: bold;">
+      <td style="text-align: center;">정유선</td>
+      <td style="text-align: center;">정희영</td>
+      <td style="text-align: center;">정용희</td>
+      <td style="text-align: center;">유헌상</td>
+      <td style="text-align: center;">김도영</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">
+        <a href="https://github.com/jys96"><img src="https://img.shields.io/badge/jys96-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub - jys96"></a>
+      </td>
+      <td style="text-align: center;">
+        <a href="https://github.com/JUNGHEEYOUNG9090"><img src="https://img.shields.io/badge/JUNGHEEYOUNG9090-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub - JUNGHEEYOUNG9090"></a>
+      </td>
+      <td style="text-align: center;">
+        <a href="https://github.com/jungyonghi"><img src="https://img.shields.io/badge/jungyonghi-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub - jungyonghi"></a>
+      </td>
+      <td style="text-align: center;">
+        <a href="https://github.com/hunsang-you"><img src="https://img.shields.io/badge/hunsang--you-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub - hunsang-you"></a>
+      </td>
+      <td style="text-align: center;">
+        <a href="https://github.com/rubyheartsping"><img src="https://img.shields.io/badge/rubyheartsping-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub - rubyheartsping"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -50,34 +88,31 @@
 
 | 프로젝트 이름                                 | 담당자                                              | 상태    | 시작일     | 종료일     |
 | :-------------------------------------------- | :-------------------------------------------------- | :------ | :--------- | :--------- |
-| 데이터 파일 번역                              | 용희 정                                             | 완료    | 2026/01/04 | 2026/01/05 |
-| AWS 서버 구축                                 | 희영 정, SKN 23기\_김도영                           | 완료    | 2026/01/05 | 2026/01/05 |
-| ERD                                           | 희영 정                                             | 완료    | 2026/01/06 | 2026/01/07 |
-| 데이터 분석 및 사용 데이터 정리               | 희영 정, 유헌상, SKN 23기\_김도영                   | 완료    | 2026/01/05 | 2026/01/05 |
-| 데이터 DB 저장                                | 희영 정                                             | 완료    | 2026/01/06 | 2026/01/06 |
+| AWS 서버 구축                                 | 정희영, 김도영                           | 완료    | 2026/01/05 | 2026/01/05 |
+| ERD                                           | 정희영                                             | 완료    | 2026/01/06 | 2026/01/07 |
+| 데이터 분석 및 사용 데이터 정리               | 정희영, 유헌상, 김도영                   | 완료    | 2026/01/05 | 2026/01/05 |
+| 데이터 DB 저장                                | 정희영                                             | 완료    | 2026/01/06 | 2026/01/06 |
 | 머신러닝 개발 (Logistic Regression, LightGBM) | 유헌상                                              | 완료    | 2026/01/10 | 2026/01/14 |
 | ENV 설정                                      | 유헌상                                              | 완료    | 2026/01/06 | 2026/01/06 |
-| DB 저장 전 전처리                             | SKN 23기\_김도영                                    | 완료    | 2026/01/07 | 2026/01/07 |
+| DB 저장 전 전처리                             | 김도영                                    | 완료    | 2026/01/07 | 2026/01/07 |
 | 모듈 함수 개발                                | 유헌상                                              | 완료    | 2026/01/07 | 2026/01/12 |
-| DB icd_code 보강                              | 용희 정                                             | 완료    | 2026/01/07 | 2026/01/07 |
+| DB icd_code 보강                              | 정용희                                             | 완료    | 2026/01/07 | 2026/01/07 |
 | DB weather 중복 데이터 처리                   | 유헌상                                              | 완료    | 2026/01/07 | 2026/01/07 |
-| 딥러닝 개발                                   | SKN 23기\_김도영                                    | 완료 | 2026/01/11 |   2026/01/14         |
-| EC2 인스턴스 수리                             | SKN 23기\_김도영                                    | 완료    | 2026/01/08 | 2026/01/08 |
-| 모델화                                        | 용희 정                                             | 완료    | 2026/01/08 | 2026/01/09 |
-| 데이터베이스 수정                             | 희영 정, SKN 23기\_김도영                           | 완료    | 2026/01/08 | 2026/01/08 |
-| 사용 모델 정리                                | 용희 정, 유헌상, 희영 정, 쥐 가을, SKN 23기\_김도영 | 완료    | 2026/01/08 | 2026/01/08 |
-| SMS 발송 구현                                 | SKN 23기\_김도영                                    | 완료    | 2026/01/08 | 2026/01/08 |
-| 머신러닝 개발 (RandomForest, XGBoost)         | 희영 정                                             | 완료    | 2026/01/11 | 2026/01/14 |
-| 딥러닝 개발                                   | 용희 정                                             | 완료 | 2026/01/09 | 2026/01/14           |
+| 딥러닝 개발                                   | 김도영                                    | 완료 | 2026/01/11 |   2026/01/14         |
+| EC2 인스턴스 수리                             | 김도영                                    | 완료    | 2026/01/08 | 2026/01/08 |
+| 데이터베이스 수정                             | 정희영, 김도영                           | 완료    | 2026/01/08 | 2026/01/08 |
+| 사용 모델 정리                                | 정용희, 유헌상, 정희영, 정유선, 김도영 | 완료    | 2026/01/08 | 2026/01/08 |
+| SMS 발송 구현                                 | 김도영                                    | 완료    | 2026/01/08 | 2026/01/08 |
+| 머신러닝 개발 (RandomForest, XGBoost)         | 정희영                                             | 완료    | 2026/01/11 | 2026/01/14 |
+| 딥러닝 개발                                   | 정용희                                             | 완료 | 2026/01/09 | 2026/01/14           |
 | 학습데이터 생성                               | 유헌상                                              | 완료    | 2026/01/12 | 2026/01/14 |
-| 화면 설계                                     | 쥐 가을                                             | 완료    | 2026/01/10 | 2026/01/11 |
-| Frontend 개발                                 | 쥐 가을                                             | 완료    | 2026/01/11 | 2026/01/15 |
-| 모듈 함수 추가                                | SKN 23기\_김도영                                    | 완료    | 2026/01/12 | 2026/01/12 |
-| 원핫 모듈 수정                                | SKN 23기\_김도영                                    | 완료    | 2026/01/13 | 2026/01/13 |
+| 화면 설계                                     | 정유선                                             | 완료    | 2026/01/10 | 2026/01/11 |
+| Frontend 개발                                 | 정유선                                             | 완료    | 2026/01/11 | 2026/01/15 |
+| 모듈 함수 추가                                | 김도영                                    | 완료    | 2026/01/12 | 2026/01/12 |
+| 원핫 모듈 수정                                | 김도영                                    | 완료    | 2026/01/13 | 2026/01/13 |
 | 날씨 api 개발                                 | 유헌상                                              | 완료    | 2026/01/13 | 2026/01/13 |
-| df에 확률 컬럼 추가 함수                      | SKN 23기\_김도영                                    | 완료    | 2026/01/13 | 2026/01/13 |
-| 문자 전송 버튼 기능 구현                      | SKN 23기\_김도영                                    | 완료    | 2026/01/13 | 2026/01/14 |
-| ReadMe 작성                                   | 용희 정                                             | 완료 | 2026/01/13 |    2026/01/15        |
+| df에 확률 컬럼 추가 함수                      | 김도영                                    | 완료    | 2026/01/13 | 2026/01/13 |
+| 문자 전송 버튼 기능 구현                      | 김도영                                    | 완료    | 2026/01/13 | 2026/01/14 |
 
 ---
 
@@ -121,6 +156,8 @@
   <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 </div>
 
+<br />
+
 ## ERD
 
 ![ERD](assets/images/ERD.png)
@@ -138,14 +175,15 @@ your_project_name/
 ├── assets                                  # 이미지, 데이터 파일등을 위한 폴더
 │   ├── images/                             # 이미지 폴더
 │   ├── fonts/                              # font용 woff2 파일이 저장되어 있는 폴더
-│		├── no_show_feature_correlations.csv
-│		├── noshow_weather.csv                  # weather 테이블 입력용 csv
-│		├── noshow_appt.csv                     # appointment 테이블 입력용 csv
+│   ├── no_show_feature_correlations.csv
+│   ├── noshow_weather.csv                  # weather 테이블 입력용 csv
+│   ├── noshow_appt.csv                     # appointment 테이블 입력용 csv
 │   └── medical-appointments-no-show-en.csv # 원본 데이터
 │
 │── api/
 │   ├── weather_api.py                      # 날씨 정보 API
 │   └── weather_week.py                     # 날씨 정보 DB에 반영
+│
 │── artifacts/                              # 모델 및 학습 데이터 정보
 │   ├── feature_columns.json                # 학습에 사용한 피처 컬럼 이름
 │   ├── lg_feature_columns.json             # 로지스틱 피쳐 컬럼
@@ -162,6 +200,7 @@ your_project_name/
 │   ├── xgb_metrics.json                    # XGBoost 평가
 │   ├── xgb_model.joblib                    # XGBoost 모델 저정보
 │   └── xgb_threshold.json                  # XGBoost 판단 값
+│
 │── services/
 │   └── customerService.py                  # 스트림릿 모델 불러오기 및 확률 계산 함수
 │
@@ -260,7 +299,7 @@ your_project_name/
 - imbalance 사용하여 불균형 데이터 처리
 - 하이퍼파라미터 수정
 - scale_pos_weight 사용
-- Threshold Optimization 사용하여 불균형 데이터 처리 Threshold : 0.5)
+- Threshold Optimization 사용하여 불균형 데이터 처리 Threshold : 0.5
 - SMOTH 사용하여 불군형 데이터 처리
 
 <br>
@@ -404,6 +443,7 @@ your_project_name/
 - **사이트맵**: [Relume](https://www.relume.io/app/project/P2915713_1XA8Fs9P4U9kcjvvRgOZ82yYzPZGE9wn4DUIbtjBN9s#mode=sitemap)
 - **와이어프레임**: [Figma](https://www.figma.com/make/hXkr5jZ5bEUNxNzj75iTbh/Hospital-Management-System-Wireframe?t=JJtGxAYhqcfxashS-1)
 - **ERD**: [ERD CLOUD](https://www.erdcloud.com/d/GofibWbvH9bF45oRg)
+- **작업관리**: [Notion](https://sparkling-morning-128.notion.site/2dc5b4cf83ab80ef89c3cc783239ca8d?source=copy_link)
 
 <br>
 
