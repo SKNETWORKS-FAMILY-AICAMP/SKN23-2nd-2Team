@@ -1,7 +1,5 @@
 ## 프로젝트 명
 
-![header](https://capsule-render.vercel.app/api?type=waving&color=0db954&height=180&text=NO_SHOW_FREE&fontSize=50&fontColor=ffffff)
-
 #### LOGO
 
 <img src="assets/images/LOGO_bg.png" width=300px>
